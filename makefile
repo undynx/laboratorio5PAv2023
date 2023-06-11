@@ -1,5 +1,5 @@
-todo: main.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o
-	g++ -g -Wall -o main main.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o
+todo: main.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o ControllerConvMens.o ControllerUsuario.o InterfaceUsuario.o InterfaceConvMens.o Session.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MVideo.o DtMVideo.o MContacto.o DtMContacto.o
+	g++ -g -Wall -o main main.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o ControllerConvMens.o ControllerUsuario.o InterfaceUsuario.o InterfaceConvMens.o Session.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MVideo.o DtMVideo.o MContacto.o DtMContacto.o
 main.o: main.cpp
 	g++ -g -Wall -c main.cpp
 Conversacion.o: Conversacion.cpp Conversacion.h
@@ -32,6 +32,34 @@ ConversacionArchivada.o: ConversacionArchivada.cpp ConversacionArchivada.h
 	g++ -g -Wall -c ConversacionArchivada.cpp
 DtConversacionArchivada.o: DtConversacionArchivada.cpp DtConversacionArchivada.h
 	g++ -g -Wall -c DtConversacionArchivada.cpp
+ControllerConvMens.o: ControllerConvMens.cpp ControllerConvMens.h
+	g++ -g -Wall -c ControllerConvMens.cpp
+ControllerUsuario.o: ControllerUsuario.cpp ControllerUsuario.h
+	g++ -g -Wall -c ControllerUsuario.cpp
+InterfaceUsuario.o: InterfaceUsuario.h
+	g++ -g -Wall -c InterfaceUsuario.h
+InterfaceConvMens.o: InterfaceConvMens.h
+	g++ -g -Wall -c InterfaceConvMens.h
+Factory.o: Factory.cpp Factory.h
+	g++ -g -Wall -c Factory.cpp 
+Session.o: Session.cpp Session.h
+	g++ -g -Wall -c Session.cpp
+MSimple.o: MSimple.cpp MSimple.h
+	g++ -g -Wall -c MSimple.cpp
+DtMSimple.o: DtMSimple.cpp DtMSimple.h
+	g++ -g -Wall -c DtMSimple.cpp
+MImagen.o: MImagen.cpp MImagen.h
+	g++ -g -Wall -c MImagen.cpp
+DtMImagen.o: DtMImagen.cpp DtMImagen.h
+	g++ -g -Wall -c DtMImagen.cpp
+MVideo.o: MVideo.cpp MVideo.h
+	g++ -g -Wall -c MVideo.cpp
+DtMVideo.o: DtMVideo.cpp DtMVideo.h
+	g++ -g -Wall -c DtMVideo.cpp
+MContacto.o: MContacto.cpp MContacto.h
+	g++ -g -Wall -c MContacto.cpp
+DtMContacto.o: DtMContacto.cpp DtMContacto.h
+	g++ -g -Wall -c DtMContacto.cpp
 clean:
 	rm -f *.o
 	rm -f *.h.gch
