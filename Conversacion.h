@@ -15,9 +15,9 @@ class Conversacion{
         Conversacion();
         Conversacion(bool activo, int id);
         bool getActivo();
-        void setActivo(bool);
+        void setActivo(bool activo);
         int getId();
-        void setId(int);
+        void setId(int id);
         Conversacion seleccionarConversacion();
         Conversacion getConversacion();
         DtConversacion obtenerConv(Conversacion c);

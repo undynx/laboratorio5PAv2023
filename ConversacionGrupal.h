@@ -22,8 +22,11 @@ class ConversacionGrupal: public Conversacion{
         void setImagen(string);
         bool getActivo();
         void setActivo(bool);
+        DtFechaHora getFechayHora();
+        void setFechayHora(DtFechaHora);
         int getId();
         void setId(int);
+        void mostrarConverG();
         ~ConversacionGrupal();
 };
 #endif

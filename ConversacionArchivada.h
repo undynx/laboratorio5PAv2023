@@ -7,9 +7,12 @@ using namespace std;
 
 class ConversacionArchivada: public Conversacion {
     private:
+        int cantArch;
     public:
         ConversacionArchivada();
-        ConversacionArchivada(bool activo, int id);
+        ConversacionArchivada(bool activo, int id, int cantArch);
+        int getCantArch();
+        void setCantArch(int);
         bool getActivo();
         void setActivo(bool);
         int getId();
