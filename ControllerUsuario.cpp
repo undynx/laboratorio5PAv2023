@@ -5,8 +5,7 @@ ControllerUsuario* ControllerUsuario::instance=NULL;
 ControllerUsuario::ControllerUsuario(){}
 
 ControllerUsuario* ControllerUsuario::getInstance(){
-    if(instance==NULL) 
-    {
+    if(instance==NULL) {
         instance = new ControllerUsuario();
     }
 
