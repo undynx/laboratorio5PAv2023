@@ -16,8 +16,6 @@ public:
     void altaUsuario(std::string nombre, std::string imagen, std::string descripcion);
     bool ingresaNumero(int celular);
 
-
-
     //Operaciones
 };
 
