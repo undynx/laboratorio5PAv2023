@@ -1,5 +1,5 @@
-#ifndef FACTORY
-#define FACTORY
+#ifndef FACTORY_H
+#define FACTORY_H
 
 #include "InterfaceConvMens.h"
 #include "InterfaceUsuario.h"

@@ -1,14 +1,15 @@
-#ifndef INTERGACEUSUARIO.H
-#define INTERFACEUSUARIO.H
+#ifndef INTERFACEUSUARIO_H
+#define INTERFACEUSUARIO_H
+
 #include <list>
 #include <string.h>
 #include "Usuario.h"
 #include <set>
 #include <stdlib.h>
+
 using namespace std;
 
-class InterfaceUsuario
-{
+class InterfaceUsuario {
 	public:
 		virtual void altaUsuario(string nombre, string imagen, string descripcion)=0; 
 		virtual bool ingresarNumero(int celular)=0;

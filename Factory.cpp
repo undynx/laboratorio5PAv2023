@@ -17,8 +17,10 @@ Factory *Factory::getInstancia() {
 }
 
 InterfaceConvMens *Factory::getInterfaceConvMens() {
-  return new ControllerConvMens();
+  ControllerConvMens *ccm = new ControllerConvMens();
+  return ccm;
 }
 InterfaceUsuario *Factory::getInterfaceUsuario() {
-  return new ControllerUsuario();
+  ControllerUsuario *cu = new ControllerUsuario();
+  return cu;
 }
