@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "ControllerUsuario.h"
 
 ControllerUsuario* ControllerUsuario::instance=NULL;
@@ -6,7 +5,8 @@ ControllerUsuario* ControllerUsuario::instance=NULL;
 ControllerUsuario::ControllerUsuario(){}
 
 ControllerUsuario* ControllerUsuario::getInstance(){
-    if(instance==NULL) {
+    if(instance==NULL) 
+    {
         instance = new ControllerUsuario();
     }
 

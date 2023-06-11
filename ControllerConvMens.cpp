@@ -1,13 +1,12 @@
-#include <stdlib.h>
 #include "ControllerConvMens.h"
 
-ControllerConvMens* ControllerConvMens::instance=NULL;
+ControllerConvMens* ControllerConvMens::instance= NULL;
 
 ControllerConvMens::ControllerConvMens(){}
 
 ControllerConvMens* ControllerConvMens::getInstance()
 {
-    if(instance==nullptr)
+    if(instance==NULL)
     {
         instance = new ControllerConvMens();
     }
