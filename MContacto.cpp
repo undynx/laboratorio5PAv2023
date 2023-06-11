@@ -1,11 +1,11 @@
 #include "MContacto.h"
 
+
 //Constructores
 MContacto::MContacto(){}
 
-MContacto::MContacto(string codigo, DtFechaHora fechayHora){
-    this->codigo = codigo;
-    this->fechayHora = fechayHora;
+MContacto::MContacto(std::string codigo, DtFechaHora fechayHora):Mensaje(codigo, fechayHora){
+    
 }
 
 //Metodos
@@ -18,4 +18,4 @@ MContacto MContacto::borrar(DtMensaje m){
 DtMensaje MContacto::seleccionar(){
 
 }
-        MContacto::~MContacto(){};
+MContacto::~MContacto(){};
