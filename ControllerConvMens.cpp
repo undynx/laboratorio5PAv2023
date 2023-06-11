@@ -1,6 +1,7 @@
+#include <stdlib.h>
 #include "ControllerConvMens.h"
 
-ControllerConvMens* ControllerConvMens::instance=nullptr;
+ControllerConvMens* ControllerConvMens::instance=NULL;
 
 ControllerConvMens::ControllerConvMens(){}
 

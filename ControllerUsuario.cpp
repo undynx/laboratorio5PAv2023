@@ -1,14 +1,14 @@
+#include <stdlib.h>
 #include "ControllerUsuario.h"
 
-ControllerUsuario* ControllerUsuario::instance=nullptr;
+ControllerUsuario* ControllerUsuario::instance=NULL;
 
 ControllerUsuario::ControllerUsuario(){}
 
-ControllerUsuario* ControllerUsuario::getInstance()
-{
-    if(instance==nullptr)
-    {
+ControllerUsuario* ControllerUsuario::getInstance(){
+    if(instance==NULL) {
         instance = new ControllerUsuario();
     }
-return instance;
+
+    return instance;
 }
