@@ -12,3 +12,4 @@ ControllerConvMens* ControllerConvMens::getInstance()
     }
 return instance;
 }
+ControllerConvMens::~ControllerConvMens(){}

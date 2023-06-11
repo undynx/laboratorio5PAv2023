@@ -29,5 +29,6 @@ class InterfaceConvMens
         virtual set<DtConversacion> buscarConv(int id)=0;
         virtual set<DtConversacion> buscarConvArch(int id)=0;
         virtual DtMensaje seleccionarMsj(int id)=0;
+        virtual ~InterfaceConvMens();
 };
 #endif

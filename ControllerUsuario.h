@@ -1,6 +1,5 @@
 #ifndef CONTROLLER_USUARIO
 #define CONTROLLER_USUARIO
-#include <stdlib.h>
 #include "InterfaceUsuario.h"
 
 
@@ -14,7 +13,12 @@ private:
 public:
     static ControllerUsuario* getInstance();
     void altaUsuario(std::string nombre, std::string imagen, std::string descripcion);
-    bool ingresaNumero(int celular);
+     bool ingresarNumero(int celular);
+     set<DtUsuario> listarContactos(int numCel);
+     DtUsuario agregarContacto( int numCel);
+     void cancelar();
+     void salir();
+
 
 
 
