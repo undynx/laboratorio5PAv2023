@@ -12,10 +12,9 @@ class MSimple : public Mensaje
         string texto;
     public:
         MSimple();
-        MSimple(string codigo, DtFechaHora fechayHora);
-        string getCodigo();
-        void setCodigo(string);
-        DtFechaHora getfechayHora();
+        MSimple(std::string codigo, DtFechaHora fechayhora, std::string texto);
+        std::string getTexto();
+        void setTexto(std::string texto);
         void MostrardatosM();
         ~MSimple();
 };

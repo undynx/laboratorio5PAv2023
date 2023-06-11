@@ -12,10 +12,9 @@ class MVideo : public Mensaje
         float duracion;
     public:
         MVideo();
-        MVideo(string codigo, DtFechaHora fechayHora);
-        string getCodigo();
-        void setCodigo(string);
-        DtFechaHora getfechayHora();
+        MVideo(string codigo, DtFechaHora fechayHora, float duracion);
+        float getDuracion();
+        void setDuracion(float duracion);
         void MostrardatosM();
         ~MVideo();
 };
