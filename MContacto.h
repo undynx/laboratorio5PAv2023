@@ -2,12 +2,18 @@
 #define MCONTACTO.H
 #include "Mensaje.h"
 #include "DtMensaje.h"
+#include <map>
+#include "DtFechaHora.h"
+#include "Usuario.h"
 
 class MContacto: public Mensaje{
-    public:
     private:
+        map <int, Usuario*> usuario;
+
+
+    public:
         MContacto();
-        MContacto(string codigo, DtFechaHora fechayHora);    
+        MContacto(std::string codigo, DtFechaHora fechayHora);    
         void mostrarDatos();
         MContacto borrar(DtMensaje m);////??????sera borrar?
         DtMensaje seleccionar();
