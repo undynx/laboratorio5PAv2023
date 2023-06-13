@@ -1,4 +1,9 @@
 #include "Factory.h"
+#include "InterfaceSesion.h"
+#include "InterfaceUsuario.h"
+#include "InterfaceConvMens.h"
+#include "InterfaceGrupo.h"
+
 #include <iostream>
 
 using namespace std;
@@ -7,6 +12,10 @@ InterfaceUsuario* iUsuario;
 
 int main (){
   Factory* fact = Factory::getInstancia();
+  InterfaceSesion *iSesion = fact->getInterfaceSesion();
+  InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
+  InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
+  InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
   bool salir = true;
   int opt;
 
@@ -20,14 +29,15 @@ int main (){
     cout << "  9) Salir" << endl;
     cout << "\n----------------------------\n";
 
+    cin >> opt;
+
     switch(opt) {
       case 1:
         //Abrir app
-        int celular;
-        cout << "Abrir app - NO IMPLEMENTADA" << endl;
+        int numTel;
         cout << "Ingresar número de celular" << endl;
-        cin >> celular;
-        iUsuario->ingresarNumero(celular);
+        cin >> numTel;
+        iSesion->abrirApp(numTel);
         break;
       case 2:
         //Alta Usuario

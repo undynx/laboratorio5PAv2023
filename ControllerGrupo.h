@@ -5,10 +5,9 @@
 #include "InterfaceGrupo.h"
 
 class ControllerGrupo: public InterfaceGrupo {
-  private:
-    static ControllerGrupo *instance;
   public:
     ControllerGrupo();
+    ~ControllerGrupo();
 };
 
 #endif

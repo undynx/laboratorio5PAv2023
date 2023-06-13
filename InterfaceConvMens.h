@@ -1,5 +1,5 @@
-#ifndef INTERFACECONVMENS.H
-#define INTERFACECONVMENS.H
+#ifndef INTERFACECONVMENS_H
+#define INTERFACECONVMENS_H
 
 #include <list>
 #include <string.h>
@@ -15,8 +15,8 @@ using namespace std;
 
 class InterfaceConvMens {
 	public:
-		//virtual set<DtConversacionGrupal> mostrarConverG() = 0;
-		//virtual set<DtConversacionPrivada> mostrarConverP() = 0;
+	//virtual set<DtConversacionGrupal> mostrarConverG() = 0;
+	//virtual set<DtConversacionPrivada> mostrarConverP() = 0;
         virtual int mostrarCantidad()=0;
         virtual set<DtConversacion> seleccionarConversacion(string id)=0;
         virtual set<DtMensaje> datosMensajes(string id)=0;

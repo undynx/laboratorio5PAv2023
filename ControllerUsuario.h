@@ -1,9 +1,11 @@
-#ifndef CONTROLLER_USUARIO
-#define CONTROLLER_USUARIO
+#ifndef CONTROLLERUSUARIO_H
+#define CONTROLLERUSUARIO_H
+
 #include "InterfaceUsuario.h"
 #include "Usuario.h"
 
 
+#include <stdlib.h>
 
 class ControllerUsuario: public InterfaceUsuario
 {

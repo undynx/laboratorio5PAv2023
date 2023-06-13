@@ -14,14 +14,21 @@ DtFechaHora::DtFechaHora(int dia, int mes, int anio, int hora, int min){
 int DtFechaHora::getDia(){
     return this->dia=dia;
 }
+
 int DtFechaHora::getMes(){
     return this->mes=mes;
-}int DtFechaHora::getAnio(){
+}
+
+int DtFechaHora::getAnio(){
     return this->anio=anio;
-}int DtFechaHora::getHora(){
+}
+
+int DtFechaHora::getHora(){
     return this->hora=hora;
-}int DtFechaHora::getMin(){
+}
+
+int DtFechaHora::getMin(){
     return this->min=min;
 }
 
- DtFechaHora::~DtFechaHora(){};
+ DtFechaHora::~DtFechaHora() {};

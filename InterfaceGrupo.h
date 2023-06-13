@@ -1,7 +1,9 @@
 #ifndef INTERFACEGRUPO_H
 #define INTERFACEGRUPO_H
 
-class InterfaceGrupo {
+using namespace std;
+class InterfaceGrupo{
+  public:
 };
 
 #endif
