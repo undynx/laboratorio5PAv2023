@@ -11,3 +11,19 @@ ControllerUsuario* ControllerUsuario::getInstance(){
 
     return instance;
 }
+
+void ControllerUsuario::altaUsuario(Usuario* user)
+{
+    //usuarios.insert;
+}
+
+bool ControllerUsuario::ingresarNumero(int celular)
+{
+    if (usuarios.find(celular)!=usuarios.end())
+    {
+        /* code */
+    }
+    
+    
+    
+}
