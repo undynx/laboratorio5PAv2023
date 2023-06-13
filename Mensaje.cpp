@@ -1,5 +1,6 @@
 #include "Mensaje.h"
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -22,9 +23,9 @@ DtFechaHora Mensaje::getFechayHora(){
     return this->fechayHora;
 }
 
-DtMensaje Mensaje::seleccionar(){
-    
-}
+/* DtMensaje Mensaje::seleccionar(){
+    return NULL;
+} */
 
 //Setters
 

@@ -16,5 +16,6 @@ class DtFechaHora{
         int getAnio();
         int getHora();
         int getMin();
+        ~DtFechaHora();
 };
 #endif

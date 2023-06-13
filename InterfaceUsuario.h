@@ -18,6 +18,7 @@ class InterfaceUsuario {
     virtual void salir()=0;
   // repetida  virtual <set> DtUsuario listarContactos()=0;
     virtual void cancelar()=0;
-
+    virtual ~InterfaceUsuario();
 };
+
 #endif
