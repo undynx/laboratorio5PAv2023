@@ -34,10 +34,10 @@ int main (){
     switch(opt) {
       case 1:
         //Abrir app
-        int numTel;
+        int numCel;
         cout << "Ingresar número de celular" << endl;
-        cin >> numTel;
-        iSesion->abrirApp(numTel);
+        cin >> numCel;
+        iSesion->abrirApp(numCel);
         break;
       case 2:
         //Alta Usuario

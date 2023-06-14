@@ -11,8 +11,9 @@ using namespace std;
 
 class InterfaceUsuario {
 	public:
+    //virtual void altaUsuario(Usuario* user)=0; 
 		virtual void altaUsuario(string nombre, string imagen, string descripcion)=0; 
-		virtual bool ingresarNumero(int celular)=0;
+		virtual bool ingresarNumero(int numCel)=0;
     virtual set<DtUsuario> listarContactos(int numCel)=0;
     virtual DtUsuario agregarContacto( int numCel)=0;
     virtual void salir()=0;
