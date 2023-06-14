@@ -18,17 +18,45 @@ ControllerSesion* ControllerSesion::getSesion()
 int ControllerSesion::abrirApp(int numCel){
 
 	Factory* fact = Factory::getInstancia();
-	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
+	InterfaceUsuario* iUsuario = fact->getInterfaceUsuario();
+	ControllerSesion* csesion = ControllerSesion::getSesion();
+	int opt;
 	bool existeNum = false;
 	bool salir = false;
+
+	if(csesion->user->getNumTel()!=numCel){
+		
+		cout << "\n----------------------------\n";
+		cout << "Usted ya posee una sesón iniciada con otro número\n \n";
+		cout << "Desea cerrar sesión para poder ingresar con el nuevo número?\n";
+		cout << "  1) SI" << endl;
+		cout << "  2) NO" << endl;
+
+		cin >> opt;
+		do {
+
+		switch(opt) {
+				case 1:
+					//Cerrar app
+					cerrarApp();
+					salir = true;
+					break;
+				case 2:
+					//No hago nada
+					break;
+				default:
+					cout << opt << " no es una opcion correcta \n" << endl;
+				}
+	 }while(opt!=2 && !salir);
+	 
+	}
 
 	while (!existeNum && !salir)
 	{
 		existeNum = iUsuario->ingresarNumero(numCel);//Busco en la colección de usuarios del sistema, si existe el numero.
 	
 		if (!existeNum)
-		{
-				int opt;
+		{				
 				string nombre = "";
 				string img = "";
 				string desc = "";
@@ -61,7 +89,7 @@ int ControllerSesion::abrirApp(int numCel){
 					cout << "Se dio de alta su usuario correcatmente.\n" << endl;
 					break;
 				case 3:
-					cout << "Cerrar App - NO IMPLEMENTADA" << endl;
+					cerrarApp();
 					salir = true;
 					break;
 				default:
@@ -74,6 +102,14 @@ int ControllerSesion::abrirApp(int numCel){
 	return numCel;
 }
 
-void ControllerSesion::cerrarApp(){}
+void ControllerSesion::cerrarApp(){
+
+	ControllerSesion* csesion = ControllerSesion::getSesion();
+	csesion->getSesion();
+	csesion->sesion=NULL;
+	csesion->user=NULL;
+
+	cout << "Sesión cerrada exitosamente" << endl;	
+}
 
 ControllerSesion::~ControllerSesion(){}
