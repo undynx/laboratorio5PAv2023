@@ -1,4 +1,5 @@
 #include "Usuario.h"
+#include <iterator>
 
 
 //Constructores
@@ -41,12 +42,22 @@ DtFechaHora Usuario::getUltCon(){
 }
 
 DtUsuario Usuario::getContacto(int numtel){
-    //return this->contacto.find(numtel);
+    return this->contacto.find(numtel);
 }
 
 DtUsuario Usuario::pedirDatos(){
+    Usuario *u;
+    string nombre;
+    cout<<"Ingrese su nombre"<<endl;
+    cin>> nombre;
+    string imagen;
+    cout<<"Ingrese su URL de imagen"<<endl;
+    cin>> imagen;
+    string descripcion;
+    cout<<"Ingrese su Descripcion"<<endl;
+    cin>> descripcion;
+    return u;
 
-    
 }
 
 

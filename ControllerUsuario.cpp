@@ -1,4 +1,6 @@
+#include "Factory.h"
 #include "ControllerUsuario.h"
+#include "InterfaceUsuario.h"
 
 ControllerUsuario* ControllerUsuario::instance=NULL;
 
@@ -32,17 +34,64 @@ bool ingresarNumero(int numTel)
    ControllerUsuario* cu = ControllerUsuario::getInstance();
    
     if(cu->usuario.find(numTel)!=cu->usuario.end())
-    {
+    {  
         return true; //Si encunetro el numTel antes del final del map devuelvo true
     }
     else
     {
-        return false; //Si encunetro el numTel antes del final del map devuelvo true
+        return false; //Si no encunetro el numTel antes del final del map devuelvo true
     }
 }
 
-set<DtUsuario> listarContactos(int numTel){}
-DtUsuario agregarContacto( int numTel){}
+set<DtUsuario> listarContactos(int numTel){
+    Usuario *u; 
+    ControllerUsuario* cu = ControllerUsuario::getInstance();
+    map<int, Usuario*>::iterator it;
+    for (it = u->contacto .begin(); it != u->contacto.end(); ++it) 
+  {
+    cout << u->contacto.at(it).getNombre<<endl;
+    cout << u->contacto.at(it).getImagen<<endl;
+    cout << u->contacto.at(it).getDescripcion<<endl;
+    it++;
+  }
+ 
+ 
+}
+
+DtUsuario agregarContacto( int numTel){
+
+   ControllerUsuario* cu = ControllerUsuario::getInstance();
+   
+    Usuario *u;
+    int contactonuevo;
+    bool existe;
+    bool salir= false;
+    while(!salir){//mientras quiera agregar contactos;
+       //  u->mostrarDatos();
+       listarContactos(u->getNumTel);
+         cout<<"Ingrese el numero del contacto a agregar:"<<endl;
+         cin>> contactonuevo;
+        existe=ingresarNumero(contactonuevo);
+         if(existe){
+            u->getContacto(contactonuevo);
+            cout<<"Se encontro el contacto"<<endl;
+            u->contacto.insert(make_pair(auto,u->getContacto(contactonuevo) ))
+            
+
+         }
+        else{
+            cout<<"El contacto ingresado no existe"<<endl;
+        }
+         
+
+
+    }
+   
+
+
+
+}
+
 void salir(){}
 void cancelar(){}
 

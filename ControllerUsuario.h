@@ -5,7 +5,7 @@
 #include "Usuario.h"
 #include <map>
 
-
+#include <iostream>
 #include <stdlib.h>
 
 class ControllerUsuario: public InterfaceUsuario
