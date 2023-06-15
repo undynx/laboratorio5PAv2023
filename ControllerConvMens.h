@@ -27,6 +27,7 @@ class ControllerConvMens: public InterfaceConvMens {
         set<DtConversacion> buscarConv(int id);
         set<DtConversacion> buscarConvArch(int id);
         DtMensaje seleccionarMsj(int id);
+        ~ControllerConvMens();
 };
 
 #endif

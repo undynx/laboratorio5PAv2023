@@ -6,8 +6,10 @@
 
 class ControllerSesion: public InterfaceSesion{
 	private:
-		Usuario* user;
+		static ControllerSesion* sesion;
+		static Usuario* user;
 	public:
+		static ControllerSesion* getSesion();
 		int abrirApp(int numTel);
 		void cerrarApp();
 		~ControllerSesion();
