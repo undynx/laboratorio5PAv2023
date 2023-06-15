@@ -18,10 +18,10 @@ public:
      static ControllerUsuario* getInstance();
      ControllerUsuario();
      //void altaUsuario(Usuario* user); 
-     void altaUsuario(std::string nombre, std::string imagen, std::string descripcion);
-     bool ingresarNumero(int numCel);
-     set<DtUsuario> listarContactos(int numCel);
-     DtUsuario agregarContacto( int numCel);
+     void altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
+     bool ingresarNumero(int numTel);
+     set<DtUsuario> listarContactos(int numTel);
+     DtUsuario agregarContacto( int numTel);
      void cancelar();
      void salir();
     ~ControllerUsuario();

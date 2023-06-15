@@ -12,24 +12,37 @@ ControllerUsuario* ControllerUsuario::getInstance()
     return instance;
 }
 
-void altaUsuario(string nombre, string imagen, string descripcion){}
+void altaUsuario(int numTel, string nombre, string imagen, string descripcion)
+{
+    DtFechaHora fecReg = DtFechaHora(24, 9, 1999, 19, 30);
+    DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
 
-bool ingresarNumero(int numCel)
+    ControllerUsuario* cu = ControllerUsuario::getInstance();
+
+    Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, descripcion, ultCon);
+
+    cu->usuario.insert({numTel, user});
+
+    cout << "Se dio de alta su usuario correcatmente.\n"<< endl;
+    cout << "Hora de conexión:" << ultCon.getHora() <<":"<< ultCon.getMin();
+}
+
+bool ingresarNumero(int numTel)
 {
    ControllerUsuario* cu = ControllerUsuario::getInstance();
    
-    if(cu->usuario.find(numCel)!=cu->usuario.end())
+    if(cu->usuario.find(numTel)!=cu->usuario.end())
     {
-        return true; //Si encunetro el numCel antes del final del map devuelvo true
+        return true; //Si encunetro el numTel antes del final del map devuelvo true
     }
     else
     {
-        return false; //Si encunetro el numCel antes del final del map devuelvo true
+        return false; //Si encunetro el numTel antes del final del map devuelvo true
     }
 }
 
-set<DtUsuario> listarContactos(int numCel){}
-DtUsuario agregarContacto( int numCel){}
+set<DtUsuario> listarContactos(int numTel){}
+DtUsuario agregarContacto( int numTel){}
 void salir(){}
 void cancelar(){}
 
