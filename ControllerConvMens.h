@@ -1,5 +1,5 @@
-#ifndef CONTROLLERCONVMENS
-#define CONTROLLERCONVMENS
+#ifndef CONTROLLERCONVMENS_H
+#define CONTROLLERCONVMENS_H
 
 #include "InterfaceConvMens.h"
 

@@ -1,5 +1,5 @@
-#ifndef DTCONVERSACIONARCHIVADA.H
-#define DTCONVERSACIONARCHIVADA.H
+#ifndef DTCONVERSACIONARCHIVADA_H
+#define DTCONVERSACIONARCHIVADA_H
 #include "DtConversacion.h"
 
 class DtConversacionArchivada: public DtConversacion{

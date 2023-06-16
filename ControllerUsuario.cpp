@@ -43,7 +43,7 @@ bool ingresarNumero(int numTel)
     }
 }
 
-set<DtUsuario> listarContactos(int numTel){
+/*set<DtUsuario> listarContactos(int numTel){
     Usuario *u; 
     ControllerUsuario* cu = ControllerUsuario::getInstance();
     map<int, Usuario*>::iterator it;
@@ -90,7 +90,7 @@ DtUsuario agregarContacto( int numTel){
 
 
 
-}
+}*/
 
 void salir(){}
 void cancelar(){}
