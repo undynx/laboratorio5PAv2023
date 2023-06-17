@@ -14,7 +14,7 @@ int main()
   InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
   InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
   InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
-  bool salir = true;
+  bool salir = false;
   int opt;
 
   do {
@@ -30,15 +30,13 @@ int main()
     cin >> opt;
 
     switch(opt) {
-      case 1:
-        //Abrir app
+      case 1: //Abrir app
         int numTel;
         cout << "Ingresar número de celular" << endl;
         cin >> numTel;
         //iSesion->abrirApp(numTel);
         break;
-      case 2:
-        //Alta Usuario
+      case 2: //Alta Usuario
         cout << "Agregar Contacto - NO IMPLEMENTADA" << endl;
         break;
       case 8: 

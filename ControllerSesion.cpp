@@ -15,6 +15,27 @@ ControllerSesion *ControllerSesion::getInstancia()
 
 /*int ControllerSesion::abrirApp(int numTel)
 {
+	if (instancia == NULL)
+	{
+		instancia = new ControllerSesion();
+	}
+	return instancia;
+}
+
+Usuario *ControllerSesion::getUserLoggeado()
+{
+		return this->userLoggeado;
+}
+
+//Devuelve true si hay algun usuario loggeado, false si no
+bool ControllerSesion::loggedIn(){
+	if(this->userLoggeado != NULL)
+		return true;
+	else
+		return false;
+}
+
+/*int ControllerSesion::abrirApp(int numTel){
 
 	Factory *fact = Factory::getInstancia();
 	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
@@ -41,21 +62,21 @@ ControllerSesion *ControllerSesion::getInstancia()
 			case 1:
 				// Cerrar app
 				salir = true;
-				cerrarApp();
+				// cerrarApp();
 				break;
 			case 2:
 				// No hago nada
 				break;
 			default:
 				cout << opt << " no es una opcion correcta \n"
-					 << endl;
+						 << endl;
 			}
 		} while (opt != 2 && !salir);
 	}
 
 	while (!existeNum && !salir)
 	{
-		existeNum = iUsuario->ingresarNumero(numTel); // Busco en la colección de usuarios del sistema, si existe el numero.
+		// existeNum = iUsuario->ingresarNumero(numTel); // Busco en la colección de usuarios del sistema, si existe el numero.
 
 		if (!existeNum)
 		{
@@ -78,21 +99,21 @@ ControllerSesion *ControllerSesion::getInstancia()
 			case 1:
 				// Abrir app
 				cout << "Ingresar otro número de celular:\n"
-					 << endl;
+						 << endl;
 				cin >> numTel;
 				break;
 			case 2:
 				// Alta Usuario
 				cout << "Ingresar nombre:\n"
-					 << endl;
+						 << endl;
 				cin >> nombre;
 				cout << "Ingresar URL de imagen de perfil:\n"
-					 << endl;
+						 << endl;
 				cin >> img;
 				cout << "Ingresar descripción breve:\n"
-					 << endl;
+						 << endl;
 				cin >> desc;
-				iUsuario->altaUsuario(numTel, nombre, img, desc);
+				// iUsuario->altaUsuario(numTel, nombre, img, desc);
 				salir = true;
 				break;
 			case 3:
@@ -101,13 +122,15 @@ ControllerSesion *ControllerSesion::getInstancia()
 				break;
 			default:
 				cout << opt << " no es una opcion correcta \n"
-					 << endl;
+						 << endl;
 			}
 		}
 	}
 
 	return numTel;
-}
+}*/
+
+/*
 
 void ControllerSesion::cerrarApp()
 {
