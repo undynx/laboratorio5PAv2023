@@ -7,13 +7,15 @@
 
 class ControllerSesion: public InterfaceSesion{
 	private:
-		static ControllerSesion* sesion;
-		static Usuario* user;
+		static ControllerSesion* instancia;
+		static Usuario *user;
+
 	public:
-		static ControllerSesion* getSesion();
-		int abrirApp(int numTel);
+		ControllerSesion();
+		static ControllerSesion* getInstancia();
+		/*int abrirApp(int numTel);
 		void cerrarApp();
-		~ControllerSesion();
+		~ControllerSesion();*/
 };
 
 #endif

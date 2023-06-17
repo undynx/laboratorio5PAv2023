@@ -35,7 +35,7 @@ int main()
         int numTel;
         cout << "Ingresar número de celular" << endl;
         cin >> numTel;
-        iSesion->abrirApp(numTel);
+        //iSesion->abrirApp(numTel);
         break;
       case 2:
         //Alta Usuario
@@ -43,7 +43,7 @@ int main()
         break;
       case 8: 
         //Cerrar app
-        iSesion->cerrarApp();
+        //iSesion->cerrarApp();
         break;
       case 9:
         salir = true;

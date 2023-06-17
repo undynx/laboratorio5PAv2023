@@ -5,8 +5,12 @@
 #include "InterfaceGrupo.h"
 
 class ControllerGrupo: public InterfaceGrupo {
+  private:
+    static ControllerGrupo *instancia;
+
   public:
     ControllerGrupo();
+    static ControllerGrupo *getInstancia();
     ~ControllerGrupo();
 };
 

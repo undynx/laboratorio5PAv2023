@@ -1,35 +1,40 @@
-#include <stdlib.h>
 #include "Factory.h"
 #include "ControllerConvMens.h"
 #include "ControllerUsuario.h"
 #include "ControllerGrupo.h"
 #include "ControllerSesion.h"
+#include "ControllerSesion.h"
+#include "InterfaceConvMens.h"
+#include "InterfaceGrupo.h"
+#include "InterfaceSesion.h"
+#include "InterfaceUsuario.h"
+#include <stdlib.h>
 
 using namespace std;
 
-Factory *Factory::instance = NULL;
+Factory *Factory::instancia = NULL;
 
 Factory::Factory(){}
 
 Factory *Factory::getInstancia() {
-  if(instance == NULL) {
-    instance = new Factory();
+  if(instancia == NULL) {
+    instancia = new Factory();
   }
-  return instance;
+  return instancia;
 }
 
 InterfaceSesion *Factory::getInterfaceSesion() {
-  ControllerSesion *cs = new ControllerSesion();
+  InterfaceSesion *cs = new ControllerSesion();
   return cs;
 }
 
 InterfaceConvMens *Factory::getInterfaceConvMens() {
-  ControllerConvMens *ccm = new ControllerConvMens();
+  InterfaceConvMens *ccm = new ControllerConvMens();
   return ccm;
 }
 
 InterfaceUsuario *Factory::getInterfaceUsuario() {
-  ControllerUsuario *cu = new ControllerUsuario();
+  InterfaceUsuario *cu = new ControllerUsuario();
   return cu;
 }
 
