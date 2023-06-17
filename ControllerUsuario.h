@@ -2,6 +2,7 @@
 #define CONTROLLERUSUARIO_H
 
 #include "InterfaceUsuario.h"
+#include "ControllerSesion.h"
 #include "Usuario.h"
 #include <map>
 
@@ -18,13 +19,14 @@ public:
     ControllerUsuario();
     static ControllerUsuario *getinstancia();
     ~ControllerUsuario();
-    /*// void altaUsuario(Usuario* user);
-    void altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
+    // void altaUsuario(Usuario* user);
+    ControllerSesion* altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
     bool ingresarNumero(int numTel);
-    set<DtUsuario> listarContactos(int numTel);
-    DtUsuario agregarContacto(int numTel);
-    void cancelar();
-    void salir();*/
+    Usuario* encontrarUsuarioxnumTel(int numTel);
+    //set<DtUsuario> listarContactos(int numTel);
+    //DtUsuario agregarContacto(int numTel);
+    //void cancelar();
+    //void salir();
     //Operaciones
 };
 
