@@ -31,4 +31,4 @@ void ConversacionPrivada::MostrarDatos(){
 }
 
 //Destructor
-Conversacion::~Conversacion(){}
+ConversacionPrivada::~ConversacionPrivada(){}

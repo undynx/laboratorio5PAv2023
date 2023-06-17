@@ -1,26 +1,24 @@
-#include "Factory.h"
 #include "ControllerSesion.h"
-#include "InterfaceUsuario.h"
 
-ControllerSesion *ControllerSesion::sesion = NULL;
+ControllerSesion *ControllerSesion::instancia = NULL;
 
-//ControllerSesion::ControllerSesion(){}
+ControllerSesion::ControllerSesion(){}
 
-ControllerSesion *ControllerSesion::getSesion()
+ControllerSesion *ControllerSesion::getInstancia()
 {
-	if (sesion == NULL)
+	if (instancia == NULL)
 	{
-		sesion = new ControllerSesion();
+		instancia = new ControllerSesion();
 	}
-	return sesion;
+	return instancia;
 }
 
-int ControllerSesion::abrirApp(int numTel)
+/*int ControllerSesion::abrirApp(int numTel)
 {
 
 	Factory *fact = Factory::getInstancia();
 	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
-	ControllerSesion *csesion = ControllerSesion::getSesion();
+	ControllerSesion *csesion = ControllerSesion::getInstancia();
 	int opt;
 	bool existeNum = false;
 	bool salir = false;
@@ -114,12 +112,12 @@ int ControllerSesion::abrirApp(int numTel)
 void ControllerSesion::cerrarApp()
 {
 
-	ControllerSesion *csesion = ControllerSesion::getSesion();
-	csesion->getSesion();
-	csesion->sesion = NULL;
+	ControllerSesion *csesion = ControllerSesion::getInstancia();
+	csesion->getInstancia();
+	csesion->instancia = NULL;
 	csesion->user = NULL;
 
 	cout << "Sesión cerrada exitosamente" << endl;
-}
+}*/
 
-ControllerSesion::~ControllerSesion(){}
+//ControllerSesion::~ControllerSesion(){}

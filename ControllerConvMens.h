@@ -1,5 +1,5 @@
-#ifndef CONTROLLERCONVMENS
-#define CONTROLLERCONVMENS
+#ifndef CONTROLLERCONVMENS_H
+#define CONTROLLERCONVMENS_H
 
 #include "InterfaceConvMens.h"
 
@@ -7,12 +7,14 @@
 
 class ControllerConvMens: public InterfaceConvMens {
     private:
-        static ControllerConvMens* instance;
+        static ControllerConvMens* instancia;
         //PseudoAtributos
         //Memoria del Controller
     public:
         ControllerConvMens();
-        set<DtConversacionGrupal> mostrarConverG();
+        ControllerConvMens *getInstancia();
+        ~ControllerConvMens();
+        /*set<DtConversacionGrupal> mostrarConverG();
         set<DtConversacionPrivada> mostrarConverP();
         int mostrarCantidad();
         set<DtConversacion> seleccionarConversacion(string id);
@@ -26,8 +28,7 @@ class ControllerConvMens: public InterfaceConvMens {
         DtMensaje enviarMsjImagen(string url, string tamanio, string formato);
         set<DtConversacion> buscarConv(int id);
         set<DtConversacion> buscarConvArch(int id);
-        DtMensaje seleccionarMsj(int id);
-        ~ControllerConvMens();
+        DtMensaje seleccionarMsj(int id);*/
 };
 
 #endif

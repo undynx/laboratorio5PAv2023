@@ -17,7 +17,7 @@ class InterfaceConvMens {
 	public:
 	//virtual set<DtConversacionGrupal> mostrarConverG() = 0;
 	//virtual set<DtConversacionPrivada> mostrarConverP() = 0;
-        virtual int mostrarCantidad()=0;
+        /*virtual int mostrarCantidad()=0;
         virtual set<DtConversacion> seleccionarConversacion(string id)=0;
         virtual set<DtMensaje> datosMensajes(string id)=0;
         virtual  DtMensaje borrarMensaje(DtConversacion borrar)=0;
@@ -30,6 +30,6 @@ class InterfaceConvMens {
         virtual set<DtConversacion> buscarConv(int id)=0;
         virtual set<DtConversacion> buscarConvArch(int id)=0;
         virtual DtMensaje seleccionarMsj(int id)=0;
-        virtual ~InterfaceConvMens();
+        virtual ~InterfaceConvMens(){};*/
 };
 #endif

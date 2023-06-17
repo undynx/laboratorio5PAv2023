@@ -41,7 +41,7 @@ DtFechaHora Usuario::getUltCon(){
     return this->ultCon;
 }
 
-DtUsuario Usuario::getContacto(int numtel){
+/*DtUsuario Usuario::getContacto(int numtel){
     return this->contacto.find(numtel);
 }
 
@@ -57,8 +57,7 @@ DtUsuario Usuario::pedirDatos(){
     cout<<"Ingrese su Descripcion"<<endl;
     cin>> descripcion;
     return u;
-
-}
+}*/
 
 
 //Setters

@@ -1,10 +1,20 @@
 #include "ControllerConvMens.h"
 
-ControllerConvMens* ControllerConvMens::instance=NULL;
+using namespace std;
+
+ControllerConvMens* ControllerConvMens::instancia=NULL;
 
 ControllerConvMens::ControllerConvMens(){}
 
-int mostrarCantidad(){}
+ControllerConvMens *ControllerConvMens::getInstancia(){
+  if (instancia == NULL)
+    instancia = new ControllerConvMens();
+  return instancia;
+}
+
+ControllerConvMens::~ControllerConvMens(){}
+
+/*int mostrarCantidad(){}
 set<DtConversacion> seleccionarConversacion(string id){}
 set<DtMensaje> datosMensajes(string id){}
 DtMensaje borrarMensaje(DtConversacion borrar){}
@@ -16,6 +26,4 @@ DtMensaje enviarMsjCompartirContacto(int celularCompContacto){}
 DtMensaje enviarMsjImagen(string url, string tamanio, string formato){}
 set<DtConversacion> buscarConv(int id){}
 set<DtConversacion> buscarConvArch(int id){}
-DtMensaje seleccionarMsj(int id){}
-
-ControllerConvMens::~ControllerConvMens(){}
+DtMensaje seleccionarMsj(int id){}*/

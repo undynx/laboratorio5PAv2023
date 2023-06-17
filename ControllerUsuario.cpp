@@ -2,24 +2,26 @@
 #include "ControllerUsuario.h"
 #include "InterfaceUsuario.h"
 
-ControllerUsuario* ControllerUsuario::instance=NULL;
+ControllerUsuario* ControllerUsuario::instancia=NULL;
 
 ControllerUsuario::ControllerUsuario(){}
 
-ControllerUsuario* ControllerUsuario::getInstance()
+ControllerUsuario* ControllerUsuario::getinstancia()
 {
-    if(instance==NULL){
-        instance = new ControllerUsuario();
+    if(instancia==NULL){
+        instancia = new ControllerUsuario();
     }
-    return instance;
+    return instancia;
 }
 
-void altaUsuario(int numTel, string nombre, string imagen, string descripcion)
+ControllerUsuario::~ControllerUsuario() {}
+
+/*void altaUsuario(int numTel, string nombre, string imagen, string descripcion)
 {
     DtFechaHora fecReg = DtFechaHora(24, 9, 1999, 19, 30);
     DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
 
-    ControllerUsuario* cu = ControllerUsuario::getInstance();
+    ControllerUsuario* cu = ControllerUsuario::getinstancia();
 
     Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, descripcion, ultCon);
 
@@ -31,7 +33,7 @@ void altaUsuario(int numTel, string nombre, string imagen, string descripcion)
 
 bool ingresarNumero(int numTel)
 {
-   ControllerUsuario* cu = ControllerUsuario::getInstance();
+   ControllerUsuario* cu = ControllerUsuario::getinstancia();
    
     if(cu->usuario.find(numTel)!=cu->usuario.end())
     {  
@@ -45,7 +47,7 @@ bool ingresarNumero(int numTel)
 
 set<DtUsuario> listarContactos(int numTel){
     Usuario *u; 
-    ControllerUsuario* cu = ControllerUsuario::getInstance();
+    ControllerUsuario* cu = ControllerUsuario::getinstancia();
     map<int, Usuario*>::iterator it;
     for (it = u->contacto .begin(); it != u->contacto.end(); ++it) 
   {
@@ -60,7 +62,7 @@ set<DtUsuario> listarContactos(int numTel){
 
 DtUsuario agregarContacto( int numTel){
 
-   ControllerUsuario* cu = ControllerUsuario::getInstance();
+   ControllerUsuario* cu = ControllerUsuario::getinstancia();
    
     Usuario *u;
     int contactonuevo;
@@ -90,9 +92,7 @@ DtUsuario agregarContacto( int numTel){
 
 
 
-}
+}*/
 
-void salir(){}
-void cancelar(){}
-
-ControllerUsuario::~ControllerUsuario(){}
+/* void salir(){}
+void cancelar(){} */
