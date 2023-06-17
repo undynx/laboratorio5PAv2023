@@ -11,20 +11,20 @@
 class ControllerUsuario: public InterfaceUsuario
 {
 private:
-    static ControllerUsuario* instance;
-    public: map<int,Usuario*> usuario; //coleccion de usuarios del sistema
+    static ControllerUsuario* instancia;
+    public: map<int,Usuario*> colUsuarios; //coleccion de usuarios del sistema
     //Memoria del Controller
 public:
-     static ControllerUsuario* getInstance();
-     ControllerUsuario();
-     //void altaUsuario(Usuario* user); 
-     void altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
-     bool ingresarNumero(int numTel);
-     set<DtUsuario> listarContactos(int numTel);
-     DtUsuario agregarContacto( int numTel);
-     void cancelar();
-     void salir();
+    ControllerUsuario();
+    static ControllerUsuario *getinstancia();
     ~ControllerUsuario();
+    /*// void altaUsuario(Usuario* user);
+    void altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
+    bool ingresarNumero(int numTel);
+    set<DtUsuario> listarContactos(int numTel);
+    DtUsuario agregarContacto(int numTel);
+    void cancelar();
+    void salir();*/
     //Operaciones
 };
 

@@ -1,14 +1,20 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
+#include "Factory.h"
+#include "ControllerConvMens.h"
+#include "ControllerUsuario.h"
+#include "ControllerGrupo.h"
+#include "ControllerSesion.h"
+#include "ControllerSesion.h"
 #include "InterfaceConvMens.h"
-#include "InterfaceUsuario.h"
-#include "InterfaceSesion.h"
 #include "InterfaceGrupo.h"
+#include "InterfaceSesion.h"
+#include "InterfaceUsuario.h"
 
 class Factory {
   private:
-    static Factory *instance;
+    static Factory *instancia;
     Factory();
   public:
     static Factory *getInstancia();
@@ -19,4 +25,4 @@ class Factory {
     ~Factory();
 };
 
-#endif;
+#endif

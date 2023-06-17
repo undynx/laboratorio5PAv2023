@@ -1,5 +1,6 @@
-#ifndef MCONTACTO.H
-#define MCONTACTO.H
+#ifndef MCONTACTO_H
+#define MCONTACTO_H
+
 #include "Mensaje.h"
 #include "DtMensaje.h"
 #include <map>
