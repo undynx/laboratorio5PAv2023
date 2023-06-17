@@ -1,8 +1,13 @@
 #include "ControllerSesion.h"
+#include "Factory.h"
+#include "Usuario.h"
 
 ControllerSesion *ControllerSesion::instancia = NULL;
 
-ControllerSesion::ControllerSesion(){}
+ControllerSesion::ControllerSesion()
+{
+	this->userLoggeado = NULL;
+}
 
 ControllerSesion *ControllerSesion::getInstancia()
 {
@@ -11,6 +16,20 @@ ControllerSesion *ControllerSesion::getInstancia()
 		instancia = new ControllerSesion();
 	}
 	return instancia;
+}
+
+Usuario *ControllerSesion::getUserLoggeado()
+{
+	return this->userLoggeado;
+}
+
+// Devuelve true si hay algun usuario loggeado, false si no
+bool ControllerSesion::loggedIn()
+{
+	if (this->userLoggeado != NULL)
+		return true;
+	else
+		return false;
 }
 
 /*int ControllerSesion::abrirApp(int numTel)
@@ -143,4 +162,4 @@ void ControllerSesion::cerrarApp()
 	cout << "Sesión cerrada exitosamente" << endl;
 }*/
 
-//ControllerSesion::~ControllerSesion(){}
+ControllerSesion::~ControllerSesion(){}
