@@ -13,20 +13,14 @@ ControllerSesion *ControllerSesion::getInstancia()
 {
 	if (instancia == NULL)
 	{
-	//	string flag = "";
-	//	cout << "Isesion Es nula y creo una nueva";
-	//	cin >> flag;
 		instancia = new ControllerSesion();
 	}
-	//if (instancia->userLoggeado != NULL) {
-	//cout << "Nombre usuario logueado: \n" << instancia->userLoggeado->getNombre();
-	//}
 	return instancia;
 }
 
 Usuario *ControllerSesion::getUserLoggeado()
 {
-	return instancia->userLoggeado;
+	return this->userLoggeado;
 }
 
 void ControllerSesion::setUserLoggeado(Usuario* user)
@@ -37,15 +31,16 @@ void ControllerSesion::setUserLoggeado(Usuario* user)
 // Devuelve true si hay algun usuario loggeado, false si no
 bool ControllerSesion::loggedIn()
 {
-	if (instancia->userLoggeado != NULL)
-		return true;
-	else
+	if (this->userLoggeado == NULL){
 		return false;
+	}else{
+		return true;
+	}
 }
 
 int ControllerSesion::abrirApp(int numTel){
 
-    DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
+  DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
 
 	Factory *fact = Factory::getInstancia();
 	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
@@ -59,8 +54,8 @@ int ControllerSesion::abrirApp(int numTel){
 	Usuario* user = getUserLoggeado();
 
 	if (user != NULL) {
-			cout << "Nombre usuario logueado: " << user->getNombre() << "\n";
-			cout << "Número usuario logueado: " << user->getNumTel() << "\n";
+		cout << "Nombre usuario logueado: " << user->getNombre() << "\n";
+		cout << "Número usuario logueado: " << user->getNumTel() << "\n";
 	}
 
 	if (user != NULL && user->getNumTel() != numTel)
@@ -138,16 +133,16 @@ int ControllerSesion::abrirApp(int numTel){
 				cout << "Ingresar descripción breve:\n";
 				cin >> desc;
 				cout << endl;
-				this->instancia = iUsuario->altaUsuario(numTel, nombre, img, desc);				
+				user = iUsuario->altaUsuario(numTel, nombre, img, desc);
+				setUserLoggeado(user);
 				salir = true;
 				break;
 			case 3:
 				// cerrarApp();
 				salir = true;
 				break;
-			/*default:
-				cout << opt << " no es una opcion correcta \n"
-						 << endl;+ */
+			default:
+				cout << opt << " no es una opcion correcta \n" << endl;
 			}
 		} 
 		else //if (user->getNumTel() == numTel)
@@ -172,8 +167,8 @@ void ControllerSesion::cerrarApp()
 	bool isLoggedIn = loggedIn();
 
 	if (isLoggedIn){
-		this->instancia = NULL;
 		this->userLoggeado = NULL;
+		this->instancia = NULL;
 	}
 	cout << "Sesión cerrada exitosamente" << endl;
 }

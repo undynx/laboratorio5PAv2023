@@ -13,21 +13,23 @@ class ControllerUsuario: public InterfaceUsuario
 {
 private:
     static ControllerUsuario* instancia;
-    public: map<int,Usuario*> colUsuarios; //coleccion de usuarios del sistema
-    //Memoria del Controller
+    map<int, Usuario*> colUsuarios; //coleccion de usuarios registrados en el sistema
+    map<int, Usuario*> colContactos; //coleccion de contactos
+
 public:
     ControllerUsuario();
     static ControllerUsuario *getinstancia();
     ~ControllerUsuario();
-    // void altaUsuario(Usuario* user);
-    ControllerSesion* altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
+    Usuario *altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
     bool ingresarNumero(int numTel);
     Usuario* encontrarUsuarioxnumTel(int numTel);
-    //set<DtUsuario> listarContactos(int numTel);
-    //DtUsuario agregarContacto(int numTel);
-    //void cancelar();
-    //void salir();
-    //Operaciones
+    void agregarContacto(int numTel);
+    Usuario *encontrarContactoxNumTel(int numTel);
+    void listarContactos();
+    // set<DtUsuario> listarContactos(int numTel);
+    // void cancelar();
+    // void salir();
+    // Operaciones
 };
 
 #endif
