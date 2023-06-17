@@ -16,7 +16,7 @@ ControllerUsuario* ControllerUsuario::getinstancia()
 
 ControllerUsuario::~ControllerUsuario() {}
 
-ControllerSesion* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, string descripcion)
+Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, string descripcion)
 {
     DtFechaHora fecReg = DtFechaHora(24, 9, 1999, 19, 30);
     DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
@@ -32,7 +32,7 @@ ControllerSesion* ControllerUsuario::altaUsuario(int numTel, string nombre, stri
     cout << "Se dio de alta su usuario correcatmente.\n";
     cout << "Hora de conexión:" << ultCon.getHora() <<":"<< ultCon.getMin();
 
-    return cs;
+    return user;
 }
 
 bool ControllerUsuario::ingresarNumero(int numTel)
@@ -63,56 +63,54 @@ Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
     return user;
 }
 
+//Si existe el contacto devuelve el usuario, sino devuelve NULL
+Usuario *ControllerUsuario::encontrarContactoxNumTel(int numTel){
+    if (colContactos.find(numTel) != instancia->colUsuarios.end())
+    {
+          return instancia->colContactos.at(numTel);
+    }
 
-/*
-set<DtUsuario> listarContactos(int numTel){
-    Usuario *u; 
-    ControllerUsuario* cu = ControllerUsuario::getinstancia();
-    map<int, Usuario*>::iterator it;
-    for (it = u->contacto .begin(); it != u->contacto.end(); ++it) 
-  {
-    cout << u->contacto.at(it).getNombre<<endl;
-    cout << u->contacto.at(it).getImagen<<endl;
-    cout << u->contacto.at(it).getDescripcion<<endl;
-    it++;
-  }
- 
- 
+    return NULL;
 }
 
-DtUsuario agregarContacto( int numTel){
+void ControllerUsuario::agregarContacto(int numTel) {
+    // Primero busco si el usuario existe en el sistema
+    Usuario *contacto = NULL;
+    contacto = encontrarUsuarioxnumTel(numTel);
 
-   ControllerUsuario* cu = ControllerUsuario::getinstancia();
-   
-    Usuario *u;
-    int contactonuevo;
-    bool existe;
-    bool salir= false;
-    while(!salir){//mientras quiera agregar contactos;
-       //  u->mostrarDatos();
-       listarContactos(u->getNumTel);
-         cout<<"Ingrese el numero del contacto a agregar:"<<endl;
-         cin>> contactonuevo;
-        existe=ingresarNumero(contactonuevo);
-         if(existe){
-            u->getContacto(contactonuevo);
-            cout<<"Se encontro el contacto"<<endl;
-            u->contacto.insert(make_pair(auto,u->getContacto(contactonuevo) ))
-            
 
-         }
-        else{
-            cout<<"El contacto ingresado no existe"<<endl;
+    if(contacto == NULL) { //Si no existe no hago nada
+        cout << "  ERROR: No existe ningun usuario con el número " << numTel << " en el sistema" << endl;
+
+    }else {
+        //Busca si ya tiene ese contacto agregado
+        if (this->colContactos.find(numTel) != this->colContactos.end())
+        {
+            cout << "  ERROR: Ya existe el usuario con el numero " << numTel << " en tu lista de contactos" << endl;
         }
-         
-
-
+        else
+        {
+            cout << "Nombre: " << contacto->getNombre() << endl;
+            cout << "Numero: " << contacto->getNumTel() << endl;
+            cout << "Descripcion: " << contacto->getDescripcion() << endl;
+            cout << "URL imagen: " << contacto->getImagen() << endl;
+            // cout << "Ultima conexion: " << contacto->getUltCon() << endl;
+            // cout << "Fecha de registro: " << contacto->getFecReg() << endl;
+            cout << "\nDeseas agregar a este usuario a tus contactos?" << endl;
+            cout << "  1) SI \n  2) NO" << endl;
+            int opt;
+            cin >> opt;
+            if (opt == 1)
+            { // Desea agregarlo a contactos
+                this->colContactos.insert({numTel, contacto});
+            }
+        }
     }
-   
+}
 
-
-
-}*/
-
-/* void salir(){}
-void cancelar(){} */
+//Muestra en consola todos los usuarios en la lista de contactos
+void ControllerUsuario::listarContactos(){
+    for (auto it = colContactos.begin(); it != colContactos.end(); it++){
+        cout << it->second->getNombre() << " - " << it->second->getNumTel() << endl;
+    }
+} 
