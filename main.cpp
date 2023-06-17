@@ -34,7 +34,7 @@ int main()
         int numTel;
         cout << "Ingresar número de celular" << endl;
         cin >> numTel;
-        //iSesion->abrirApp(numTel);
+        iSesion->abrirApp(numTel);
         break;
       case 2: //Alta Usuario
         cout << "Agregar Contacto - NO IMPLEMENTADA" << endl;
