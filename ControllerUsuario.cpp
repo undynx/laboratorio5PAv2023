@@ -61,6 +61,7 @@ Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
 
 //Si existe el contacto devuelve el usuario, sino devuelve NULL
 Usuario *ControllerUsuario::encontrarContactoxNumTel(int numTel){
+
     if (colContactos.find(numTel) != instancia->colUsuarios.end())
     {
         return instancia->colContactos.at(numTel);
@@ -91,15 +92,15 @@ void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
         }
         else
         {
-            DtFechaHora ultCon = contacto->getUltCon();
-            DtFechaHora fecReg = contacto->getFecReg();
+            //DtFechaHora ultCon = contacto->getUltCon();
+            //DtFechaHora fecReg = contacto->getFecReg();
 
             cout << "Nombre: " << contacto->getNombre() << endl;
-            //cout << "Numero: " << contacto->getNumTel() << endl;
+            cout << "Numero: " << contacto->getNumTel() << endl;
             cout << "Descripcion: " << contacto->getDescripcion() << endl;
             cout << "URL imagen: " << contacto->getImagen() << endl;
-            cout << "Ultima conexion: " << ultCon.getDia() << "/" << ultCon.getMes() << "/" << ultCon.getAnio() << " " << ultCon.getHora() << ":" << ultCon.getMin() << endl;
-            cout << "Fecha de Registro: " << fecReg.getDia() << "/" << fecReg.getMes() << "/" << fecReg.getAnio() << " " << fecReg.getHora() << ":" << fecReg.getMin() << endl;
+            //cout << "Ultima conexion: " << ultCon.getDia() << "/" << ultCon.getMes() << "/" << ultCon.getAnio() << " " << ultCon.getHora() << ":" << ultCon.getMin() << endl;
+            //cout << "Fecha de Registro: " << fecReg.getDia() << "/" << fecReg.getMes() << "/" << fecReg.getAnio() << " " << fecReg.getHora() << ":" << fecReg.getMin() << endl;
             cout << "\nDeseas agregar a este usuario a tus contactos?" << endl;
             cout << "  1) SI \n  2) NO" << endl;
             int opt;
