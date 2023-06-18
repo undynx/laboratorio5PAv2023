@@ -9,6 +9,7 @@ class InterfaceSesion {
     virtual bool loggedIn() = 0;
     virtual Usuario *getUserLoggeado() = 0;
     virtual void modificarUsuario() = 0;
+    virtual void setUserLoggeado(Usuario* user) = 0;
     virtual void cerrarApp() = 0;
 };
 

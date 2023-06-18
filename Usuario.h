@@ -18,7 +18,7 @@ class Usuario{
        string imagen;
        string descripcion;
        DtFechaHora ultCon;
-       map <int, Usuario*> contacto;
+       map <int, Usuario*> colContactos;
        set <Estado*> estado;
     public:
         Usuario();
@@ -34,9 +34,10 @@ class Usuario{
         void setDescripcion(string desc);
         DtFechaHora getUltCon();
         DtUsuario pedirDatos();
-        DtUsuario getContacto(int numtel);
+        Usuario* getContacto(int numtel);
         DtUsuario setUsuario(DtUsuario u);
         void setContacto(Usuario* u);
+        map <int, Usuario*> getListaContactos();
         ~Usuario();
 };
 #endif

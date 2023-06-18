@@ -46,7 +46,7 @@ int ControllerSesion::abrirApp(int numTel){
 
 	Factory *fact = Factory::getInstancia();
 	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
-	this->getInstancia();
+	//this->getInstancia();
 
 	int opt;
 	bool existeNum = false;
@@ -79,7 +79,9 @@ int ControllerSesion::abrirApp(int numTel){
 				salir = true;
 				cerrarApp();
 				break;
-			case 2: // No hago nada
+			case 2:
+				salir = true;
+				// No hago nada
 				break;
 			default:
 				cout << opt << " no es una opcion correcta"<< endl;

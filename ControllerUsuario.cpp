@@ -22,12 +22,10 @@ Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen
     DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
 
     this->getinstancia();
-    ControllerSesion* cs = ControllerSesion::getInstancia();
 
     Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, descripcion, ultCon);
 
     instancia->colUsuarios.insert({numTel, user});
-    cs->setUserLoggeado(user);
 
     cout << "Se dio de alta su usuario correcatmente.\n";
     cout << "Hora de conexión:" << ultCon.getHora() <<":"<< ultCon.getMin();
@@ -51,7 +49,6 @@ bool ControllerUsuario::ingresarNumero(int numTel)
 
 Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
 {
-
     this->getinstancia();
     Usuario* user = NULL;
 
@@ -73,18 +70,23 @@ Usuario *ControllerUsuario::encontrarContactoxNumTel(int numTel){
     return NULL;
 }
 
-void ControllerUsuario::agregarContacto(int numTel) {
+void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
+
     // Primero busco si el usuario existe en el sistema
+    //ControllerSesion* cs = ControllerSesion::getInstancia();
+    //Usuario *user = cs->getUserLoggeado();
+    //Llamar a una instancia nueva de sesión genera problemas con la sesión.
+    //Lo mejor es pasar el usuario logeado por parametro
+
     Usuario *contacto = NULL;
     contacto = encontrarUsuarioxnumTel(numTel);
-
 
     if(contacto == NULL) { //Si no existe no hago nada
         cout << "  ERROR: No existe ningun usuario con el número " << numTel << " en el sistema" << endl;
 
     }else {
         //Busca si ya tiene ese contacto agregado
-        if (this->colContactos.find(numTel) != this->colContactos.end())
+        if (user->getContacto(numTel) != NULL)
         {
             cout << "  ERROR: Ya existe el usuario con el numero " << numTel << " en tu lista de contactos" << endl;
         }
@@ -94,7 +96,7 @@ void ControllerUsuario::agregarContacto(int numTel) {
             DtFechaHora fecReg = contacto->getFecReg();
 
             cout << "Nombre: " << contacto->getNombre() << endl;
-            cout << "Numero: " << contacto->getNumTel() << endl;
+            //cout << "Numero: " << contacto->getNumTel() << endl;
             cout << "Descripcion: " << contacto->getDescripcion() << endl;
             cout << "URL imagen: " << contacto->getImagen() << endl;
             cout << "Ultima conexion: " << ultCon.getDia() << "/" << ultCon.getMes() << "/" << ultCon.getAnio() << " " << ultCon.getHora() << ":" << ultCon.getMin() << endl;
@@ -105,14 +107,21 @@ void ControllerUsuario::agregarContacto(int numTel) {
             cin >> opt;
             if (opt == 1)
             { // Desea agregarlo a contactos
-                this->colContactos.insert({numTel, contacto});
+                user->setContacto(contacto);
             }
         }
     }
 }
 
 //Muestra en consola todos los usuarios en la lista de contactos
-void ControllerUsuario::listarContactos(){
+void ControllerUsuario::listarContactos(Usuario* user){
+
+    //ControllerSesion* cs = ControllerSesion::getInstancia();
+    //Usuario *user = cs->getUserLoggeado();
+    //Llamar a una instancia nueva de sesión genera problemas con la sesión.
+    //Lo mejor es pasar el usuario logeado por parametro
+    colContactos = user->getListaContactos();
+
     for (auto it = colContactos.begin(); it != colContactos.end(); it++){
         cout << it->second->getNombre() << " - " << it->second->getNumTel() << endl;
     }

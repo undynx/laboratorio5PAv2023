@@ -41,10 +41,16 @@ DtFechaHora Usuario::getUltCon(){
     return this->ultCon;
 }
 
-/*DtUsuario Usuario::getContacto(int numtel){
-    return this->contacto.find(numtel);
+Usuario* Usuario::getContacto(int numtel){
+
+ if (colContactos.find(numTel) != colContactos.end())
+    {
+          return colContactos.at(numTel);
+    }
+    return NULL;
 }
 
+/*
 DtUsuario Usuario::pedirDatos(){
     Usuario *u;
     string nombre;
@@ -57,8 +63,8 @@ DtUsuario Usuario::pedirDatos(){
     cout<<"Ingrese su Descripcion"<<endl;
     cin>> descripcion;
     return u;
-}*/
-
+}
+*/
 
 //Setters
 
@@ -79,12 +85,23 @@ void Usuario::setImagen(string img){
 }
 
 void Usuario::setContacto(Usuario* u){
-    this->contacto.insert({u->numTel, u});
+
+    //Agrego al usuario que viene por parametro "u" a la lista de contactos del usuario "this"
+    this->colContactos.insert({u->numTel, u});
+
+    //Agrego al usuario "this" a la lista de contactos del usuario "u"
+    u->colContactos.insert({this->numTel, this});
+
 }
 
-DtUsuario Usuario::setUsuario(DtUsuario u){
-    //No se que hace
+map <int, Usuario*> Usuario::getListaContactos()
+{
+    return this->colContactos;
 }
+
+//DtUsuario Usuario::setUsuario(DtUsuario u){
+    //No se que hace
+//}
 
 
 //Destructor

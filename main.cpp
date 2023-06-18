@@ -32,6 +32,7 @@ int main()
     cout << "  8) Mi perfil" << endl;
     cout << "  9) Cerrar sesion" << endl;
     cout << "  10) Salir" << endl;
+    cout << "  11) Modificar fecha y hora" << endl;
     cout << "\n----------------------------\n";
 
     cin >> opt;
@@ -56,7 +57,7 @@ int main()
         break;
       case 3: // Agregar contacto
         if(iSesion->loggedIn() == false) {
-          cout << "  ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
+          cout << "ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
         }else {
           int opcion;
           bool salirAgregarContacto = false;
@@ -64,11 +65,11 @@ int main()
           {
             cout << "----------------------------" << endl;
             cout << "CONTACTOS: " << endl;
-            iUsuario->listarContactos();
+            iUsuario->listarContactos(iSesion->getUserLoggeado());
             cout << "----------------------------" << endl;
             cout << "\nIngresa el numero del usuario que queres agregar a tus contactos" << endl;
             cin >> numTel;
-            iUsuario->agregarContacto(numTel);
+            iUsuario->agregarContacto(numTel, iSesion->getUserLoggeado());
 
             cout << "\nDeseas seguir agregando contactos?" << endl;
             cout << "  1) SI \n  2) NO" << endl;
@@ -103,6 +104,9 @@ int main()
         break;
       case 10:
         salir = true;
+        break;
+      case 11:
+        //Modificar Reloj
         break;
       default:
         cout << "  ERROR: no es una opcion correcta" << endl;

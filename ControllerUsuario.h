@@ -23,9 +23,9 @@ public:
     Usuario *altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
     bool ingresarNumero(int numTel);
     Usuario* encontrarUsuarioxnumTel(int numTel);
-    void agregarContacto(int numTel);
+    void agregarContacto(int numTel, Usuario* user);
     Usuario *encontrarContactoxNumTel(int numTel);
-    void listarContactos();
+    void listarContactos(Usuario* user);
     // set<DtUsuario> listarContactos(int numTel);
     // void cancelar();
     // void salir();
