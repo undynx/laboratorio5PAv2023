@@ -126,9 +126,9 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 			case 2:
 				// Alta Usuario
 				cout << "Ingresar el nombre" << endl;
-        cin >> nombre;
-        cin.ignore();
-        cout << "Ingresar la URL de perfil" << endl;
+        		cin >> nombre;
+        		cin.ignore();
+        		cout << "Ingresar la URL de perfil" << endl;
 				std::getline(cin, img);
 				cout << "Ingresar la descripcion" << endl;
 				std::getline(cin, desc);
