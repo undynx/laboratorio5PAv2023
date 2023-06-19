@@ -6,7 +6,7 @@
 
 Usuario::Usuario() {}
 
-Usuario::Usuario(int numTel, string nombre, DtFechaHora fecReg, string imagen, string descripcion, DtFechaHora ultCon){
+Usuario::Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon){
     this->numTel = numTel;
     this->nombre = nombre;
     this->fecReg = fecReg;
@@ -25,7 +25,7 @@ string Usuario::getNombre(){
     return this->nombre;
 }
 
-DtFechaHora Usuario::getFecReg(){
+DtFechaHora* Usuario::getFecReg(){
     return this->fecReg;
 }
 
@@ -37,8 +37,13 @@ string Usuario::getDescripcion(){
     return this->descripcion;
 }
 
-DtFechaHora Usuario::getUltCon(){
+DtFechaHora* Usuario::getUltCon(){
     return this->ultCon;
+}
+
+void Usuario::setUltCon(DtFechaHora* ultCon)
+{
+    this->ultCon = ultCon;
 }
 
 Usuario* Usuario::getContacto(int numtel){

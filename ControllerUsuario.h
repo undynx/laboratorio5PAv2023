@@ -20,7 +20,7 @@ public:
     ControllerUsuario();
     static ControllerUsuario *getinstancia();
     ~ControllerUsuario();
-    Usuario *altaUsuario(int numTel, std::string nombre, std::string imagen, std::string descripcion);
+    Usuario *altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg);
     bool ingresarNumero(int numTel);
     Usuario* encontrarUsuarioxnumTel(int numTel);
     void agregarContacto(int numTel, Usuario* user);

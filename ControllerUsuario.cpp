@@ -16,10 +16,9 @@ ControllerUsuario* ControllerUsuario::getinstancia()
 
 ControllerUsuario::~ControllerUsuario() {}
 
-Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, string descripcion)
+Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg)
 {
-    DtFechaHora fecReg = DtFechaHora(24, 9, 1999, 19, 30);
-    DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
+    DtFechaHora* ultCon = fecReg;
 
     this->getinstancia();
 
@@ -28,7 +27,7 @@ Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen
     instancia->colUsuarios.insert({numTel, user});
 
     cout << "Se dio de alta su usuario correcatmente.\n";
-    cout << "Hora de conexión:" << ultCon.getHora() <<":"<< ultCon.getMin();
+    fecReg->mostrarFechayHoraConexion();
 
     return user;
 }
@@ -82,13 +81,13 @@ void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
     contacto = encontrarUsuarioxnumTel(numTel);
 
     if(contacto == NULL) { //Si no existe no hago nada
-        cout << "  ERROR: No existe ningun usuario con el número " << numTel << " en el sistema" << endl;
+        cout << "ERROR: No existe ningun usuario con el número " << numTel << " en el sistema" << endl;
 
     }else {
         //Busca si ya tiene ese contacto agregado
         if (user->getContacto(numTel) != NULL)
         {
-            cout << "  ERROR: Ya existe el usuario con el numero " << numTel << " en tu lista de contactos" << endl;
+            cout << "ERROR: Ya existe el usuario con el numero " << numTel << " en tu lista de contactos" << endl;
         }
         else
         {

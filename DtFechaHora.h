@@ -1,5 +1,8 @@
 #ifndef DTFECHAHORA_H
 #define DTFECHAHORA_H
+#include <iostream>
+
+using namespace std;
 
 class DtFechaHora{
     private:
@@ -16,6 +19,8 @@ class DtFechaHora{
         int getAnio();
         int getHora();
         int getMin();
+        void mostrarFechayHora();
+        void mostrarFechayHoraConexion();
         ~DtFechaHora();
 };
 #endif

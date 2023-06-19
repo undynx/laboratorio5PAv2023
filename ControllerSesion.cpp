@@ -40,12 +40,12 @@ bool ControllerSesion::loggedIn()
 	}
 }
 
-int ControllerSesion::abrirApp(int numTel){
+int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 
-  DtFechaHora ultCon = DtFechaHora(24, 9, 1999, 19, 30);
+  	DtFechaHora* fecCon = fechaSesion;
 
-	Factory *fact = Factory::getInstancia();
-	InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
+	Factory* fact = Factory::getInstancia();
+	InterfaceUsuario* iUsuario = fact->getInterfaceUsuario();
 	//this->getInstancia();
 
 	int opt;
@@ -77,7 +77,7 @@ int ControllerSesion::abrirApp(int numTel){
 			{
 			case 1: // Cerrar app
 				salir = true;
-				cerrarApp();
+				cerrarApp(fecCon);
 				break;
 			case 2:
 				salir = true;
@@ -132,7 +132,7 @@ int ControllerSesion::abrirApp(int numTel){
 				std::getline(cin, img);
 				cout << "Ingresar la descripcion" << endl;
 				std::getline(cin, desc);
-				user = iUsuario->altaUsuario(numTel, nombre, img, desc);
+				user = iUsuario->altaUsuario(numTel, nombre, img, desc, fecCon);
 				setUserLoggeado(user);
 				salir = true;
 				break;
@@ -140,8 +140,8 @@ int ControllerSesion::abrirApp(int numTel){
 				// cerrarApp();
 				salir = true;
 				break;
-			default:
-				cout << opt << " no es una opcion correcta \n" << endl;
+			//default:
+				//cout << opt << " no es una opcion correcta \n" << endl;
 			}
 		} 
 		else //if (user->getNumTel() == numTel)
@@ -152,7 +152,7 @@ int ControllerSesion::abrirApp(int numTel){
 			cout << "Sesión iniciada correcatmente.\n";
 			cout << "Nombre usuario logueado: " << user->getNombre() << "\n";
 			cout << "Número usuario logueado: " << user->getNumTel() << "\n";
-			cout << "Hora de conexión:" << ultCon.getHora() <<":"<< ultCon.getMin();
+			fecCon->mostrarFechayHoraConexion();
 		}
 	}
 
@@ -208,14 +208,18 @@ void ControllerSesion::modificarUsuario(){
 	}
 }
 
-void ControllerSesion::cerrarApp(){
+void ControllerSesion::cerrarApp(DtFechaHora* fechaUltCon){
 	bool isLoggedIn = loggedIn();
 
 	if (isLoggedIn){
+		userLoggeado->setUltCon(fechaUltCon);
 		this->userLoggeado = NULL;
 		this->instancia = NULL;
+		cout << "Sesión cerrada exitosamente" << endl;
+	}else{
+		cout << "No hay ninguna sesión activa" << endl;
 	}
-	cout << "Sesión cerrada exitosamente" << endl;
+
 }
 
 ControllerSesion::~ControllerSesion(){}

@@ -14,25 +14,26 @@ class Usuario{
     private:
        int numTel;
        string nombre;
-       DtFechaHora fecReg;
+       DtFechaHora* fecReg;
        string imagen;
        string descripcion;
-       DtFechaHora ultCon;
+       DtFechaHora* ultCon;
        map <int, Usuario*> colContactos;
        set <Estado*> estado;
     public:
         Usuario();
-        Usuario(int numTel, string nombre, DtFechaHora fecReg, string imagen, string descripcion, DtFechaHora ultCon);
+        Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon);
         int getNumTel();
         void setNumTel(int numtel);
         string getNombre();
         void setNombre(string nombre);
-        DtFechaHora getFecReg();
+        DtFechaHora* getFecReg();
         string getImagen();
         void setImagen(string img);
         string getDescripcion();
         void setDescripcion(string desc);
-        DtFechaHora getUltCon();
+        DtFechaHora* getUltCon();
+        void setUltCon(DtFechaHora* ultCon);
         DtUsuario pedirDatos();
         Usuario* getContacto(int numtel);
         DtUsuario setUsuario(DtUsuario u);

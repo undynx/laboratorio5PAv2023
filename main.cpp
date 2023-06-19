@@ -14,12 +14,16 @@ InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
 InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
 InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
 
+DtFechaHora *fechaSistema = new DtFechaHora(28, 12, 2023, 21, 30);
+
 int main()
 {
   bool salir = false;
   int opt;
+  int optfec;
   int numTel;
   string nombre, imagen, descripcion;
+  int dia, mes, anio, hora, min;
 
   do {
 
@@ -41,7 +45,7 @@ int main()
       case 1: //Abrir app
         cout << "Ingresar número de celular" << endl;
         cin >> numTel;
-        iSesion->abrirApp(numTel);
+        iSesion->abrirApp(numTel, fechaSistema);
         break;
       case 2: //Alta usuario
         cout << "Ingresar número de celular" << endl;
@@ -53,7 +57,7 @@ int main()
         getline(cin, imagen);
         cout << "Ingresar la descripcion" << endl;
         getline(cin, descripcion);
-        iUsuario->altaUsuario(numTel, nombre, imagen, descripcion);
+        iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
         break;
       case 3: // Agregar contacto
         if(iSesion->loggedIn() == false) {
@@ -100,15 +104,52 @@ int main()
         if (iSesion->loggedIn() == false)
           cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
         else
-          iSesion->cerrarApp();
+          iSesion->cerrarApp(fechaSistema);
         break;
       case 10:
         salir = true;
         break;
       case 11:
         //Modificar Reloj
+        cout << "\n----------------------------\n";
+			  cout << "Elige la opcion que desees:\n";
+			  cout << "  1) Ver fecha sistema" << endl;
+			  cout << "  2) Modificar fecha sistema" << endl;
+			  cout << "  3) Salir" << endl;
+			  cout << "\n----------------------------\n";
+
+			  cin >> optfec;
+
+			  switch (optfec)
+			  {
+			  case 1:
+				  //Ver fecha sistema
+          fechaSistema->mostrarFechayHora();
+				break;
+        case 2:
+          // Modificar fecha sistema
+          cout << "Ingresar día:\n";				 
+          cin >> dia;
+          cout << endl;
+          cout << "Ingresar mes:\n";
+          cin >> mes;
+          cout << endl;
+          cout << "Ingresar año:\n";
+          cin >> anio;
+          cout << endl;
+          cout << "Ingresar hora:\n";
+          cin >> hora;
+          cout << endl;
+          cout << "Ingresar minuto:\n";
+          cin >> min;
+          cout << endl;
+          fechaSistema = new DtFechaHora(dia,mes,anio,hora,min);
+          cout << "Reloj del sistema actualizado exitosamente\n";
+          cout << endl;
         break;
-      default:
+        }
+        break;
+        default:
         cout << "  ERROR: no es una opcion correcta" << endl;
         break;
       }
@@ -116,3 +157,4 @@ int main()
 
   return 0;
 }
+
