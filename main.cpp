@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string> 
 #include "Factory.h"
 #include "InterfaceSesion.h"
 #include "InterfaceUsuario.h"
@@ -27,8 +28,10 @@ int main()
     cout << "  1) Abrir app" << endl;
     cout << "  2) Alta usuario" << endl;
     cout << "  3) Agregar Contacto" << endl;
-    cout << "  8) Cerrar app" << endl;
-    cout << "  9) Salir" << endl;
+    cout << "  4) Modificar mi usuario" << endl;
+    cout << "  8) Mi perfil" << endl;
+    cout << "  9) Cerrar sesion" << endl;
+    cout << "  10) Salir" << endl;
     cout << "\n----------------------------\n";
 
     cin >> opt;
@@ -44,10 +47,11 @@ int main()
         cin >> numTel;
         cout << "Ingresar el nombre" << endl;
         cin >> nombre;
+        cin.ignore();
         cout << "Ingresar la URL de perfil" << endl;
-        cin >> imagen;
+        getline(cin, imagen);
         cout << "Ingresar la descripcion" << endl;
-        cin >> descripcion;
+        getline(cin, descripcion);
         iUsuario->altaUsuario(numTel, nombre, imagen, descripcion);
         break;
       case 3: // Agregar contacto
@@ -73,16 +77,32 @@ int main()
               salirAgregarContacto = true;
           } while (salirAgregarContacto != true);
         }
-      case 8: 
-        //Cerrar app
-        //iSesion->cerrarApp();
         break;
-      case 9:
+      case 4: //Modificar usuario
+        if(iSesion->loggedIn() == false) {
+          cout << "  ERROR: Debes iniciar sesion para poder modificar tu usuario" << endl;
+        }else {
+          iSesion->modificarUsuario();
+        }
+        break;
+      case 8: //Mi perfil
+        cout << "Nombre: " << iSesion->getUserLoggeado()->getNombre() << endl;
+        cout << "Imagen: " << iSesion->getUserLoggeado()->getImagen() << endl;
+        cout << "Descripcion: " << iSesion->getUserLoggeado()->getDescripcion() << endl;
+        break;
+      case 9: // Cerrar app
+        if (iSesion->loggedIn() == false)
+          cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
+        else
+          iSesion->cerrarApp();
+        break;
+      case 10:
         salir = true;
         break;
       default:
-        cout << opt << " no es una opcion correcta" << endl;
-    }
+        cout << "  ERROR: no es una opcion correcta" << endl;
+        break;
+      }
   } while (!salir);
 
   return 0;
