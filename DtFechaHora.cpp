@@ -3,11 +3,11 @@
 DtFechaHora::DtFechaHora(){};
 
 DtFechaHora::DtFechaHora(int dia, int mes, int anio, int hora, int min){
-    this-> dia=dia;
-    this-> mes=mes;
-    this-> anio=anio;
-    this-> hora=hora;
-    this-> min=min;
+    this->dia=dia;
+    this->mes=mes;
+    this->anio=anio;
+    this->hora=hora;
+    this->min=min;
 }
 
 //Gettes
