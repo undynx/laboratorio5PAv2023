@@ -86,9 +86,14 @@ int main()
         }
         break;
       case 8: //Mi perfil
-        cout << "Nombre: " << iSesion->getUserLoggeado()->getNombre() << endl;
-        cout << "Imagen: " << iSesion->getUserLoggeado()->getImagen() << endl;
-        cout << "Descripcion: " << iSesion->getUserLoggeado()->getDescripcion() << endl;
+        if (iSesion->loggedIn() == false)
+        {
+          cout << "  ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
+        }else {
+          cout << "Nombre: " << iSesion->getUserLoggeado()->getNombre() << endl;
+          cout << "Imagen: " << iSesion->getUserLoggeado()->getImagen() << endl;
+          cout << "Descripcion: " << iSesion->getUserLoggeado()->getDescripcion() << endl;
+        }
         break;
       case 9: // Cerrar app
         if (iSesion->loggedIn() == false)

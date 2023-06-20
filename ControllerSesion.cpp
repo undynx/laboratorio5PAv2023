@@ -75,17 +75,14 @@ int ControllerSesion::abrirApp(int numTel){
 
 			switch (opt)
 			{
-			case 1:
-				// Cerrar app
+			case 1: // Cerrar app
 				salir = true;
 				cerrarApp();
 				break;
-			case 2:
-				// No hago nada
+			case 2: // No hago nada
 				break;
-			/*default:
-				cout << opt << " no es una opcion correcta \n"
-						 << endl;*/
+			default:
+				cout << opt << " no es una opcion correcta"<< endl;
 			}
 		} while (opt != 2 && !salir);
 
@@ -130,10 +127,10 @@ int ControllerSesion::abrirApp(int numTel){
         cin >> nombre;
         cin.ignore();
         cout << "Ingresar la URL de perfil" << endl;
-        getline(cin, img);
-        cout << "Ingresar la descripcion" << endl;
-        getline(cin, desc);
-        iUsuario->altaUsuario(numTel, nombre, img, desc);
+				std::getline(cin, img);
+				cout << "Ingresar la descripcion" << endl;
+				std::getline(cin, desc);
+				user = iUsuario->altaUsuario(numTel, nombre, img, desc);
 				setUserLoggeado(user);
 				salir = true;
 				break;
@@ -178,7 +175,7 @@ void ControllerSesion::modificarUsuario(){
 	{
 		case 1: //Username
 			cout << "Ingresa tu nuevo username: " << endl;
-			getline(cin, modificacion);
+			std::getline(cin, modificacion);
 			//Cambia el nombre en el usuario actual
 			this->userLoggeado->setNombre(modificacion);
 			//Cambia el nombre en la lista de usuarios
@@ -187,7 +184,7 @@ void ControllerSesion::modificarUsuario(){
 			break;
 		case 2: //Foto de perfil
 			cout << "Ingresa el URL de tu nueva foto de perfil: " << endl;
-			getline(cin, modificacion);
+			std::getline(cin, modificacion);
 			// Cambia la foto en el usuario actual
 			this->userLoggeado->setImagen(modificacion);
 			// Cambia la foto en la lista de usuarios
@@ -196,7 +193,7 @@ void ControllerSesion::modificarUsuario(){
 			break;
 		case 3: // Descripcion
 			cout << "Ingresa tu nueva descripcion: " << endl;
-			getline(cin, modificacion);
+			std::getline(cin, modificacion);
 			// Cambia la descripcion en el usuario actual
 			this->userLoggeado->setDescripcion(modificacion);
 			// Cambia la descripcion en la lista de usuarios
