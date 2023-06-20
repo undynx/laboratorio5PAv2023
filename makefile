@@ -1,5 +1,5 @@
 todo: main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MContacto.o DtMContacto.o
-	g++ -g -Wall -o main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MContacto.o DtMContacto.o
+	g++ -g -Wall -o main main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MContacto.o DtMContacto.o
 
 main.o: main.cpp
 	g++ -g -Wall -c main.cpp
