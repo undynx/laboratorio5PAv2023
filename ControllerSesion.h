@@ -16,7 +16,8 @@ public:
 	static ControllerSesion *getInstancia();
 	bool loggedIn();
 	Usuario* getUserLoggeado();
-	void setUserLoggeado(Usuario* user);
+	void modificarUsuario();
+	void setUserLoggeado(Usuario *user);
 	int abrirApp(int numTel);
 	void cerrarApp();
 	~ControllerSesion();
