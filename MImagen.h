@@ -9,12 +9,13 @@ using namespace std;
 class MImagen : public Mensaje
 {
     private:
+        string url;
         string formato;
         string tamaño;
         string texto;
     public:
         MImagen();
-        MImagen(string codigo, DtFechaHora fechayHora,string formato, string tamaño, string texto);
+        MImagen(string codigo, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto);
         string getFormato();
         string getTamaño();
         string getTexto();

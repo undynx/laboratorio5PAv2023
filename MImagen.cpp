@@ -3,9 +3,12 @@
 
 MImagen::MImagen() {}
 
-MImagen::MImagen(string codigo, DtFechaHora fechayHora,string formato, string tamaño, string texto):Mensaje(codigo, fechayHora)
+MImagen::MImagen(string codigo, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto):Mensaje(codigo, fechayHora)
 {
-
+    this->url = url;
+    this->formato = formato;
+    this->tamaño = tamaño;
+    this->texto = texto;
 }
 
 void MImagen::MostrardatosM()

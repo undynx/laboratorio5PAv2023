@@ -8,7 +8,7 @@ using namespace std;
 
 Mensaje::Mensaje(){}
 
-Mensaje::Mensaje(string codigo, DtFechaHora fechayHora){
+Mensaje::Mensaje(string codigo, DtFechaHora* fechayHora){
     this-> codigo = codigo;
     this-> fechayHora = fechayHora;
 }
@@ -19,7 +19,7 @@ string Mensaje::getCodigo(){
     return this->codigo;
 }
 
-DtFechaHora Mensaje::getFechayHora(){
+DtFechaHora* Mensaje::getFechayHora(){
     return this->fechayHora;
 }
 

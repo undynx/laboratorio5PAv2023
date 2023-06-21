@@ -3,19 +3,21 @@
 #include <string>
 #include "DtFechaHora.h"
 #include "DtMensaje.h"
+//#include "Usuario.h"
 
 using namespace std;
 
 class Mensaje {
     private:
-        std::string codigo;
-        DtFechaHora fechayHora;
+        string codigo;
+        DtFechaHora* fechayHora;
+        //map<int,Usuario*> colVistoPor;
     public:
         Mensaje();
-        Mensaje(string codigo, DtFechaHora fechayHora);
+        Mensaje(string codigo, DtFechaHora* fechayHora);
         string getCodigo();
         void setCodigo(string);
-        DtFechaHora getFechayHora();
+        DtFechaHora* getFechayHora();
         void MostrardatosM();
         //DtMensaje delete(DtMensaje); ??
         DtMensaje seleccionar();

@@ -19,9 +19,8 @@ DtFechaHora *fechaSistema = new DtFechaHora(28, 12, 2023, 21, 30);
 int main()
 {
   bool salir = false;
-  int opt;
-  int optfec;
-  int numTel;
+  int opt,optreloj,optenvmsj,optvermsj;
+  int numTel,idConver;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
 
@@ -33,6 +32,8 @@ int main()
     cout << "  2) Alta usuario" << endl;
     cout << "  3) Agregar Contacto" << endl;
     cout << "  4) Modificar mi usuario" << endl;
+    cout << "  5) Enviar Mensaje" << endl;
+    cout << "  6) Ver Mensaje" << endl;
     cout << "  8) Mi perfil" << endl;
     cout << "  9) Cerrar sesion" << endl;
     cout << "  10) Salir" << endl;
@@ -43,53 +44,158 @@ int main()
 
     switch(opt) {
       case 1: //Abrir app
-        cout << "Ingresar número de celular" << endl;
-        cin >> numTel;
-        iSesion->abrirApp(numTel, fechaSistema);
-        break;
-      case 2: //Alta usuario
-        cout << "Ingresar número de celular" << endl;
-        cin >> numTel;
-        cout << "Ingresar el nombre" << endl;
-        cin >> nombre;
-        cin.ignore();
-        cout << "Ingresar la URL de perfil" << endl;
-        getline(cin, imagen);
-        cout << "Ingresar la descripcion" << endl;
-        getline(cin, descripcion);
-        iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
-        break;
-      case 3: // Agregar contacto
-        if(iSesion->loggedIn() == false) {
-          cout << "ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
-        }else {
-          int opcion;
-          bool salirAgregarContacto = false;
-          do
+          try
           {
-            cout << "----------------------------" << endl;
-            cout << "CONTACTOS: " << endl;
-            iUsuario->listarContactos(iSesion->getUserLoggeado());
-            cout << "----------------------------" << endl;
-            cout << "\nIngresa el numero del usuario que queres agregar a tus contactos" << endl;
+            cout << "Ingresar número de celular" << endl;
             cin >> numTel;
-            iUsuario->agregarContacto(numTel, iSesion->getUserLoggeado());
+            iSesion->abrirApp(numTel, fechaSistema);
+          }
+          catch (std::exception &e)
+          {
+            std::cerr << e.what() << '\n';
+          }
+      break;
+      case 2: //Alta usuario
+          try
+          {
+            cout << "Ingresar número de celular" << endl;
+            cin >> numTel;
+            cout << "Ingresar el nombre" << endl;
+            cin >> nombre;
+            cout << "Ingresar la URL de perfil" << endl;
+            cin >> imagen;
+            cout << "Ingresar la descripcion" << endl;
+            cin >> descripcion;
+            iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+          }
+          catch (std::exception &e)
+          {
+            std::cerr << e.what() << '\n';
+          }
+      break;
+      case 3: // Agregar contacto
+          try
+            {
+            if(iSesion->loggedIn() == false) {
+              cout << "ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
+            }else {
+              int opcion;
+              bool salirAgregarContacto = false;
+              do
+              {
+                cout << "----------------------------" << endl;
+                cout << "CONTACTOS: " << endl;
+                iUsuario->listarContactos(iSesion->getUserLoggeado());
+                cout << "----------------------------" << endl;
+                cout << "\nIngresa el numero del usuario que queres agregar a tus contactos" << endl;
+                cin >> numTel;
+                iUsuario->agregarContacto(numTel, iSesion->getUserLoggeado());
 
-            cout << "\nDeseas seguir agregando contactos?" << endl;
-            cout << "  1) SI \n  2) NO" << endl;
-            cin >> opcion;
-            if(opcion == 2)
-              salirAgregarContacto = true;
-          } while (salirAgregarContacto != true);
-        }
-        break;
+                cout << "\nDeseas seguir agregando contactos?" << endl;
+                cout << "  1) SI \n  2) NO" << endl;
+                cin >> opcion;
+                if(opcion == 2)
+                  salirAgregarContacto = true;
+              } while (salirAgregarContacto != true);
+            }
+          }
+          catch (std::exception &e)
+          {
+            std::cerr << e.what() << '\n';
+          }
+      break;
       case 4: //Modificar usuario
         if(iSesion->loggedIn() == false) {
           cout << "  ERROR: Debes iniciar sesion para poder modificar tu usuario" << endl;
         }else {
           iSesion->modificarUsuario();
         }
+      break;
+      case 5: 
+        //Enviar Mensaje
+        if(iSesion->loggedIn() == false) 
+        {
+          cout << "ERROR: Debes iniciar sesion antes de poder enviar mensajes" << endl;
+        }
+        else 
+        { 
+          try
+          {
+            //listarConversacionesActivas()
+            //cout << "Archivadas: " << cantArchivadas
+            cout << "\n----------------------------\n";
+            cout << "Elige la opcion que desees:\n";
+            cout << "  1) Seleccionar conversación activa" << endl;
+            cout << "  2) Ver las conversaciones archivadas" << endl;
+            cout << "  3) Iniciar conversación con un contacto nuevo" << endl;
+            cout << "\n----------------------------\n";
+
+            cin >> optenvmsj;
+
+            switch (optenvmsj)
+            {
+            case 1:
+              //Seleccionar conversación activa
+
+            break;
+            case 2:
+              //Ver las conversaciones archivadas
+
+            break;
+            case 3:
+              //Iniciar conversación con un contacto nuevo;
+              cout << "----------------------------" << endl;
+              cout << "CONTACTOS: " << endl;
+              iUsuario->listarContactos(iSesion->getUserLoggeado());
+              cout << "----------------------------" << endl;
+              cout << "Ingresar número de celular del contacto con el cual quiere iniciar la conversación" << endl;
+              cin >> numTel;
+              iConvMens->iniciarConversacion(numTel,iSesion->getUserLoggeado(), fechaSistema);
+            break;
+            //default:
+              //cout << opt << " no es una opcion correcta \n" << endl;
+            }             
+        }
+        catch (std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+      }
+      break;
+      case 6: 
+        //Ver Mensaje
+        if(iSesion->loggedIn() == false) {
+          cout << "ERROR: Debes iniciar sesion antes de poder enviar mensajes" << endl;
+        }else 
+        { 
+        //listarConversacionesActivas()
+        //cout << "Archivadas: " << cantArchivadas
+        cout << "\n----------------------------\n";
+			  cout << "Elige la opcion que desees:\n";
+			  cout << "  1) Seleccionar conversación activa" << endl;
+			  cout << "  2) Ver las conversaciones archivadas" << endl;
+			  cout << "\n----------------------------\n";
+
+			  cin >> optvermsj;
+
+			  switch (optvermsj)
+			  {
+			  case 1:
+				  //Seleccionar conversación activa
+          cout << "Ingresar el id de la conversación" << endl;
+          cin >> idConver;
+          iConvMens->ingresarIdConversacion(idConver,iSesion->getUserLoggeado());
+				break;
+        case 2:
+          //Ver las conversaciones archivadas
+
         break;
+        //default:
+          //cout << opt << " no es una opcion correcta \n" << endl;
+        }
+
+        }
+      break;
       case 8: //Mi perfil
         if (iSesion->loggedIn() == false)
         {
@@ -118,9 +224,9 @@ int main()
 			  cout << "  3) Salir" << endl;
 			  cout << "\n----------------------------\n";
 
-			  cin >> optfec;
+			  cin >> optreloj;
 
-			  switch (optfec)
+			  switch (optreloj)
 			  {
 			  case 1:
 				  //Ver fecha sistema

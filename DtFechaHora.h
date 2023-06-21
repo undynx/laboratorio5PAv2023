@@ -21,6 +21,7 @@ class DtFechaHora{
         int getMin();
         void mostrarFechayHora();
         void mostrarFechayHoraConexion();
+        void mostrarFechayHoraRegistro();
         ~DtFechaHora();
 };
 #endif

@@ -4,8 +4,8 @@
 //Constructores
 MContacto::MContacto(){}
 
-MContacto::MContacto(std::string codigo, DtFechaHora fechayHora):Mensaje(codigo, fechayHora){
-    
+MContacto::MContacto(string codigo, DtFechaHora* fechayHora, DtUsuario contacto):Mensaje(codigo, fechayHora){
+    this->contacto = contacto;
 }
 
 //Metodos

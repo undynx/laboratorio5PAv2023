@@ -3,9 +3,9 @@
 
 MSimple::MSimple() {}
 
-MSimple::MSimple(std::string codigo, DtFechaHora fechayhora, std::string texto):Mensaje(codigo, fechayhora)
+MSimple::MSimple(string codigo, DtFechaHora* fechayhora, string texto):Mensaje(codigo, fechayhora)
 {
-
+    this->texto = texto;
 }
 
 void MSimple::MostrardatosM()

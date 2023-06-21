@@ -9,19 +9,19 @@ class DtUsuario{
     private:
        int numTel;
        string nombre;
-       DtFechaHora fecReg;
+       DtFechaHora* fecReg;
        string imagen;
        string descripcion;
-       DtFechaHora ultCon;
+       DtFechaHora* ultCon;
     public:
         DtUsuario();
-        DtUsuario(int numTel, string nombre, DtFechaHora fecReg, string imagen, string descripcion, DtFechaHora ultCon);
+        DtUsuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon);
         int getNumTel();
         string getNombre();
-        DtFechaHora getFecReg();
+        DtFechaHora* getFecReg();
         string getImagen();
         string getDescripcion();
-        DtFechaHora getUltCon();
+        DtFechaHora* getUltCon();
         ~DtUsuario();
 };
 #endif

@@ -46,11 +46,20 @@ void Usuario::setUltCon(DtFechaHora* ultCon)
     this->ultCon = ultCon;
 }
 
-Usuario* Usuario::getContacto(int numtel){
+Usuario* Usuario::getContacto(int numTel){
 
  if (colContactos.find(numTel) != colContactos.end())
     {
           return colContactos.at(numTel);
+    }
+    return NULL;
+}
+
+Conversacion* Usuario::getConver(int idConver){
+
+ if (colConvers.find(idConver) != colConvers.end())
+    {
+          return colConvers.at(idConver);
     }
     return NULL;
 }
@@ -99,9 +108,20 @@ void Usuario::setContacto(Usuario* u){
 
 }
 
+void Usuario::setConver(Conversacion* conver){
+    //Agrego al usuario que viene por parametro "u" a la lista de contactos del usuario "this"
+    this->colConvers.insert({conver->getId(), conver});
+
+}
+
 map <int, Usuario*> Usuario::getListaContactos()
 {
     return this->colContactos;
+}
+
+map <int, Conversacion*> Usuario::getListaConvers()
+{
+    return this->colConvers;
 }
 
 //DtUsuario Usuario::setUsuario(DtUsuario u){

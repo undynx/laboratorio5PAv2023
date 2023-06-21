@@ -7,6 +7,8 @@
 #include "DtFechaHora.h"
 #include "DtUsuario.h"
 #include "Estado.h"
+#include "Conversacion.h"
+
 
 using namespace std;
 
@@ -19,6 +21,7 @@ class Usuario{
        string descripcion;
        DtFechaHora* ultCon;
        map <int, Usuario*> colContactos;
+       map <int,Conversacion*> colConvers;
        set <Estado*> estado;
     public:
         Usuario();
@@ -36,9 +39,12 @@ class Usuario{
         void setUltCon(DtFechaHora* ultCon);
         DtUsuario pedirDatos();
         Usuario* getContacto(int numtel);
+        Conversacion* getConver(int id);
+        void setConver(Conversacion* conver);
         DtUsuario setUsuario(DtUsuario u);
         void setContacto(Usuario* u);
         map <int, Usuario*> getListaContactos();
+        map <int,Conversacion*> getListaConvers();
         ~Usuario();
 };
 #endif

@@ -153,6 +153,7 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 			cout << "Nombre usuario logueado: " << user->getNombre() << "\n";
 			cout << "Número usuario logueado: " << user->getNumTel() << "\n";
 			fecCon->mostrarFechayHoraConexion();
+			user->getFecReg()->mostrarFechayHoraRegistro();
 		}
 	}
 
