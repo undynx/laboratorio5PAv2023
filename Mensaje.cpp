@@ -10,6 +10,7 @@ Mensaje::Mensaje(){}
 
 Mensaje::Mensaje(string codigo, int numTelRemitente,DtFechaHora* fechayHora){
     this-> codigo = codigo;
+    this-> numTelRemitente = numTelRemitente;
     this-> fechayHora = fechayHora;
 }
 
