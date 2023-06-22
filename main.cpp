@@ -165,7 +165,7 @@ int main()
       case 6: 
         //Ver Mensaje
         if(iSesion->loggedIn() == false) {
-          cout << "ERROR: Debes iniciar sesion antes de poder enviar mensajes" << endl;
+          cout << "ERROR: Debes iniciar sesion antes de poder ver mensajes" << endl;
         }else 
         { 
         //listarConversacionesActivas()

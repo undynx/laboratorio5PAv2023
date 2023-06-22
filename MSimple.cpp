@@ -3,7 +3,7 @@
 
 MSimple::MSimple() {}
 
-MSimple::MSimple(string codigo, DtFechaHora* fechayhora, string texto):Mensaje(codigo, fechayhora)
+MSimple::MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto):Mensaje(codigo, numTelRemitente, fechayhora)
 {
     this->texto = texto;
 }

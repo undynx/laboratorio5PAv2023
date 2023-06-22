@@ -17,20 +17,29 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
   //Factory *fact = Factory::getInstancia();
   //InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
   //string flag;
+  int optmsj, numTelCto, numTelRte, idConve;
+  string texto, url, tamanio, formato, duracion;
+  Mensaje* msj = new Mensaje();
+
+  idConve = rand() % 100 + 1;
+  cout << "IdConve: " << idConve;
 
   ControllerUsuario* cu = ControllerUsuario::getinstancia();
   Usuario* destinatario = user->getContacto(numTelContacto);
+  DtUsuario dtUser = user->pedirDatos();
+  numTelRte = dtUser.getNumTel();
+
+    //cout << "Numero: " << dtUser.getNumTel();
+    //cout << "Nombre: " << dtUser.getNombre();
+    //cout << "Imagen: " << dtUser.getImagen();
+    //dtUser.getFecReg()->mostrarFechayHoraRegistro();
 
   if(destinatario==NULL)
   {
     throw std::invalid_argument("\nERROR - El número ingresado no está en su lista de contactos");
   }
 
-  int optmsj, numTel;
-  string texto, url, tamanio, formato, duracion;
-  Mensaje* msj = new Mensaje();
-
-  ConversacionPrivada* converPriv = new ConversacionPrivada(true,rand() % 1000 + 1, user, destinatario);
+  ConversacionPrivada* converPriv = new ConversacionPrivada(true, idConve, user, destinatario);
   Conversacion *conver = dynamic_cast<ConversacionPrivada*>(converPriv);
   //Agrego la conversación a la lista de convers del sistema
   this->colConvers.insert({conver->getId(), conver});
@@ -42,7 +51,6 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
   //Agrego al usuario a la lista de integrantes de la conversacion
   //Conver->setParticipante(user);
   
-
         cout << "\n----------------------------\n";
 			  cout << "Elige la opcion que desees:\n";
 			  cout << "  1) Enviar Mensaje Simple" << endl;
@@ -60,7 +68,7 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
           cout << "Ingresar el texto desee enviar" << endl;
           cin >> texto;
           cout << endl;
-          msj = enviarMsjSimple(texto, fechaSistema);
+          msj = enviarMsjSimple(texto, fechaSistema, numTelRte);
           //Agrego al mensaje a la lista de mensajes de la conversación.
           conver->setMensaje(msj);
           cout << "El mensaje ha sido enviado correctamente";
@@ -92,7 +100,7 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
           //Enviar Contacto 
           cu->listarContactos(user);
           cout << "Ingresar número de celular del contacto que desee enviar" << endl;
-          cin >> numTel;
+          cin >> numTelCto;
 
         break;
         //default:
@@ -101,35 +109,36 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
 
 }
 
-Mensaje* ControllerConvMens::enviarMsjSimple(string texto, DtFechaHora* fecEnvio)
+Mensaje* ControllerConvMens::enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)
 {
-  MSimple* MsjSimple = new MSimple(randomStr(11), fecEnvio, texto);
+  MSimple* MsjSimple = new MSimple(randomStr(11), numTelRemitente, fecEnvio, texto);
   Mensaje *Msj = dynamic_cast<MSimple*>(MsjSimple);
+   cout << Msj->getCodigo() << " - " << Msj->getNumRemitente();
   return Msj;
 }
 
-Mensaje* ControllerConvMens::enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto)
+Mensaje* ControllerConvMens::enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente)
 {
-  MImagen* MsjImg = new MImagen(randomStr(11), fecEnvio, url, formato, tamanio, texto);
+  MImagen* MsjImg = new MImagen(randomStr(11),numTelRemitente ,fecEnvio, url, formato, tamanio, texto);
   Mensaje *Msj = dynamic_cast<MImagen*>(MsjImg);
   return Msj;
 }
 
-//Mensaje* ControllerConvMens::enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio)
+//Mensaje* ControllerConvMens::enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente)
 //{
  // MVideo* MsjVideo = new MVideo(randomStr(11), fecEnvio, url, duracion);
 //Mensaje *Msj = dynamic_cast<MVideo*>(MsjVideo);
  // return Msj;
 //}
 
-Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio)
+Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente)
 {
   ControllerUsuario* cu = ControllerUsuario::getinstancia();
   Usuario* cto = cu->encontrarUsuarioxnumTel(celularCompContacto);
 
   DtUsuario dtContacto = DtUsuario(cto->getNumTel(),cto->getNombre(), cto->getFecReg(), cto->getImagen(), cto->getDescripcion(), cto->getUltCon());
 
-  MContacto* MsjContacto = new MContacto(randomStr(11), fecEnvio, dtContacto);
+  MContacto* MsjContacto = new MContacto(randomStr(11), numTelRemitente, fecEnvio, dtContacto);
   Mensaje *Msj = dynamic_cast<MContacto*>(MsjContacto);
   return Msj;
 }
@@ -148,10 +157,11 @@ string ControllerConvMens::randomStr(int ch)
     return result;
 }
 
-void ControllerConvMens::ingresarIdConversacion(int idConve, Usuario* user)
+void ControllerConvMens::ingresarIdConversacion(int idConver, Usuario* user)
 {
+  //ControllerUsuario* cu = ControllerUsuario::getinstancia();
 
-  Conversacion* conver = user->getConver(idConve);
+  Conversacion* conver = user->getConver(idConver);
 
     if(conver == NULL)
     {
@@ -161,7 +171,16 @@ void ControllerConvMens::ingresarIdConversacion(int idConve, Usuario* user)
     this->colMensajesPorConver = conver->getListaMensajes();
 
     for (auto it = this->colMensajesPorConver.begin(); it != this->colMensajesPorConver.end(); it++){
-       cout << it->second->getCodigo() << " - " << it->second->getFechayHora() << endl;
+      
+      //Usuario* remitente = cu->encontrarUsuarioxnumTel(it->second->getNumRemitente());
+
+      //if(remitente == NULL)
+     // {
+      //throw std::invalid_argument("\nERROR - Remitente NULL");
+      //}
+
+       cout << it->second->getCodigo() << " - " << it->second->getNumRemitente();
+       it->second->getFechayHora()->mostrarFechayHora();
     }
 
 

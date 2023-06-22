@@ -13,7 +13,7 @@ class MVideo : public Mensaje
         float duracion;
     public:
         MVideo();
-        MVideo(string codigo, DtFechaHora* fechayHora,string url, float duracion);
+        MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayHora,string url, float duracion);
         float getDuracion();
         void setDuracion(float duracion);
         void MostrardatosM();

@@ -12,7 +12,7 @@ class MSimple : public Mensaje
         string texto;
     public:
         MSimple();
-        MSimple(std::string codigo, DtFechaHora* fechayhora, std::string texto);
+        MSimple(std::string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto);
         std::string getTexto();
         void setTexto(std::string texto);
         void MostrardatosM();

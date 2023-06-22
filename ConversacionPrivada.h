@@ -1,6 +1,7 @@
 #ifndef CONVERSACIONPRIVADA_H
 #define CONVERSACIONPRIVADA_H
 #include "Conversacion.h"
+#include "Usuario.h"
 #include <string>
 
 using namespace std;

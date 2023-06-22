@@ -27,10 +27,10 @@ class ControllerConvMens: public InterfaceConvMens {
         set<DtConversacion> seleccionarConversacionesTodas();*/
         void ingresarIdConversacion(int idConver, Usuario* user);
         string randomStr(int ch);
-        Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio);
-        //Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio);
-        Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio);
-        Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto);
+        Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);
+        //Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente);
+        Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente);
+        Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente);
         //set<DtConversacion> buscarConv(int id);
         //set<DtConversacion> buscarConvArch(int id);
         //DtMensaje seleccionarMsj(int id);

@@ -15,7 +15,7 @@ class MImagen : public Mensaje
         string texto;
     public:
         MImagen();
-        MImagen(string codigo, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto);
+        MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto);
         string getFormato();
         string getTamaño();
         string getTexto();

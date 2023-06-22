@@ -3,20 +3,21 @@
 #include <string>
 #include "DtFechaHora.h"
 #include "DtMensaje.h"
-//#include "Usuario.h"
 
 using namespace std;
 
 class Mensaje {
     private:
         string codigo;
-        DtFechaHora* fechayHora;
-        //map<int,Usuario*> colVistoPor;
+        int numTelRemitente; //Numero del usuario que envió el mensaje.
+        DtFechaHora* fechayHora; 
+
     public:
         Mensaje();
-        Mensaje(string codigo, DtFechaHora* fechayHora);
+        Mensaje(string codigo,int numTelRemitente ,DtFechaHora* fechayHora);
         string getCodigo();
         void setCodigo(string);
+        int getNumRemitente();
         DtFechaHora* getFechayHora();
         void MostrardatosM();
         //DtMensaje delete(DtMensaje); ??

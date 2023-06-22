@@ -64,21 +64,12 @@ Conversacion* Usuario::getConver(int idConver){
     return NULL;
 }
 
-/*
+
 DtUsuario Usuario::pedirDatos(){
-    Usuario *u;
-    string nombre;
-    cout<<"Ingrese su nombre"<<endl;
-    cin>> nombre;
-    string imagen;
-    cout<<"Ingrese su URL de imagen"<<endl;
-    cin>> imagen;
-    string descripcion;
-    cout<<"Ingrese su Descripcion"<<endl;
-    cin>> descripcion;
-    return u;
-}
-*/
+    DtUsuario dtuser = DtUsuario(this->numTel,this->nombre,this->fecReg,this->imagen,this->descripcion,this->ultCon);
+    return dtuser;
+ }
+
 
 //Setters
 

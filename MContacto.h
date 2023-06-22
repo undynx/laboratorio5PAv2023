@@ -12,7 +12,7 @@ class MContacto: public Mensaje{
         DtUsuario contacto;
     public:
         MContacto();
-        MContacto(string codigo, DtFechaHora* fechayHora, DtUsuario contacto);    
+        MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora, DtUsuario contacto);    
         void mostrarDatos();
         MContacto borrar(DtMensaje m);////??????sera borrar?
         DtMensaje seleccionar();

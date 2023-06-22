@@ -1,8 +1,8 @@
 #ifndef CONVERSACIONGRUPAL_H
 #define CONVERSACIONGRUPAL_H
-
 #include "DtFechaHora.h"
 #include "Conversacion.h"
+#include "Usuario.h"
 #include <string>
 
 using namespace std;
@@ -22,18 +22,12 @@ class ConversacionGrupal: public Conversacion{
         void setNombre(string);
         string getImagen();
         void setImagen(string);
-        //bool getActivo();
-        //void setActivo(bool);
-
         Usuario* getParticipante(int numTel);
         void setParticipante(Usuario* participante);
         bool perteneceParticipante(int numTel);
         map <int, Usuario*> getListaParticipantes();
-
         DtFechaHora* getFechayHora();
         void setFechayHora(DtFechaHora*);
-        //int getId();
-        //void setId(int);
         void mostrarConverG();
         ~ConversacionGrupal();
 };

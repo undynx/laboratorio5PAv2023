@@ -3,7 +3,7 @@
 
 MImagen::MImagen() {}
 
-MImagen::MImagen(string codigo, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto):Mensaje(codigo, fechayHora)
+MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto):Mensaje(codigo, numTelRemitente, fechayHora)
 {
     this->url = url;
     this->formato = formato;

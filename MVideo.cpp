@@ -3,7 +3,7 @@
 
 MVideo::MVideo() {}
 
-MVideo::MVideo(string codigo, DtFechaHora* fechayhora,string url, float duracion):Mensaje(codigo, fechayhora)
+MVideo::MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayhora,string url, float duracion):Mensaje(codigo, numTelRemitente,fechayhora)
 {
     this->url = url;
     this->duracion = duracion;
