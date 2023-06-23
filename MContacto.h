@@ -9,12 +9,10 @@
 
 class MContacto: public Mensaje{
     private:
-        map <int, Usuario*> usuario;
-
-
+        DtUsuario contacto;
     public:
         MContacto();
-        MContacto(std::string codigo, DtFechaHora fechayHora);    
+        MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora, DtUsuario contacto);    
         void mostrarDatos();
         MContacto borrar(DtMensaje m);////??????sera borrar?
         DtMensaje seleccionar();

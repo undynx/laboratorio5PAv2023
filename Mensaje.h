@@ -8,14 +8,17 @@ using namespace std;
 
 class Mensaje {
     private:
-        std::string codigo;
-        DtFechaHora fechayHora;
+        string codigo;
+        int numTelRemitente; //Numero del usuario que envió el mensaje.
+        DtFechaHora* fechayHora; 
+
     public:
         Mensaje();
-        Mensaje(string codigo, DtFechaHora fechayHora);
+        Mensaje(string codigo,int numTelRemitente ,DtFechaHora* fechayHora);
         string getCodigo();
         void setCodigo(string);
-        DtFechaHora getFechayHora();
+        int getNumRemitente();
+        DtFechaHora* getFechayHora();
         void MostrardatosM();
         //DtMensaje delete(DtMensaje); ??
         DtMensaje seleccionar();

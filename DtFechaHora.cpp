@@ -31,4 +31,27 @@ int DtFechaHora::getMin(){
     return this->min=min;
 }
 
+void DtFechaHora::mostrarFechayHora(){
+    cout << endl;
+    cout <<"Fecha: "<<this->getDia()<<"/"<<this->getMes()<<"/"<<getAnio();
+    cout << endl;
+    cout <<"Hora: "<<getHora()<<":"<<getMin();
+}
+
+void DtFechaHora::mostrarFechayHoraConexion(){
+    cout << endl;
+    cout <<"Fecha de última conexión: "<<this->getDia()<<"/"<<this->getMes()<<"/"<<getAnio();
+    cout << endl;
+    cout <<"Hora de última conexión: "<<getHora()<<":"<<getMin();
+    cout << endl;
+}
+
+void DtFechaHora::mostrarFechayHoraRegistro(){
+    cout << endl;
+    cout <<"Fecha de registro: "<<this->getDia()<<"/"<<this->getMes()<<"/"<<getAnio();
+    cout << endl;
+    cout <<"Hora de registro: "<<getHora()<<":"<<getMin();
+    cout << endl;
+}
+
  DtFechaHora::~DtFechaHora() {};

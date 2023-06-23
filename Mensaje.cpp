@@ -8,8 +8,9 @@ using namespace std;
 
 Mensaje::Mensaje(){}
 
-Mensaje::Mensaje(string codigo, DtFechaHora fechayHora){
+Mensaje::Mensaje(string codigo, int numTelRemitente,DtFechaHora* fechayHora){
     this-> codigo = codigo;
+    this-> numTelRemitente = numTelRemitente;
     this-> fechayHora = fechayHora;
 }
 
@@ -19,8 +20,12 @@ string Mensaje::getCodigo(){
     return this->codigo;
 }
 
-DtFechaHora Mensaje::getFechayHora(){
+DtFechaHora* Mensaje::getFechayHora(){
     return this->fechayHora;
+}
+
+int Mensaje::getNumRemitente(){
+    return this->numTelRemitente;
 }
 
 /* DtMensaje Mensaje::seleccionar(){

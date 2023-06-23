@@ -10,16 +10,15 @@ class ControllerSesion : public InterfaceSesion
 private:
 	static ControllerSesion *instancia;
 	Usuario *userLoggeado;
-
 public:
 	ControllerSesion();
 	static ControllerSesion *getInstancia();
 	bool loggedIn();
 	Usuario* getUserLoggeado();
 	void modificarUsuario();
-	void setUserLoggeado(Usuario *user);
-	int abrirApp(int numTel);
-	void cerrarApp();
+	void setUserLoggeado(Usuario* user);
+	int abrirApp(int numTel, DtFechaHora* fechaSesion);
+	void cerrarApp(DtFechaHora* fechaUltCon);
 	~ControllerSesion();
 };
 
