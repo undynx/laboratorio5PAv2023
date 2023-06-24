@@ -6,20 +6,19 @@ using namespace std;
 
 //Constructores
 
-VistoMensaje::VistoMensaje(){}
+VistoMensaje::VistoMensaje(){
+    this-> numTelDestinatario = 0;
+    this-> fecHoraVisto = NULL;
+    this->visto = false;
+}
 
-VistoMensaje::VistoMensaje(string codigoMsj, int numTelDestinatario, DtFechaHora* fecHoraVisto ,bool visto){
-    this-> codigoMsj = codigoMsj;
+VistoMensaje::VistoMensaje(int numTelDestinatario, DtFechaHora* fecHoraVisto ,bool visto){
     this-> numTelDestinatario = numTelDestinatario;
     this-> fecHoraVisto = fecHoraVisto;
     this->visto = visto;
 }
 
 //Gettes
-
-string VistoMensaje::getCodigo(){
-    return this->codigoMsj;
-}
 
 int VistoMensaje::getDestinatario(){
     return this->numTelDestinatario;
@@ -34,11 +33,9 @@ bool VistoMensaje::getVisto(){
     return this->visto;
 }
 
-//Setters
 
-void VistoMensaje::setCodigo(string codigoMsj){
-    this->codigoMsj = codigoMsj;
-}
+
+//Setters
 
 void VistoMensaje::setDestinatario(int numTelDestinatario){
     this->numTelDestinatario = numTelDestinatario;

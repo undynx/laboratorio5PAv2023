@@ -115,7 +115,7 @@ map <int, Conversacion*> Usuario::getListaConvers()
 }
 
 bool Usuario::isEmptyColConvers(){
-    return this-colConvers.empty();
+    return this->colConvers.empty();
 }
 
 //DtUsuario Usuario::setUsuario(DtUsuario u){

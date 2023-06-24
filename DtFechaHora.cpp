@@ -54,4 +54,16 @@ void DtFechaHora::mostrarFechayHoraRegistro(){
     cout << endl;
 }
 
+void DtFechaHora::mostrarFechayHoraVisto(){
+    cout << endl;
+    cout <<"VISTO el "<<this->getDia()<<"/"<<this->getMes()<<"/"<<getAnio();
+    cout <<" a las "<<getHora()<<":"<<getMin();
+}
+
+void DtFechaHora::mostrarFechayHoraEnviado(){
+    cout << endl;
+    cout <<"ENVIADO el "<<this->getDia()<<"/"<<this->getMes()<<"/"<<getAnio();
+    cout <<" a las "<<getHora()<<":"<<getMin();
+}
+
  DtFechaHora::~DtFechaHora() {};

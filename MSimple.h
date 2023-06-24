@@ -11,6 +11,7 @@ class MSimple : public Mensaje
 {
     private:
         string texto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MSimple();
         MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto);

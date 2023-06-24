@@ -27,7 +27,8 @@ class ControllerConvMens: public InterfaceConvMens {
         set<DtMensaje> datosMensajes(string id);
         DtMensaje borrarMensaje(DtConversacion borrar);
         set<DtConversacion> seleccionarConversacionesTodas();*/
-        void ingresarIdConversacion(int idConver, Usuario* user);
+        void ingresarIdConversacionEnviarMsj(int idConve, Usuario* user, DtFechaHora* fecEnvio);
+        void ingresarIdConversacionMostrar(int idConver, Usuario* user, DtFechaHora* fecVisto);
         string randomStr(int ch);
         Mensaje* encontrarMensaje(string codigo);
         Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);

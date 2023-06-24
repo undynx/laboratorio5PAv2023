@@ -121,51 +121,46 @@ int main()
         { 
           try
           {
-              cout << "----------------------------" << endl;
-              cout << "CONVERSACIONES: " << endl;
-              if(iSesion->getUserLoggeado()->isEmptyColConvers())
-              {
-                  cout << "No tiene ninguna conversacion activa" << endl;
-              }
-              else
-              {
-                  iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
-              } 
-              //cout << "Archivadas: " << iConvMens->getcantArchivadas();
-              cout << "----------------------------" << endl;
-              cout << endl;
-              cout << "\n----------------------------\n";
-              cout << "Elige la opcion que desees:\n";
-              cout << "  1) Seleccionar conversación activa" << endl;
-              cout << "  2) Ver las conversaciones archivadas" << endl;
-              cout << "  3) Iniciar conversación con un contacto nuevo" << endl;
-              cout << "\n----------------------------\n";
+            cout << "----------------------------" << endl;
+            cout << "CONVERSACIONES: ";
+            iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+            //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+            cout << "----------------------------";
 
-              cin >> optenvmsj;
+            cout << "\n----------------------------\n";
+            cout << "Elige la opcion que desees:\n";
+            cout << "  1) Seleccionar conversación activa" << endl;
+            cout << "  2) Ver las conversaciones archivadas" << endl;
+            cout << "  3) Iniciar conversación con un contacto nuevo" << endl;
+            cout << "\n----------------------------\n";
 
-              switch (optenvmsj)
-              {
-              case 1:
+            cin >> optenvmsj;
+
+            switch (optenvmsj)
+            {
+            case 1:
               //Seleccionar conversación activa
-
-              break;
-              case 2:
+              cout << "Ingresar el id de la conversación" << endl;
+              cin >> idConver;
+              iConvMens->ingresarIdConversacionEnviarMsj(idConver,iSesion->getUserLoggeado(), fechaSistema);
+            break;
+            case 2:
               //Ver las conversaciones archivadas
 
-              break;
-              case 3:
+            break;
+            case 3:
               //Iniciar conversación con un contacto nuevo;
-                cout << "----------------------------" << endl;
-                cout << "CONTACTOS: " << endl;
-                iUsuario->listarContactos(iSesion->getUserLoggeado());
-                cout << "----------------------------" << endl;
-                cout << "Ingresar número de celular del contacto con el cual quiere iniciar la conversación" << endl;
-                cin >> numTel;
-                iConvMens->iniciarConversacion(numTel,iSesion->getUserLoggeado(), fechaSistema);
-              break;
-          //default:
-          //cout << opt << " no es una opcion correcta \n" << endl;
-            }               
+              cout << "----------------------------" << endl;
+              cout << "CONTACTOS: " << endl;
+              iUsuario->listarContactos(iSesion->getUserLoggeado());
+              cout << "----------------------------" << endl;
+              cout << "Ingresar número de celular del contacto con el cual quiere iniciar la conversación" << endl;
+              cin >> numTel;
+              iConvMens->iniciarConversacion(numTel,iSesion->getUserLoggeado(), fechaSistema);
+            break;
+            //default:
+              //cout << opt << " no es una opcion correcta \n" << endl;
+            }             
         }
         catch (std::exception &e)
         {
@@ -177,47 +172,39 @@ int main()
         //Ver Mensaje
         if(iSesion->loggedIn() == false) {
           cout << "ERROR: Debes iniciar sesion antes de poder ver mensajes" << endl;
-        }
-        else 
+        }else 
         { 
-            cout << "----------------------------" << endl;
-            cout << "CONVERSACIONES: " << endl;
-            if(iSesion->getUserLoggeado()->isEmptyColConvers())
-            {
-                cout << "No tiene ninguna conversacion activa" << endl;
-            }
-            else
-            {
-                iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
-            } 
-            //cout << "Archivadas: " << iConvMens->getcantArchivadas();
-            cout << "----------------------------" << endl;
-            cout << endl;
-            cout << "\n----------------------------\n";
-            cout << "Elige la opcion que desees:\n";
-            cout << "  1) Seleccionar conversación activa" << endl;
-            cout << "  2) Ver las conversaciones archivadas" << endl;
-            cout << "\n----------------------------\n";
+        cout << "----------------------------" << endl;
+        cout << "CONVERSACIONES: ";
+        iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+        //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+        cout << "----------------------------";
 
-            cin >> optvermsj;
+        cout << "\n----------------------------\n";
+			  cout << "Elige la opcion que desees:\n";
+			  cout << "  1) Seleccionar conversación activa" << endl;
+			  cout << "  2) Ver las conversaciones archivadas" << endl;
+			  cout << "\n----------------------------\n";
 
-            switch (optvermsj)
-            {
-            case 1:
-              //Seleccionar conversación activa
-              cout << "Ingresar el id de la conversación" << endl;
-              cin >> idConver;
-              iConvMens->ingresarIdConversacion(idConver,iSesion->getUserLoggeado());
-            break;
-            case 2:
-              //Ver las conversaciones archivadas
+			  cin >> optvermsj;
 
-            break;
-            //default:
-              //cout << opt << " no es una opcion correcta \n" << endl;
+			  switch (optvermsj)
+			  {
+			  case 1:
+				  //Seleccionar conversación activa
+          cout << "Ingresar el id de la conversación" << endl;
+          cin >> idConver;
+          iConvMens->ingresarIdConversacionMostrar(idConver,iSesion->getUserLoggeado(), fechaSistema);
+				break;
+        case 2:
+          //Ver las conversaciones archivadas
+
+        break;
+        //default:
+          //cout << opt << " no es una opcion correcta \n" << endl;
         }
 
-      }
+        }
       break;
       case 8: //Mi perfil
         if (iSesion->loggedIn() == false)

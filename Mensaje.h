@@ -1,8 +1,10 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 #include <string>
+#include <map>
 #include "DtFechaHora.h"
 #include "DtMensaje.h"
+#include "VistoMensaje.h"
 
 using namespace std;
 
@@ -11,7 +13,7 @@ class Mensaje {
         string codigo;
         int numTelRemitente; //Numero del usuario que envió el mensaje.
         DtFechaHora* fechayHora; 
-
+        map<int,VistoMensaje*> vistoPor;
     public:
         Mensaje();
         Mensaje(string codigo,int numTelRemitente ,DtFechaHora* fechayHora);
@@ -19,6 +21,9 @@ class Mensaje {
         void setCodigo(string);
         int getNumRemitente();
         DtFechaHora* getFechayHora();
+        void setVistoPor(VistoMensaje* vistoPor);
+        VistoMensaje* getVistoPor(int numVistoPor);
+        map<int,VistoMensaje*> getListaVistoPor();
         virtual DtMensaje* mostrarDatosM()=0;
         //DtMensaje delete(DtMensaje); ??
         //DtMensaje seleccionar();

@@ -10,6 +10,7 @@
 class MContacto: public Mensaje{
     private:
         DtUsuario contacto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MContacto();
         MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora, DtUsuario contacto);    

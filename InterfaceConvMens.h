@@ -36,7 +36,8 @@ class InterfaceConvMens {
         virtual set<DtMensaje> datosMensajes(string id)=0;
         virtual  DtMensaje borrarMensaje(DtConversacion borrar)=0;
         virtual set<DtConversacion> seleccionarConversacionesTodas()=0;*/
-        virtual void ingresarIdConversacion(int idConve, Usuario* user)=0;
+        virtual void ingresarIdConversacionEnviarMsj(int idConve, Usuario* user, DtFechaHora* fecEnvio)=0;
+        virtual void ingresarIdConversacionMostrar(int idConve, Usuario* user, DtFechaHora* fecVisto)=0;
         virtual string randomStr(int ch)=0;
         virtual Mensaje* encontrarMensaje(string codigo)=0;
         virtual Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)=0;
