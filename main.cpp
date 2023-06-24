@@ -212,6 +212,25 @@ int main()
 
         }
       break;
+      case 9: 
+        //Alta Grupo
+
+        if(iSesion->loggedIn()==false){
+          cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
+
+        }else{
+          string nomGrupo, urlGrupo;
+          cout << "Ingrese los datos del grupo a crear" << endl;
+          cout << "Nombre del grupo" << endl;
+          getline(cin,nomGrupo);
+          cout << "URL de la imagen" << endl;
+          getline(cin,urlGrupo);
+          iGrupo->crearGrupo(nomGrupo,urlGrupo,fechaSistema);
+          cout << "Grupo creado" << endl;
+
+        }
+
+        break;
       case 13: //Mi perfil
         if (iSesion->loggedIn() == false)
         {

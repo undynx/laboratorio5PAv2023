@@ -14,6 +14,16 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
   return instancia;
 }
 
+Conversacion* ControllerConvMens::getConverSis(int idConver){
+
+ if (colConversSis.find(idConver) != colConversSis.end())
+    {
+          return colConversSis.at(idConver);
+    }
+    return NULL;
+}
+
+
 //int ControllerConvMens::getcantArchivadas(){
 //  this->cantArchivadas;
 //}

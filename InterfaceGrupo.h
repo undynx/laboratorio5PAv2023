@@ -4,16 +4,20 @@
 #include "DtUsuario.h"
 #include "Usuario.h"
 #include "ConversacionGrupal.h"
+#include "ControllerSesion.h"
+#include "ControllerUsuario.h"
+#include "ControllerConvMens.h"
 
 using namespace std;
 class InterfaceGrupo{
   public:
-    virtual void listarContactosPart(DtUsuario* part) = 0;
-    virtual void listarContactosRest(DtUsuario* Rest) = 0;
-    virtual void agregarParticipante(Usuario* agregarP) = 0;
-    virtual void quitarParticipante(Usuario* quitarP) = 0;
-    virtual void ingresoGrupo(ConversacionGrupal* grupo) = 0;
-
+    virtual void listarContactosPart(ConversacionGrupal* grupo) = 0;
+    virtual void listarContactosRest(ConversacionGrupal* grupo) = 0;
+    virtual void agregarParticipante(int numTel, int id) = 0;
+    virtual void agregarAdministrador(int numTel, int id) = 0;
+    virtual void quitarParticipante(int numTel, int id) = 0;
+    virtual ConversacionGrupal* encontrarGrupoPorId(int id) = 0;
+    virtual ConversacionGrupal* crearGrupo(string nombre, string url, DtFechaHora* fechayHora) = 0;
 
 };
 

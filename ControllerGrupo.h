@@ -16,11 +16,13 @@ class ControllerGrupo: public InterfaceGrupo {
   public:
     ControllerGrupo();
     static ControllerGrupo *getInstancia();
-     void listarContactosPart(DtUsuario* part);
-     void listarContactosRest(DtUsuario* Rest);
-     void agregarParticipante(Usuario* agregarP);
-     void quitarParticipante(Usuario* quitarP);
-     void ingresoGrupo(ConversacionGrupal* grupo);
+     void listarContactosPart(ConversacionGrupal* grupo);
+     void listarContactosRest(ConversacionGrupal* grupo);
+     void agregarParticipante(int numTel, int id);
+     void agregarAdministrador(int numTel, int id);
+     void quitarParticipante(int numTel, int id);
+     ConversacionGrupal* encontrarGrupoPorId(int id);
+     ConversacionGrupal* crearGrupo(string nombre, string url, DtFechaHora* fechayHora);
     ~ControllerGrupo();
 };
 

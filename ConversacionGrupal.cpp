@@ -59,6 +59,15 @@ bool ConversacionGrupal::perteneceParticipante(int numTel)
     return false;
 }
 
+bool ConversacionGrupal::perteneceAdministrador(int numTel)
+{
+    if (colAdministradores.find(numTel) != colAdministradores.end())
+    {
+          return true;
+    }
+    return false;
+}
+
 map <int, Usuario*> ConversacionGrupal::getListaParticipantes()
 {
     return this->colParticipantes;
@@ -68,6 +77,23 @@ void ConversacionGrupal::mostrarDatosC(){
     
     //hay que desarrollar
 }
+
+Usuario* ConversacionGrupal::getAdministrador(int numTel)
+{
+    if (colAdministradores.find(numTel) != colAdministradores.end())
+    {
+          return colAdministradores.at(numTel);
+    }
+    return NULL;
+}
+
+void ConversacionGrupal::setAdministrador(Usuario* administrador)
+{
+    //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion
+    this->colAdministradores.insert({administrador->getNumTel(), administrador});
+
+}
+
 
 //Destructor
 ConversacionGrupal::~ConversacionGrupal(){}
