@@ -137,6 +137,8 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 				cout << endl;
 				user = iUsuario->altaUsuario(numTel, nombre, img, desc, fecCon);
 				setUserLoggeado(user);
+				cout << "Se dio de alta su usuario correcatmente.\n";
+    			fecCon->mostrarFechayHoraConexion();
 				salir = true;
 				break;
 			case 3:
