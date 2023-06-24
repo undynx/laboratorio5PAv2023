@@ -18,7 +18,7 @@ private:
 
 public:
     ControllerUsuario();
-    static ControllerUsuario *getinstancia();
+    static ControllerUsuario *getInstancia();
     ~ControllerUsuario();
     Usuario *altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg);
     bool ingresarNumero(int numTel);

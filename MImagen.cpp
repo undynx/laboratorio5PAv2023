@@ -11,26 +11,21 @@ MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, st
     this->texto = texto;
 }
 
-DtMensaje* MImagen::mostrarDatosM()
-{
-    //Muestra datos mensaje video. hjm,
-}
-
 //Gettes
 
-std::string MImagen::getFormato()
+string MImagen::getFormato()
 {
     return this->formato;
 
 }
 
-std::string MImagen::getTamano()
+string MImagen::getTamano()
 {
     return this->tamano;
 
 }
 
-std::string MImagen::getTexto()
+string MImagen::getTexto()
 {
     return this->texto;
 

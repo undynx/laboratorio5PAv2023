@@ -12,8 +12,8 @@ class ConversacionGrupal: public Conversacion{
     private:
         string nombre;
         string imagen;
-        map<int,Usuario*> colAdministradores;
-        map<int,Usuario*> colParticipantes;
+        map<int, Usuario*> colAdministradores;
+        map<int, Usuario*> colParticipantes;
         DtFechaHora* fechayHora;
     public:
         ConversacionGrupal();

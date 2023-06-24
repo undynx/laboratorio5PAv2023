@@ -10,13 +10,15 @@ DtMensaje::DtMensaje(string codigo, int numRemitente,DtFechaHora* fechayHora){
 
 //Gettes
 string DtMensaje::getCodigo(){
-    this-> codigo=codigo;
+    return this->codigo;
 }
+
 DtFechaHora* DtMensaje::getFechayHora(){
-    this->fechayHora=fechayHora;
+    return this->fechayHora;
 }
+
 int DtMensaje::getNumRemitente(){
-    this->numRemitente;
+    return this->numRemitente;
 }
 
 //Destructor

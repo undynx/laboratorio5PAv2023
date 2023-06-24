@@ -26,7 +26,7 @@ using namespace std;
 
 class InterfaceConvMens {
 	public:
-        virtual int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
+        virtual void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
         //virtual int getcantArchivadas()=0;
         virtual void listarConversacionesActivas(Usuario* user)=0;
 	//virtual set<DtConversacionGrupal> mostrarConverG() = 0;

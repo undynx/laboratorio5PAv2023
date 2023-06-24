@@ -6,7 +6,7 @@ ControllerUsuario* ControllerUsuario::instancia=NULL;
 
 ControllerUsuario::ControllerUsuario(){}
 
-ControllerUsuario* ControllerUsuario::getinstancia()
+ControllerUsuario* ControllerUsuario::getInstancia()
 {
     if(instancia==NULL){
         instancia = new ControllerUsuario();
@@ -20,7 +20,7 @@ Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen
 {
     DtFechaHora* ultCon = fecReg;
 
-    this->getinstancia();
+    this->getInstancia();
 
     Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, descripcion, ultCon);
 
@@ -31,7 +31,7 @@ Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen
 
 bool ControllerUsuario::ingresarNumero(int numTel)
 {
-    this->getinstancia();
+    this->getInstancia();
 
     if(instancia->colUsuarios.find(numTel) != instancia->colUsuarios.end())
     {  
@@ -45,7 +45,7 @@ bool ControllerUsuario::ingresarNumero(int numTel)
 
 Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
 {
-    this->getinstancia();
+    this->getInstancia();
     Usuario* user = NULL;
 
     if(instancia->colUsuarios.find(numTel) != instancia->colUsuarios.end())

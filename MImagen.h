@@ -23,7 +23,6 @@ class MImagen : public Mensaje
         void setFormato(string formato);
         void setTamano(string tamano);
         void setTexto(string texto);
-        virtual DtMensaje* mostrarDatosM();
         ~MImagen();
 };
 #endif

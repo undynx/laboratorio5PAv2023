@@ -19,7 +19,7 @@ class ControllerConvMens: public InterfaceConvMens {
         static ControllerConvMens *getInstancia();
         ~ControllerConvMens();
         Conversacion* getConverSis(int idConver);
-        int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema);
+        void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema);
         //int getcantArchivadas();
         void listarConversacionesActivas(Usuario* user);
         /*set<DtConversacionGrupal> mostrarConverG();

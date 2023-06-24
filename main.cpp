@@ -8,16 +8,16 @@
 
 using namespace std;
 
-Factory *fact = Factory::getInstancia();
-InterfaceSesion *iSesion = fact->getInterfaceSesion();
-InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
-InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
-InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
-
 DtFechaHora *fechaSistema = new DtFechaHora(28, 12, 2023, 21, 30);
 
 int main()
 {
+  Factory *fact = Factory::getInstancia();
+  InterfaceSesion *iSesion = fact->getInterfaceSesion();
+  InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
+  InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
+  InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
+
   bool salir = false;
   int opt,optreloj,optenvmsj,optvermsj;
   int numTel,idConver;
@@ -49,18 +49,18 @@ int main()
     cin >> opt;
 
     switch(opt) {
-      case 1: //Abrir app
-          try
-          {
-            cout << "Ingresar número de celular" << endl;
-            cin >> numTel;
-            iSesion->abrirApp(numTel, fechaSistema);
-          }
-          catch (std::exception &e)
-          {
-            std::cerr << e.what() << '\n';
-          }
-      break;
+      case 1: // Abrir app
+        try
+        {
+          cout << "Ingresar número de celular" << endl;
+          cin >> numTel;
+          iSesion->abrirApp(numTel, fechaSistema);
+        }
+        catch (std::exception &e)
+        {
+          std::cerr << e.what() << '\n';
+        }
+        break;
       case 2: //Alta usuario
           try
           {
@@ -220,15 +220,15 @@ int main()
           cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
 
         }else{
+          cin.ignore();
           string nomGrupo, urlGrupo;
           cout << "Ingrese los datos del grupo a crear" << endl;
           cout << "Nombre del grupo" << endl;
-          getline(cin,nomGrupo);
+          getline(cin, nomGrupo);
           cout << "URL de la imagen" << endl;
-          getline(cin,urlGrupo);
-          iGrupo->crearGrupo(nomGrupo,urlGrupo,fechaSistema);
+          getline(cin, urlGrupo);
+          iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
           cout << "Grupo creado" << endl;
-
         }
 
         break;

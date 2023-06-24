@@ -1,4 +1,7 @@
 #include "ControllerGrupo.h"
+#include "ControllerSesion.h"
+#include "ControllerUsuario.h"
+#include "Usuario.h"
 
 
 ControllerGrupo *ControllerGrupo::instancia = NULL;
@@ -13,8 +16,9 @@ ControllerGrupo *ControllerGrupo::getInstancia() {
   return instancia;
 }
 
-void ControllerGrupo::listarContactosPart(ConversacionGrupal* grupo)
+void ControllerGrupo::listarContactosPart(int idGrupo)
 {
+  ConversacionGrupal *grupo = encontrarGrupoPorId(idGrupo);
   map<int, Usuario*> colParticipantes = grupo->getListaParticipantes();
   for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
   {
@@ -24,11 +28,11 @@ void ControllerGrupo::listarContactosPart(ConversacionGrupal* grupo)
 
 }
 
-void ControllerGrupo::listarContactosRest(ConversacionGrupal* grupo)
+void ControllerGrupo::listarContactosRest(int idGrupo, Usuario *userLoggeado)
 {
-  ControllerSesion* cs = ControllerSesion::getInstancia();
-  Usuario* user = cs->getUserLoggeado();
-  map<int, Usuario*> colRestantes = user->getListaContactos();
+  ConversacionGrupal *grupo = encontrarGrupoPorId(idGrupo);
+
+  map<int, Usuario *> colRestantes = userLoggeado->getListaContactos();
   map<int, Usuario*> colParticipantes = grupo->getListaParticipantes();
   for (auto it = colRestantes.begin(); it != colRestantes.end(); it++)
   {
@@ -66,26 +70,64 @@ void ControllerGrupo::quitarParticipante(int numTel, int id)
   Usuario* participante = cs->getUserLoggeado();
 }
 
-ConversacionGrupal* ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora* fechayHora)
+ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string nombre, string url, DtFechaHora *fechayHora)
 {
-  int id = rand()%100+1;
-  ControllerSesion* cs = ControllerSesion::getInstancia();
-  Usuario* user = cs->getUserLoggeado();
+  int id = rand() % 100 + 1;
+  int contacto;
+  int opt;
+  bool salir = false;
+
   ConversacionGrupal* cg = new ConversacionGrupal(id, true, nombre, url, fechayHora);
   Conversacion* conver = cg;
   cg = dynamic_cast<ConversacionGrupal*>(conver);
-  cg->setAdministrador(user);
-  user->setConver(cg);
+  cg->setAdministrador(userLoggeado);
+  cg->setParticipante(userLoggeado);
+  userLoggeado->setConver(cg);
   cout << "Grupo creado con el id: " << id <<endl;
+
+  do{
+    cout << "\n----------------------------" << endl;
+    cout << "CONTACTOS" << endl;
+    listarContactosRest(id, userLoggeado);
+    cout << "----------------------------" << endl;
+    cout << "PARTICIPANTES" << endl;
+    listarContactosPart(id);
+    cout << "----------------------------" << endl;
+    cout << "Ingresa el numero del contacto a ingresar o quitar: " << endl;
+    cin >> contacto;
+    agregarParticipante(contacto, id);
+    cout << "Deseas seguir agregando participantes?" << endl;
+    cout << "  1) SI" << endl;
+    cout << "  2) NO" << endl;
+    cin >> opt;
+
+    if(opt == 2){
+      salir = true;
+    }
+
+  } while (!salir);
+
+  return cg;
 }
 
 ConversacionGrupal* ControllerGrupo::encontrarGrupoPorId(int id)
 {
-  this->getInstancia();
-  Usuario* user = NULL;
   ControllerConvMens* ccm = ControllerConvMens::getInstancia();
   ConversacionGrupal* cg = new ConversacionGrupal();
   Conversacion* conver = ccm->getConverSis(id);
   cg = dynamic_cast<ConversacionGrupal*>(conver);
   return cg;
 }
+
+/*Usuario *ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
+{
+  this->getInstancia();
+  Usuario *user = NULL;
+
+  if (instancia->colUsuarios.find(numTel) != instancia->colUsuarios.end())
+  {
+    user = instancia->colUsuarios.at(numTel);
+  }
+
+  return user;
+}*/

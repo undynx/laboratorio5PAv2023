@@ -9,11 +9,6 @@ MVideo::MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayhora,strin
     this->duracion = duracion;
 }
 
-DtMensaje* MVideo::mostrarDatosM()
-{
-    //Muestra datos mensaje video. hjm,
-}
-
 //Gettes
 
 float MVideo::getDuracion()

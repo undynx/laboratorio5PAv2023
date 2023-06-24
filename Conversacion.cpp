@@ -63,18 +63,16 @@ map <string, Mensaje*> Conversacion::getListaMensajes()
     return this->colMensajes;
 }
 
-map <string, DtMensaje*> Conversacion::getListaMensajesDt()
+/*map <string, DtMensaje*> Conversacion::getListaMensajesDt()
 {
-    //map<string,DtMensaje*> colDtMensajes;
+    map<string,DtMensaje*> colDtMensajes;
 
-   // for (auto it = this->colMensajes.begin(); it != this->colMensajes.end(); it++){
-
-    //    DtMensaje* dtMsj = it->second->mostrarDatosM();
-    //    colDtMensajes.insert({dtMsj->getCodigo(), dtMsj});
-
-      //  }
-    //return colDtMensajes;
-}
+   for (auto it = this->colMensajes.begin(); it != this->colMensajes.end(); it++){
+    DtMensaje* dtMsj = it->second->mostrarDatosM();
+    colDtMensajes.insert({dtMsj->getCodigo(), dtMsj});
+    }
+    return colDtMensajes;
+}*/
 
 bool Conversacion::isColMensajesEmpty(){
     return this->colMensajes.empty();

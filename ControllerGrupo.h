@@ -5,7 +5,6 @@
 #include <map>
 #include <list>
 #include "InterfaceGrupo.h"
-#
 
 class ControllerGrupo: public InterfaceGrupo {
   private:
@@ -16,13 +15,13 @@ class ControllerGrupo: public InterfaceGrupo {
   public:
     ControllerGrupo();
     static ControllerGrupo *getInstancia();
-     void listarContactosPart(ConversacionGrupal* grupo);
-     void listarContactosRest(ConversacionGrupal* grupo);
-     void agregarParticipante(int numTel, int id);
-     void agregarAdministrador(int numTel, int id);
-     void quitarParticipante(int numTel, int id);
-     ConversacionGrupal* encontrarGrupoPorId(int id);
-     ConversacionGrupal* crearGrupo(string nombre, string url, DtFechaHora* fechayHora);
+    void listarContactosPart(int idGrupo);
+    void listarContactosRest(int idGrupo, Usuario *userLoggeado);
+    void agregarParticipante(int numTel, int id);
+    void agregarAdministrador(int numTel, int id);
+    void quitarParticipante(int numTel, int id);
+    ConversacionGrupal *encontrarGrupoPorId(int id);
+    ConversacionGrupal *crearGrupo(Usuario *userLoggeado, string nombre, string url, DtFechaHora *fechayHora);
     ~ControllerGrupo();
 };
 

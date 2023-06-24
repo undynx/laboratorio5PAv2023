@@ -24,7 +24,6 @@ class Mensaje {
         void setVistoPor(VistoMensaje* vistoPor);
         VistoMensaje* getVistoPor(int numVistoPor);
         map<int,VistoMensaje*> getListaVistoPor();
-        virtual DtMensaje* mostrarDatosM()=0;
         //DtMensaje delete(DtMensaje); ??
         //DtMensaje seleccionar();
         virtual ~Mensaje();

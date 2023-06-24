@@ -12,8 +12,6 @@ ConversacionPrivada::ConversacionPrivada(int idConver, bool activo, Usuario* pri
 //Getters
 Usuario* ConversacionPrivada::getOtroParticipante(Usuario* user){
 
-    Usuario* user2 = new Usuario();
-
     if(this->primerParticipante==user)
     {
         return this->segundoParticipante;

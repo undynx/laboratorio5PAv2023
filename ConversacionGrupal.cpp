@@ -5,9 +5,9 @@
 ConversacionGrupal::ConversacionGrupal(){}
 
 ConversacionGrupal::ConversacionGrupal(int id, bool activo, string nombre, string imagen, DtFechaHora* fechayHora) : Conversacion(id, activo){
-    this-> nombre=nombre;
-    this-> imagen=imagen;
-    this-> fechayHora=fechayHora;
+    this->nombre = nombre;
+    this->imagen = imagen;
+    this->fechayHora = fechayHora;
 }
 
 //Gettes
@@ -39,13 +39,6 @@ void ConversacionGrupal::setImagen(string imagen){
 }
 void ConversacionGrupal::setFechayHora(DtFechaHora* fechayHora){
     this->fechayHora=fechayHora;
-}
-
-void ConversacionGrupal::setParticipante(Usuario* u){
-
-    //Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
-    this->colParticipantes.insert({u->getNumTel(), u});
-
 }
 
 //Metodos
@@ -87,11 +80,16 @@ Usuario* ConversacionGrupal::getAdministrador(int numTel)
     return NULL;
 }
 
+void ConversacionGrupal::setParticipante(Usuario *u)
+{
+    // Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
+    this->colParticipantes.insert({u->getNumTel(), u});
+}
+
 void ConversacionGrupal::setAdministrador(Usuario* administrador)
 {
     //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion
     this->colAdministradores.insert({administrador->getNumTel(), administrador});
-
 }
 
 
