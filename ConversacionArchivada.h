@@ -7,18 +7,12 @@ using namespace std;
 
 class ConversacionArchivada: public Conversacion {
     private:
-        int cantArch;
+        //int cantArch; //como una instancia de conversaciónArch puede saber la cantidad de archivadas que tiene un usuario o el sistema??
     public:
         ConversacionArchivada();
-        ConversacionArchivada(bool activo, int id, int cantArch);
-        int getCantArch();
-        void setCantArch(int);
-        bool getActivo();
-        void setActivo(bool);
-        int getId();
-        void setId(int);        
-        int contar();
-        void MostrarDatos();
+        ConversacionArchivada(int id, bool activo);     
+        //int contar();
+        virtual void mostrarDatosC();
         ~ConversacionArchivada();
 };
 #endif

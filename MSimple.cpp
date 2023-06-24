@@ -3,14 +3,18 @@
 
 MSimple::MSimple() {}
 
-MSimple::MSimple(std::string codigo, DtFechaHora fechayhora, std::string texto):Mensaje(codigo, fechayhora)
+MSimple::MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto):Mensaje(codigo, numTelRemitente, fechayhora)
 {
-
+    this->texto = texto;
 }
 
-void MSimple::MostrardatosM()
+DtMensaje* MSimple::mostrarDatosM()
 {
-    //Muestra datos mensaje video. hjm,
+        DtMSimple* DtmsjSimple = new DtMSimple(this->getCodigo(),this->getNumRemitente(),this->getFechayHora(),this->getTexto());
+        DtMensaje *Dtmsj = DtmsjSimple;
+        DtmsjSimple = dynamic_cast<DtMSimple*>(Dtmsj);
+
+        return DtmsjSimple;
 }
 
 //Gettes

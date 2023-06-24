@@ -1,34 +1,35 @@
 #include "ConversacionPrivada.h"
-#include "Conversacion.h"
 
 //Constructores
 ConversacionPrivada::ConversacionPrivada(){}
 
-ConversacionPrivada::ConversacionPrivada(bool activo, int id){
+ConversacionPrivada::ConversacionPrivada(int idConver, bool activo, Usuario* primerParticipante, Usuario* segundoParticipante) : Conversacion(idConver, activo){
+    this->primerParticipante = primerParticipante;
+    this->segundoParticipante = segundoParticipante;
 }
+
 
 //Getters
-/*bool ConversacionPrivada::getActivo(){
-    return this-> activo=activo;
+Usuario* ConversacionPrivada::getOtroParticipante(Usuario* user){
+
+    Usuario* user2 = new Usuario();
+
+    if(this->primerParticipante==user)
+    {
+        return this->segundoParticipante;
+    }else
+    {
+        return this->primerParticipante;
+    }
+
 }
-int ConversacionPrivada::getId(){
-    return this-> id=id;
-}
-//Setters
-void ConversacionPrivada::setActivo(bool activo){
-    this-> activo=activo;
-}
-void ConversacionPrivada::setId(int id){
-    this-> id=id;
-}*/
 
 //Metodos
-void ConversacionPrivada::MostrarDatosP(){
+void ConversacionPrivada::mostrarDatosC(){
 
 }
-void ConversacionPrivada::MostrarDatos(){
-    
-}
+
+
 
 //Destructor
 ConversacionPrivada::~ConversacionPrivada(){}

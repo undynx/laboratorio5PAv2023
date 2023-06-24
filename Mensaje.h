@@ -1,24 +1,32 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 #include <string>
+#include <map>
 #include "DtFechaHora.h"
 #include "DtMensaje.h"
+#include "VistoMensaje.h"
 
 using namespace std;
 
 class Mensaje {
     private:
-        std::string codigo;
-        DtFechaHora fechayHora;
+        string codigo;
+        int numTelRemitente; //Numero del usuario que envió el mensaje.
+        DtFechaHora* fechayHora; 
+        map<int,VistoMensaje*> vistoPor;
     public:
         Mensaje();
-        Mensaje(string codigo, DtFechaHora fechayHora);
+        Mensaje(string codigo,int numTelRemitente ,DtFechaHora* fechayHora);
         string getCodigo();
         void setCodigo(string);
-        DtFechaHora getFechayHora();
-        void MostrardatosM();
+        int getNumRemitente();
+        DtFechaHora* getFechayHora();
+        void setVistoPor(VistoMensaje* vistoPor);
+        VistoMensaje* getVistoPor(int numVistoPor);
+        map<int,VistoMensaje*> getListaVistoPor();
+        virtual DtMensaje* mostrarDatosM()=0;
         //DtMensaje delete(DtMensaje); ??
-        DtMensaje seleccionar();
-        ~Mensaje();
+        //DtMensaje seleccionar();
+        virtual ~Mensaje();
 };
 #endif

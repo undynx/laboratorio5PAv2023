@@ -9,15 +9,14 @@
 
 class MContacto: public Mensaje{
     private:
-        map <int, Usuario*> usuario;
-
-
+        DtUsuario contacto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MContacto();
-        MContacto(std::string codigo, DtFechaHora fechayHora);    
-        void mostrarDatos();
-        MContacto borrar(DtMensaje m);////??????sera borrar?
-        DtMensaje seleccionar();
+        MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora, DtUsuario contacto);    
+        virtual DtMensaje* mostrarDatosM();
+        //MContacto borrar(DtMensaje m);////??????sera borrar?
+        //DtMensaje seleccionar();
         ~MContacto();
 };
 #endif

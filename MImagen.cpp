@@ -3,12 +3,15 @@
 
 MImagen::MImagen() {}
 
-MImagen::MImagen(string codigo, DtFechaHora fechayHora,string formato, string tamano, string texto):Mensaje(codigo, fechayHora)
+MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamano, string texto):Mensaje(codigo, numTelRemitente, fechayHora)
 {
-
+    this->url = url;
+    this->formato = formato;
+    this->tamano = tamano;
+    this->texto = texto;
 }
 
-void MImagen::MostrardatosM()
+DtMensaje* MImagen::mostrarDatosM()
 {
     //Muestra datos mensaje video. hjm,
 }

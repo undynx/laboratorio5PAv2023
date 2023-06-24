@@ -2,7 +2,7 @@
 
 DtUsuario::DtUsuario(){}
 
-DtUsuario::DtUsuario(int numTel, string nombre, DtFechaHora fecReg, string imagen, string descripcion, DtFechaHora ultCon)
+DtUsuario::DtUsuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon)
 {
     this->numTel = numTel;
     this->nombre = nombre;
@@ -24,7 +24,7 @@ string DtUsuario::getNombre()
     return this->nombre;
 }
 
-DtFechaHora DtUsuario::getFecReg()
+DtFechaHora* DtUsuario::getFecReg()
 {
     return this->fecReg;
 }
@@ -39,7 +39,7 @@ string DtUsuario::getDescripcion()
     return this->descripcion;
 }
 
-DtFechaHora DtUsuario::getUltCon()
+DtFechaHora* DtUsuario::getUltCon()
 {
     return this->ultCon;
 }
