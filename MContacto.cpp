@@ -9,13 +9,15 @@ MContacto::MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora
 }
 
 //Metodos
-void MContacto::mostrarDatos(){
-
+DtMensaje* MContacto::mostrarDatosM()
+{
+    //Muestra datos mensaje contacto. hjm,
 }
-MContacto MContacto::borrar(DtMensaje m){
+
+//MContacto MContacto::borrar(DtMensaje m){
     
-}
-DtMensaje MContacto::seleccionar(){
+//}
+//DtMensaje MContacto::seleccionar(){
 
-}
+//}
 MContacto::~MContacto(){};

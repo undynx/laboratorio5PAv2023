@@ -16,7 +16,7 @@ class MVideo : public Mensaje
         MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayHora,string url, float duracion);
         float getDuracion();
         void setDuracion(float duracion);
-        void MostrardatosM();
+        virtual DtMensaje* mostrarDatosM();
         ~MVideo();
 };
 #endif

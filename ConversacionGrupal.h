@@ -17,7 +17,7 @@ class ConversacionGrupal: public Conversacion{
         DtFechaHora* fechayHora;
     public:
         ConversacionGrupal();
-        ConversacionGrupal(string nombre, string imagen, DtFechaHora* fechayHora, bool activo, int id);
+        ConversacionGrupal(int id, bool activo,string nombre, string imagen, DtFechaHora* fechayHora);
         string getNombre();
         void setNombre(string);
         string getImagen();
@@ -28,7 +28,7 @@ class ConversacionGrupal: public Conversacion{
         map <int, Usuario*> getListaParticipantes();
         DtFechaHora* getFechayHora();
         void setFechayHora(DtFechaHora*);
-        void mostrarConverG();
+        virtual void mostrarDatosC();
         ~ConversacionGrupal();
 };
 #endif

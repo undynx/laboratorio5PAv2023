@@ -102,7 +102,6 @@ void Usuario::setContacto(Usuario* u){
 void Usuario::setConver(Conversacion* conver){
     //Agrego al usuario que viene por parametro "u" a la lista de contactos del usuario "this"
     this->colConvers.insert({conver->getId(), conver});
-
 }
 
 map <int, Usuario*> Usuario::getListaContactos()
@@ -113,6 +112,10 @@ map <int, Usuario*> Usuario::getListaContactos()
 map <int, Conversacion*> Usuario::getListaConvers()
 {
     return this->colConvers;
+}
+
+bool Usuario::isEmptyColConvers(){
+    return this-colConvers.empty();
 }
 
 //DtUsuario Usuario::setUsuario(DtUsuario u){

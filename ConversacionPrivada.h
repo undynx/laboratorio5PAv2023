@@ -12,9 +12,9 @@ class ConversacionPrivada : public Conversacion{
         Usuario* segundoParticipante;
     public:
         ConversacionPrivada();
-        ConversacionPrivada(bool activo, int id, Usuario* primerParticipante, Usuario* segundoParticipante);
-        //void MostrarDatosP();
-        //void MostrarDatos();
+        ConversacionPrivada(int idConver, bool activo , Usuario* primerParticipante, Usuario* segundoParticipante);
+        Usuario* getOtroParticipante(Usuario* user);
+        virtual void mostrarDatosC();
         ~ConversacionPrivada();
 };
 #endif

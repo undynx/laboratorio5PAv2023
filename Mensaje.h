@@ -19,9 +19,9 @@ class Mensaje {
         void setCodigo(string);
         int getNumRemitente();
         DtFechaHora* getFechayHora();
-        void MostrardatosM();
+        virtual DtMensaje* mostrarDatosM()=0;
         //DtMensaje delete(DtMensaje); ??
-        DtMensaje seleccionar();
-        ~Mensaje();
+        //DtMensaje seleccionar();
+        virtual ~Mensaje();
 };
 #endif

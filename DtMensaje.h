@@ -8,15 +8,17 @@ using namespace std;
 
 class DtMensaje{
     private:
-        string id;
-        DtFechaHora fechayHora;
-        bool visto;
+        string codigo;
+        int numRemitente;
+        DtFechaHora* fechayHora;
+        
     public:
         DtMensaje();
-        DtMensaje(string id, DtFechaHora fechayHora, bool visto);
-        string getId();
-        DtFechaHora getFechayHora();
-        bool getVisto();
-        ~DtMensaje();
+        DtMensaje(string codigo, int numRemitente,DtFechaHora* fechayHora);
+        string getCodigo();
+        DtFechaHora* getFechayHora();
+        virtual void getDtM()=0;
+        int getNumRemitente();
+        virtual ~DtMensaje();
 };
 #endif

@@ -121,8 +121,9 @@ int main()
         { 
           try
           {
-            //listarConversacionesActivas()
-            //cout << "Archivadas: " << cantArchivadas
+            //iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+            //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+            cout << endl;
             cout << "\n----------------------------\n";
             cout << "Elige la opcion que desees:\n";
             cout << "  1) Seleccionar conversación activa" << endl;
@@ -168,8 +169,9 @@ int main()
           cout << "ERROR: Debes iniciar sesion antes de poder ver mensajes" << endl;
         }else 
         { 
-        //listarConversacionesActivas()
-        //cout << "Archivadas: " << cantArchivadas
+        //iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+        //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+        cout << endl;
         cout << "\n----------------------------\n";
 			  cout << "Elige la opcion que desees:\n";
 			  cout << "  1) Seleccionar conversación activa" << endl;

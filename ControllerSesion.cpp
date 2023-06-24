@@ -128,10 +128,13 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 				cout << "Ingresar el nombre" << endl;
         		cin >> nombre;
         		cin.ignore();
+				cout << endl;
         		cout << "Ingresar la URL de perfil" << endl;
-				std::getline(cin, img);
+				getline(cin, img);
+				cout << endl;
 				cout << "Ingresar la descripcion" << endl;
-				std::getline(cin, desc);
+				getline(cin, desc);
+				cout << endl;
 				user = iUsuario->altaUsuario(numTel, nombre, img, desc, fecCon);
 				setUserLoggeado(user);
 				salir = true;
@@ -178,7 +181,7 @@ void ControllerSesion::modificarUsuario(){
 	{
 		case 1: //Username
 			cout << "Ingresa tu nuevo username: " << endl;
-			std::getline(cin, modificacion);
+			getline(cin, modificacion);
 			//Cambia el nombre en el usuario actual
 			this->userLoggeado->setNombre(modificacion);
 			//Cambia el nombre en la lista de usuarios
@@ -187,7 +190,7 @@ void ControllerSesion::modificarUsuario(){
 			break;
 		case 2: //Foto de perfil
 			cout << "Ingresa el URL de tu nueva foto de perfil: " << endl;
-			std::getline(cin, modificacion);
+			getline(cin, modificacion);
 			// Cambia la foto en el usuario actual
 			this->userLoggeado->setImagen(modificacion);
 			// Cambia la foto en la lista de usuarios
@@ -196,7 +199,7 @@ void ControllerSesion::modificarUsuario(){
 			break;
 		case 3: // Descripcion
 			cout << "Ingresa tu nueva descripcion: " << endl;
-			std::getline(cin, modificacion);
+			getline(cin, modificacion);
 			// Cambia la descripcion en el usuario actual
 			this->userLoggeado->setDescripcion(modificacion);
 			// Cambia la descripcion en la lista de usuarios

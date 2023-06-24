@@ -2,20 +2,21 @@
 //Constructores
 DtMensaje::DtMensaje(){}
 
-DtMensaje::DtMensaje(string id, DtFechaHora fechayHora, bool visto){
-    this->id=id;
+DtMensaje::DtMensaje(string codigo, int numRemitente,DtFechaHora* fechayHora){
+    this->codigo=codigo;
     this->fechayHora=fechayHora;
-    this->visto=visto;
+    this->numRemitente=numRemitente;
 }
 
 //Gettes
-string DtMensaje::getId(){
-    this-> id=id;
+string DtMensaje::getCodigo(){
+    this-> codigo=codigo;
 }
-DtFechaHora DtMensaje::getFechayHora(){
+DtFechaHora* DtMensaje::getFechayHora(){
     this->fechayHora=fechayHora;
 }
-bool DtMensaje::getVisto(){
+int DtMensaje::getNumRemitente(){
+    this->numRemitente;
 }
 
 //Destructor

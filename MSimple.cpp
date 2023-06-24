@@ -8,9 +8,13 @@ MSimple::MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, st
     this->texto = texto;
 }
 
-void MSimple::MostrardatosM()
+DtMensaje* MSimple::mostrarDatosM()
 {
-    //Muestra datos mensaje video. hjm,
+        DtMSimple* DtmsjSimple = new DtMSimple(this->getCodigo(),this->getNumRemitente(),this->getFechayHora(),this->getTexto());
+        DtMensaje *Dtmsj = DtmsjSimple;
+        DtmsjSimple = dynamic_cast<DtMSimple*>(Dtmsj);
+
+        return DtmsjSimple;
 }
 
 //Gettes

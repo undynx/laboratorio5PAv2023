@@ -11,12 +11,12 @@ using namespace std;
 
 class Conversacion{
     private:
-        bool activo;
         int id;
+        bool activo;
         map<string,Mensaje*> colMensajes;
     public:
         Conversacion();
-        Conversacion(bool activo, int id);
+        Conversacion(int idConver, bool activo);
         bool getActivo();
         void setActivo(bool activo);
         int getId();
@@ -24,14 +24,16 @@ class Conversacion{
         Mensaje* getMensaje(string codigo);
         void setMensaje(Mensaje* codigo);
         map <string, Mensaje*> getListaMensajes();
-        Conversacion seleccionarConversacion();
-        Conversacion getConversacion();
-        DtConversacion obtenerConv(Conversacion c);
-        DtConversacion pedirDatos();
-        Conversacion archivar(bool archivada);
-        void mostrarDatos();
+        map <string, DtMensaje*> getListaMensajesDt();
+        bool isColMensajesEmpty();
+        //Conversacion seleccionarConversacion();
+        //Conversacion getConversacion();
+        //DtConversacion obtenerConv(Conversacion c);
+        //DtConversacion pedirDatos();
+        //Conversacion archivar(bool archivada);
+        virtual void mostrarDatosC()=0;
         int contar();
-        Conversacion seleccionar(DtConversacion borrar);  
-       ~Conversacion();
+        //Conversacion seleccionar(DtConversacion borrar);
+        virtual ~Conversacion();
 };
 #endif
