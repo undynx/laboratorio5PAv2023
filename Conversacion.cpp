@@ -60,7 +60,6 @@ Conversacion Conversacion::archivar(bool archivada){
 
 map <string, Mensaje*> Conversacion::getListaMensajes()
 {
-    cout << "llegué" << endl;
     return this->colMensajes;
 }
 

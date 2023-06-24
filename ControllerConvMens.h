@@ -10,7 +10,6 @@ class ControllerConvMens: public InterfaceConvMens {
         static ControllerConvMens* instancia;
         map <int,Conversacion*> colConversSis; //Lista de conversaciones del sistema
         map<string,Mensaje*> colMensajesSis; //Lista de mensajes del sistema
-        map<string,Mensaje*> colMensajesPorConver; //Lista aux - se utiliza para acceder a la lista de mensajes de una conversacion
         //map <int,Conversacion*> colConversUsuario; //Lista aux - se utiliza para acceder a la lista de conversaciones de un usuario
         //PseudoAtributos
         //Memoria del Controller
@@ -21,7 +20,7 @@ class ControllerConvMens: public InterfaceConvMens {
         ~ControllerConvMens();
         int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema);
         //int getcantArchivadas();
-        //void listarConversacionesActivas(Usuario* user);
+        void listarConversacionesActivas(Usuario* user);
         /*set<DtConversacionGrupal> mostrarConverG();
         set<DtConversacionPrivada> mostrarConverP();
         set<DtConversacion> seleccionarConversacion(int id);

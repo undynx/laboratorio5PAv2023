@@ -18,18 +18,11 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
 //  this->cantArchivadas;
 //}
 
-/*void ControllerConvMens::listarConversacionesActivas(Usuario* user)
+void ControllerConvMens::listarConversacionesActivas(Usuario* user)
 {
-  if(user->isEmptyColConvers())
-  {
-      cout << "No tiene ninguna conversacion activa";
-      cout << user->getNombre();
-  }
-  else
-  {
-      this->colConversUsuario = user->getListaConvers();
+    map <int,Conversacion*> colConversUsuario = user->getListaConvers();
 
-      for (auto it = this->colConversUsuario.begin(); it != this->colConversUsuario.end(); it++){
+    for (auto it = colConversUsuario.begin(); it != colConversUsuario.end(); it++){
           
         //Caso Conversacion Privada
         ConversacionPrivada* conversPriv = new ConversacionPrivada();
@@ -37,11 +30,10 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
         conversPriv = dynamic_cast<ConversacionPrivada*>(convers);
 
         cout << conversPriv->getOtroParticipante(user)->getNombre() << ": " << conversPriv->getOtroParticipante(user)->getNumTel() << endl;
-        cout << "Id: " << conversPriv->getId();
-    
-        }
+        cout << "Id Conversación: " << conversPriv->getId();
+       
     }
-}*/
+}
 
 int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)
 {
@@ -105,9 +97,7 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
           cout << "El mensaje ha sido enviado correctamente";
           msj->getFechayHora()->mostrarFechayHora();
           cout << endl;
-          cout << "Id Conversación: " << conver->getId() << endl;
-          cout << "Codigo Msj: " << msj->getCodigo() << endl;
-          cout << "Remi:" << msj->getNumRemitente() << endl;        
+          cout << "Id Conversación: " << conver->getId() << endl;      
 				break;
         case 2:
           //Enviar Imagen
@@ -254,18 +244,16 @@ void ControllerConvMens::ingresarIdConversacion(int idConver, Usuario* user)
     {
       throw std::invalid_argument("\nERROR - El número ingresado no está en su lista de conversaciones");
     }
-    cout << "llegué" << endl;
 
     if (conver->isColMensajesEmpty()){
         cout << "Esta conversación no tiene mensajes" << endl;
     }
     else
     {
-        this->colMensajesPorConver = conver->getListaMensajes();
-        //this->colDtMensajesPorConver = conver->getListaMensajesDt;
+        map<string,Mensaje*> colMensajesPorConver = conver->getListaMensajes();
         
-        for (auto it = this->colMensajesPorConver.begin(); it != this->colMensajesPorConver.end(); it++){
-        cout << "llegué" << endl;
+        for (auto it = colMensajesPorConver.begin(); it != colMensajesPorConver.end(); it++){
+ 
         MSimple* msjSimple = new MSimple();
         Mensaje *msj = it->second;
         msjSimple = dynamic_cast<MSimple*>(msj);

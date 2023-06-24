@@ -59,17 +59,6 @@ Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
     return user;
 }
 
-//Si existe el contacto devuelve el usuario, sino devuelve NULL
-Usuario *ControllerUsuario::encontrarContactoxNumTel(int numTel){
-
-    if (colContactos.find(numTel) != instancia->colUsuarios.end())
-    {
-        return instancia->colContactos.at(numTel);
-    }
-
-    return NULL;
-}
-
 void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
 
     // Primero busco si el usuario existe en el sistema
@@ -120,7 +109,7 @@ void ControllerUsuario::listarContactos(Usuario* user){
     //Usuario *user = cs->getUserLoggeado();
     //Llamar a una instancia nueva de sesión genera problemas con la sesión.
     //Lo mejor es pasar el usuario logeado por parametro
-    colContactos = user->getListaContactos();
+    map<int, Usuario*> colContactos = user->getListaContactos();
 
     for (auto it = colContactos.begin(); it != colContactos.end(); it++){
         cout << it->second->getNombre() << " - " << it->second->getNumTel() << endl;
