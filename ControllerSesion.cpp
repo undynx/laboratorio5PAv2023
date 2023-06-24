@@ -162,7 +162,7 @@ int ControllerSesion::abrirApp(int numTel){
 
 
 
-void ControllerSesion::cerrarApp()
+void ControllerSesion::        cerrarApp()
 {
 	bool isLoggedIn = loggedIn();
 

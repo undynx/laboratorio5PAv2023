@@ -27,6 +27,7 @@ int main()
     cout << "  1) Abrir app" << endl;
     cout << "  2) Alta usuario" << endl;
     cout << "  3) Agregar Contacto" << endl;
+    cout << "  4) Alta Grupo" << endl;
     cout << "  8) Cerrar app" << endl;
     cout << "  9) Salir" << endl;
     cout << "\n----------------------------\n";
@@ -73,9 +74,57 @@ int main()
               salirAgregarContacto = true;
           } while (salirAgregarContacto != true);
         }
+      case 4: 
+        //Alta Grupo
+        if(iSesion->loggedIn()==false){
+          cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
+
+        }else{
+          int opcion,op;
+          bool salir = false;
+          do
+          {
+            cout << "Listado de contactos participantes:" << endl;
+            //iGrupo->listarContactosPart
+            cout << "Listado de contactos restantes:" << endl;
+            //iGrupo->listarContactosRest
+            cout << "1) Agregar participante\n 2) Quitar Participante \n" << endl;
+            switch (op)
+            {
+            case 1:
+            cout << "Ingrese el número para ingresar al participante" << endl;
+            //cin >> variable
+            //iGrupo->agregarParticipante(variable)
+              break;
+            case 2:
+            cout << "Ingrese el número para quitar al participante" << endl;
+            //cin >> variable
+            //iGrupo->quitarParticipante(variable)
+              break;
+            default:
+              cout << opt << " no es una opcion correcta" << endl;
+            }
+            cout << "\nDeseas seguir?" << endl;
+            cout << "  1) SI \n  2) NO" << endl;
+            cin >> opcion;
+            if(opcion == 2)
+              salir = true;
+          } while (salir !=true);
+
+          cout << "Ingrese los datos del grupo a crear" << endl;
+          cout << "Nombre del grupo" << endl;
+          //cin >> variable;
+          cout << "URL de la imagen" << endl;
+          //cin >> variable;
+          //iGrupo->ingresoGrupo(var1,var2)
+          cout << "Grupo creado" << endl;
+
+        }
+
+        break;
       case 8: 
         //Cerrar app
-        //iSesion->cerrarApp();
+  
         break;
       case 9:
         salir = true;
