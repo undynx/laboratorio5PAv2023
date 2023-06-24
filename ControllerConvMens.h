@@ -16,8 +16,9 @@ class ControllerConvMens: public InterfaceConvMens {
         int cantArchivadas; //Contador de conversaciones archivadas
     public:
         ControllerConvMens();
-        ControllerConvMens *getInstancia();
+        static ControllerConvMens *getInstancia();
         ~ControllerConvMens();
+        Conversacion* getConverSis(int idConver);
         int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema);
         //int getcantArchivadas();
         void listarConversacionesActivas(Usuario* user);

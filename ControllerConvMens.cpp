@@ -14,6 +14,16 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
   return instancia;
 }
 
+Conversacion* ControllerConvMens::getConverSis(int idConver){
+
+ if (colConversSis.find(idConver) != colConversSis.end())
+    {
+          return colConversSis.at(idConver);
+    }
+    return NULL;
+}
+
+
 //int ControllerConvMens::getcantArchivadas(){
 //  this->cantArchivadas;
 //}
@@ -110,7 +120,7 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
           cout << "Ingresar formato de la imagen que desee enviar" << endl;
           cin >> formato;
           cout << endl;
-          cout << "Ingresar tamaño de la imagen que desee enviar" << endl;
+          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
           cin >> tamanio;
           cout << endl;
           cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
@@ -264,7 +274,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           cout << "Ingresar formato de la imagen que desee enviar" << endl;
           cin >> formato;
           cout << endl;
-          cout << "Ingresar tamaño de la imagen que desee enviar" << endl;
+          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
           cin >> tamanio;
           cout << endl;
           cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;

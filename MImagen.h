@@ -11,17 +11,17 @@ class MImagen : public Mensaje
     private:
         string url;
         string formato;
-        string tamaño;
+        string tamano;
         string texto;
         map<int,VistoMensaje*> vistoPor;
     public:
         MImagen();
-        MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto);
+        MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamano, string texto);
         string getFormato();
-        string getTamaño();
+        string getTamano();
         string getTexto();
         void setFormato(string formato);
-        void setTamaño(string tamaño);
+        void setTamano(string tamano);
         void setTexto(string texto);
         virtual DtMensaje* mostrarDatosM();
         ~MImagen();
