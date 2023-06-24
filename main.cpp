@@ -34,10 +34,16 @@ int main()
     cout << "  4) Modificar mi usuario" << endl;
     cout << "  5) Enviar Mensaje" << endl;
     cout << "  6) Ver Mensaje" << endl;
-    cout << "  8) Mi perfil" << endl;
-    cout << "  9) Cerrar sesion" << endl;
-    cout << "  10) Salir" << endl;
-    cout << "  11) Modificar fecha y hora" << endl;
+    cout << "  7) Eliminar Mensaje" << endl;
+    cout << "  8) Archivar Conversación" << endl;
+    cout << "  9) Alta Grupo" << endl;
+    cout << "  10) Agregar Participante" << endl;
+    cout << "  11) Agregar Administrador" << endl;
+    cout << "  12) Eliminar Participante" << endl;
+    cout << "  13) Mi perfil" << endl;
+    cout << "  14) Reloj del Sistema" << endl;
+    cout << "  15) Salir" << endl;
+    cout << "  0) Cerrar sesion" << endl;
     cout << "\n----------------------------\n";
 
     cin >> opt;
@@ -206,26 +212,18 @@ int main()
 
         }
       break;
-      case 8: //Mi perfil
+      case 13: //Mi perfil
         if (iSesion->loggedIn() == false)
         {
-          cout << "  ERROR: Debes iniciar sesion antes de poder agregar contactos" << endl;
+          cout << "  ERROR: Debes iniciar sesion para ver tu perfil" << endl;
         }else {
           cout << "Nombre: " << iSesion->getUserLoggeado()->getNombre() << endl;
           cout << "Imagen: " << iSesion->getUserLoggeado()->getImagen() << endl;
           cout << "Descripcion: " << iSesion->getUserLoggeado()->getDescripcion() << endl;
+          iSesion->getUserLoggeado()->getFecReg()->mostrarFechayHoraRegistro();
         }
-        break;
-      case 9: // Cerrar app
-        if (iSesion->loggedIn() == false)
-          cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
-        else
-          iSesion->cerrarApp(fechaSistema);
-        break;
-      case 10:
-        salir = true;
-        break;
-      case 11:
+      break;
+      case 14:
         //Modificar Reloj
         cout << "\n----------------------------\n";
 			  cout << "Elige la opcion que desees:\n";
@@ -267,7 +265,17 @@ int main()
         break;
         default:
         cout << "  ERROR: no es una opcion correcta" << endl;
-        break;
+      break;
+      case 15:
+        //Salir
+        salir = true;
+      break;
+      case 0: // Cerrar app
+        if (iSesion->loggedIn() == false)
+          cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
+        else
+          iSesion->cerrarApp(fechaSistema);
+      break;
       }
   } while (!salir);
 

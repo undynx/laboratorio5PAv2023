@@ -26,9 +26,6 @@ Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen
 
     instancia->colUsuarios.insert({numTel, user});
 
-    cout << "Se dio de alta su usuario correcatmente.\n";
-    fecReg->mostrarFechayHoraConexion();
-
     return user;
 }
 
