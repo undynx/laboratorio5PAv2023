@@ -68,10 +68,11 @@ int main()
             cin >> numTel;
             cout << "Ingresar el nombre" << endl;
             cin >> nombre;
+            cin.ignore();
             cout << "Ingresar la URL de perfil" << endl;
-            cin >> imagen;
+            getline(cin, imagen);
             cout << "Ingresar la descripcion" << endl;
-            cin >> descripcion;
+            getline(cin, descripcion);
             iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
           }
           catch (std::exception &e)
