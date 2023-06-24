@@ -41,6 +41,7 @@ class Usuario{
         Usuario* getContacto(int numtel);
         Conversacion* getConver(int id);
         void setConver(Conversacion* conver);
+        bool isEmptyColConvers();
         DtUsuario setUsuario(DtUsuario u);
         void setContacto(Usuario* u);
         map <int, Usuario*> getListaContactos();

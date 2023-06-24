@@ -13,6 +13,7 @@ class MImagen : public Mensaje
         string formato;
         string tamaño;
         string texto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MImagen();
         MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto);
@@ -22,7 +23,7 @@ class MImagen : public Mensaje
         void setFormato(string formato);
         void setTamaño(string tamaño);
         void setTexto(string texto);
-        void MostrardatosM();
+        virtual DtMensaje* mostrarDatosM();
         ~MImagen();
 };
 #endif

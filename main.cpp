@@ -121,8 +121,12 @@ int main()
         { 
           try
           {
-            //listarConversacionesActivas()
-            //cout << "Archivadas: " << cantArchivadas
+            cout << "----------------------------" << endl;
+            cout << "CONVERSACIONES: ";
+            iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+            //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+            cout << "----------------------------";
+
             cout << "\n----------------------------\n";
             cout << "Elige la opcion que desees:\n";
             cout << "  1) Seleccionar conversación activa" << endl;
@@ -136,7 +140,9 @@ int main()
             {
             case 1:
               //Seleccionar conversación activa
-
+              cout << "Ingresar el id de la conversación" << endl;
+              cin >> idConver;
+              iConvMens->ingresarIdConversacionEnviarMsj(idConver,iSesion->getUserLoggeado(), fechaSistema);
             break;
             case 2:
               //Ver las conversaciones archivadas
@@ -168,8 +174,12 @@ int main()
           cout << "ERROR: Debes iniciar sesion antes de poder ver mensajes" << endl;
         }else 
         { 
-        //listarConversacionesActivas()
-        //cout << "Archivadas: " << cantArchivadas
+        cout << "----------------------------" << endl;
+        cout << "CONVERSACIONES: ";
+        iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+        //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+        cout << "----------------------------";
+
         cout << "\n----------------------------\n";
 			  cout << "Elige la opcion que desees:\n";
 			  cout << "  1) Seleccionar conversación activa" << endl;
@@ -184,7 +194,7 @@ int main()
 				  //Seleccionar conversación activa
           cout << "Ingresar el id de la conversación" << endl;
           cin >> idConver;
-          iConvMens->ingresarIdConversacion(idConver,iSesion->getUserLoggeado());
+          iConvMens->ingresarIdConversacionMostrar(idConver,iSesion->getUserLoggeado(), fechaSistema);
 				break;
         case 2:
           //Ver las conversaciones archivadas

@@ -2,9 +2,9 @@
 //Constructores
 Conversacion::Conversacion(){}
 
-Conversacion::Conversacion(bool activo, int id){
-    this-> activo=activo;
-    this-> id=id;
+Conversacion::Conversacion(int idConver, bool activo){
+    this-> activo = activo;
+    this-> id = idConver;
 }
 
 //Gettes
@@ -40,6 +40,8 @@ void Conversacion::setMensaje(Mensaje* msj){
 }
 
 //Metodos
+
+/*
  Conversacion Conversacion::seleccionarConversacion(){
 
  }
@@ -54,11 +56,28 @@ DtConversacion Conversacion::pedirDatos(){
 }
 Conversacion Conversacion::archivar(bool archivada){
     
-}
+} */
 
 map <string, Mensaje*> Conversacion::getListaMensajes()
 {
     return this->colMensajes;
+}
+
+map <string, DtMensaje*> Conversacion::getListaMensajesDt()
+{
+    //map<string,DtMensaje*> colDtMensajes;
+
+   // for (auto it = this->colMensajes.begin(); it != this->colMensajes.end(); it++){
+
+    //    DtMensaje* dtMsj = it->second->mostrarDatosM();
+    //    colDtMensajes.insert({dtMsj->getCodigo(), dtMsj});
+
+      //  }
+    //return colDtMensajes;
+}
+
+bool Conversacion::isColMensajesEmpty(){
+    return this->colMensajes.empty();
 }
 
 //Destructor

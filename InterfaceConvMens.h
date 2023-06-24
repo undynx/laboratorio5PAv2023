@@ -10,6 +10,7 @@
 #include "MVideo.h"
 #include "MImagen.h"
 #include "MContacto.h"
+#include "VistoMensaje.h"
 #include "Usuario.h"
 #include "ControllerUsuario.h"
 #include "Conversacion.h"
@@ -25,18 +26,22 @@ using namespace std;
 
 class InterfaceConvMens {
 	public:
-        virtual int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema) = 0;
+        virtual int iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
+        //virtual int getcantArchivadas()=0;
+        virtual void listarConversacionesActivas(Usuario* user)=0;
 	//virtual set<DtConversacionGrupal> mostrarConverG() = 0;
 	//virtual set<DtConversacionPrivada> mostrarConverP() = 0;
-        /*virtual int mostrarCantidad()=0;
+        /*
         virtual set<DtConversacion> seleccionarConversacion(string id)=0;
         virtual set<DtMensaje> datosMensajes(string id)=0;
         virtual  DtMensaje borrarMensaje(DtConversacion borrar)=0;
         virtual set<DtConversacion> seleccionarConversacionesTodas()=0;*/
-        virtual void ingresarIdConversacion(int idConve, Usuario* user)=0;
+        virtual void ingresarIdConversacionEnviarMsj(int idConve, Usuario* user, DtFechaHora* fecEnvio)=0;
+        virtual void ingresarIdConversacionMostrar(int idConve, Usuario* user, DtFechaHora* fecVisto)=0;
         virtual string randomStr(int ch)=0;
+        virtual Mensaje* encontrarMensaje(string codigo)=0;
         virtual Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)=0;
-        //virtual Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio)=0;
+     //   virtual Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente)=0;
         virtual Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente)=0;
         virtual Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente)=0;
      //   virtual set<DtConversacion> buscarConv(int id)=0;

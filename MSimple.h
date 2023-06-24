@@ -2,6 +2,7 @@
 #define MSIMPLE_H
 #include <string>
 #include "DtFechaHora.h"
+#include "DtMSimple.h"
 #include "Mensaje.h"
 
 using namespace std;
@@ -10,12 +11,13 @@ class MSimple : public Mensaje
 {
     private:
         string texto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MSimple();
-        MSimple(std::string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto);
-        std::string getTexto();
+        MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto);
+        string getTexto();
         void setTexto(std::string texto);
-        void MostrardatosM();
+        virtual DtMensaje* mostrarDatosM();
         ~MSimple();
 };
 #endif

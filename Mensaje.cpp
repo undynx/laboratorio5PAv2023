@@ -28,6 +28,19 @@ int Mensaje::getNumRemitente(){
     return this->numTelRemitente;
 }
 
+VistoMensaje* Mensaje::getVistoPor(int numVistoPor){
+
+    if (vistoPor.find(numVistoPor) != vistoPor.end())
+    {
+          return vistoPor.at(numVistoPor);
+    }
+    return NULL;
+}
+
+map<int,VistoMensaje*> Mensaje::getListaVistoPor(){
+    return this->vistoPor;
+}
+
 /* DtMensaje Mensaje::seleccionar(){
     return NULL;
 } */
@@ -37,6 +50,10 @@ int Mensaje::getNumRemitente(){
 void Mensaje::setCodigo (string codigo){
     this->codigo = codigo;
 }
+
+ void Mensaje::setVistoPor(VistoMensaje* vistoPor){
+    this->vistoPor.insert({vistoPor->getDestinatario(), vistoPor});
+ }
 
 //Destructor
 

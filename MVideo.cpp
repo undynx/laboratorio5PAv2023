@@ -9,7 +9,7 @@ MVideo::MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayhora,strin
     this->duracion = duracion;
 }
 
-void MVideo::MostrardatosM()
+DtMensaje* MVideo::mostrarDatosM()
 {
     //Muestra datos mensaje video. hjm,
 }

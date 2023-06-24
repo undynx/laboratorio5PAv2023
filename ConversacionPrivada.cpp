@@ -3,20 +3,33 @@
 //Constructores
 ConversacionPrivada::ConversacionPrivada(){}
 
-ConversacionPrivada::ConversacionPrivada(bool activo, int id, Usuario* primerParticipante, Usuario* segundoParticipante) : Conversacion(Conversacion::getActivo(), Conversacion::getId()){
+ConversacionPrivada::ConversacionPrivada(int idConver, bool activo, Usuario* primerParticipante, Usuario* segundoParticipante) : Conversacion(idConver, activo){
     this->primerParticipante = primerParticipante;
     this->segundoParticipante = segundoParticipante;
 }
 
 
-/*
-//Metodos
-void ConversacionPrivada::MostrarDatosP(){
+//Getters
+Usuario* ConversacionPrivada::getOtroParticipante(Usuario* user){
+
+    Usuario* user2 = new Usuario();
+
+    if(this->primerParticipante==user)
+    {
+        return this->segundoParticipante;
+    }else
+    {
+        return this->primerParticipante;
+    }
 
 }
-void ConversacionPrivada::MostrarDatos(){
-    
-}*/
+
+//Metodos
+void ConversacionPrivada::mostrarDatosC(){
+
+}
+
+
 
 //Destructor
 ConversacionPrivada::~ConversacionPrivada(){}

@@ -10,12 +10,13 @@
 class MContacto: public Mensaje{
     private:
         DtUsuario contacto;
+        map<int,VistoMensaje*> vistoPor;
     public:
         MContacto();
         MContacto(string codigo, int numTelRemitente, DtFechaHora* fechayHora, DtUsuario contacto);    
-        void mostrarDatos();
-        MContacto borrar(DtMensaje m);////??????sera borrar?
-        DtMensaje seleccionar();
+        virtual DtMensaje* mostrarDatosM();
+        //MContacto borrar(DtMensaje m);////??????sera borrar?
+        //DtMensaje seleccionar();
         ~MContacto();
 };
 #endif

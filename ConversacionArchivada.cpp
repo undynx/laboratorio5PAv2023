@@ -2,20 +2,17 @@
 //Constructores
 ConversacionArchivada::ConversacionArchivada(){}
 
-ConversacionArchivada::ConversacionArchivada(bool _activo, int _id, int cantArch){
-    this-> cantArch=cantArch;
+ConversacionArchivada::ConversacionArchivada(int id, bool activo) : Conversacion(id, activo){
+
 }
 
 //Gettes
-int ConversacionArchivada::getCantArch(){
-    return this-> cantArch=cantArch;
-}
-
 
 //Setters
-void ConversacionArchivada::setCantArch(int cantArch){
-    this->cantArch=cantArch;
-}
 
 //Destructor
 ConversacionArchivada::~ConversacionArchivada(){}
+
+
+//Metodos
+void ConversacionArchivada::mostrarDatosC(){}

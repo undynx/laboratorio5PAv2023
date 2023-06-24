@@ -4,7 +4,7 @@
 //Constructores
 ConversacionGrupal::ConversacionGrupal(){}
 
-ConversacionGrupal::ConversacionGrupal(string nombre, string imagen, DtFechaHora* fechayHora, bool activo, int id){
+ConversacionGrupal::ConversacionGrupal(int id, bool activo, string nombre, string imagen, DtFechaHora* fechayHora) : Conversacion(id, activo){
     this-> nombre=nombre;
     this-> imagen=imagen;
     this-> fechayHora=fechayHora;
@@ -64,7 +64,7 @@ map <int, Usuario*> ConversacionGrupal::getListaParticipantes()
     return this->colParticipantes;
 }
 
-void MostrarConverG(){
+void ConversacionGrupal::mostrarDatosC(){
     
     //hay que desarrollar
 }

@@ -22,6 +22,8 @@ class DtFechaHora{
         void mostrarFechayHora();
         void mostrarFechayHoraConexion();
         void mostrarFechayHoraRegistro();
+        void mostrarFechayHoraVisto();
+        void mostrarFechayHoraEnviado();
         ~DtFechaHora();
 };
 #endif

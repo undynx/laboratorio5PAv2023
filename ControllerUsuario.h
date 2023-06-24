@@ -14,7 +14,7 @@ class ControllerUsuario: public InterfaceUsuario
 private:
     static ControllerUsuario* instancia;
     map<int, Usuario*> colUsuarios; //coleccion de usuarios registrados en el sistema
-    map<int, Usuario*> colContactos; //coleccion de contactos - se usa para acceder a una lista de contactos de un Usuario
+    //map<int, Usuario*> colContactos; //coleccion de contactos - se usa para acceder a una lista de contactos de un Usuario
 
 public:
     ControllerUsuario();
