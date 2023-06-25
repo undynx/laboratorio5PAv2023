@@ -15,17 +15,12 @@
 #include "ConversacionPrivada.h"
 #include "ConversacionGrupal.h"
 #include "ConversacionArchivada.h"
-#include "DtConversacion.h"
-#include "DtConversacionGrupal.h"
-#include "DtConversacionPrivada.h"
-#include "DtConversacionArchivada.h"
 
 using namespace std;
 
 class InterfaceConvMens {
 	public:
         virtual void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
-        //virtual int getcantArchivadas()=0;
         virtual void listarConversacionesActivas(Usuario* user)=0;
         virtual void setConversacionColSis(Conversacion *conv, int id) = 0;
         // virtual set<DtConversacionGrupal> mostrarConverG() = 0;

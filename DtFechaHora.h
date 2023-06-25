@@ -24,6 +24,8 @@ class DtFechaHora{
         void mostrarFechayHoraRegistro();
         void mostrarFechayHoraVisto();
         void mostrarFechayHoraEnviado();
+        bool esMayorIgualQue(DtFechaHora* fechaHora);
+        bool esIgualQue(DtFechaHora* fechaHora);
         ~DtFechaHora();
 };
 #endif

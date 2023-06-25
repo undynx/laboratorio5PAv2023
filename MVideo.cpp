@@ -11,6 +11,12 @@ MVideo::MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayhora,strin
 
 //Gettes
 
+string MVideo::getUrl()
+{
+    return this->url;
+
+}
+
 float MVideo::getDuracion()
 {
     return this->duracion;
@@ -18,12 +24,15 @@ float MVideo::getDuracion()
 
 
 //Setters
+void MVideo::setUrl(string url)
+{
+    this->url = url;
+}
 
 void MVideo::setDuracion(float duracion)
 {
     this->duracion = duracion;
 }
-
 
 //Destructor
 

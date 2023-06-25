@@ -12,13 +12,13 @@ ConversacionGrupal::ConversacionGrupal(int id, bool activo, string nombre, strin
 
 //Gettes
 string ConversacionGrupal::getNombre(){
-    return this-> nombre=nombre;
+    return this-> nombre;
 }
 string ConversacionGrupal::getImagen(){
-    return this-> imagen=imagen;
+    return this-> imagen;
 }
 DtFechaHora* ConversacionGrupal::getFechayHora(){
-    return this-> fechayHora=fechayHora;
+    return this-> fechayHora;
 }
 
 Usuario* ConversacionGrupal::getParticipante(int numTel){
@@ -26,6 +26,24 @@ Usuario* ConversacionGrupal::getParticipante(int numTel){
  if (colParticipantes.find(numTel) != colParticipantes.end())
     {
           return colParticipantes.at(numTel);
+    }
+    return NULL;
+}
+
+Usuario* ConversacionGrupal::getAdministrador(int numTel)
+{
+    if (colAdministradores.find(numTel) != colAdministradores.end())
+    {
+          return colAdministradores.at(numTel);
+    }
+    return NULL;
+}
+
+DtFechaHora* ConversacionGrupal::getFechaIngresoParticipante(int numTel){
+
+     if (colFechasIngresosParticipantes.find(numTel) != colFechasIngresosParticipantes.end())
+    {
+          return colFechasIngresosParticipantes.at(numTel);
     }
     return NULL;
 }
@@ -39,6 +57,23 @@ void ConversacionGrupal::setImagen(string imagen){
 }
 void ConversacionGrupal::setFechayHora(DtFechaHora* fechayHora){
     this->fechayHora=fechayHora;
+}
+
+void ConversacionGrupal::setParticipante(Usuario *u)
+{
+    // Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
+    this->colParticipantes.insert({u->getNumTel(), u});
+}
+
+void ConversacionGrupal::setAdministrador(Usuario* administrador)
+{
+    //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion
+    this->colAdministradores.insert({administrador->getNumTel(), administrador});
+}
+
+void ConversacionGrupal::setFechaIngresoParticipante(int numTel,DtFechaHora* fechaIngreso)
+{
+    this->colFechasIngresosParticipantes.insert({numTel, fechaIngreso});
 }
 
 //Metodos
@@ -66,24 +101,14 @@ map <int, Usuario*> ConversacionGrupal::getListaParticipantes()
     return this->colParticipantes;
 }
 
+map<int, DtFechaHora*> ConversacionGrupal::getListaIngresosParticipantes()
+{
+    return this->colFechasIngresosParticipantes;
+}
+
 void ConversacionGrupal::mostrarDatosC(){
     
     //hay que desarrollar
-}
-
-Usuario* ConversacionGrupal::getAdministrador(int numTel)
-{
-    if (colAdministradores.find(numTel) != colAdministradores.end())
-    {
-          return colAdministradores.at(numTel);
-    }
-    return NULL;
-}
-
-void ConversacionGrupal::setParticipante(Usuario *u)
-{
-    // Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
-    this->colParticipantes.insert({u->getNumTel(), u});
 }
 
 void ConversacionGrupal::eliminarParticipante(int numTel)
@@ -93,13 +118,6 @@ void ConversacionGrupal::eliminarParticipante(int numTel)
         this->colParticipantes.erase(numTel);
     }
 }
-
-void ConversacionGrupal::setAdministrador(Usuario* administrador)
-{
-    //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion
-    this->colAdministradores.insert({administrador->getNumTel(), administrador});
-}
-
 
 //Destructor
 ConversacionGrupal::~ConversacionGrupal(){}

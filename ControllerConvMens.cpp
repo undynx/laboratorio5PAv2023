@@ -5,7 +5,7 @@ using namespace std;
 ControllerConvMens* ControllerConvMens::instancia=NULL;
 
 ControllerConvMens::ControllerConvMens(){
-  
+
 }
 
 ControllerConvMens *ControllerConvMens::getInstancia(){
@@ -42,16 +42,24 @@ void ControllerConvMens::listarConversacionesActivas(Usuario* user)
 
       for (auto it = colConversUsuario.begin(); it != colConversUsuario.end(); it++){
           
-        //Caso Conversacion Privada
         ConversacionPrivada* conversPriv = new ConversacionPrivada();
+        ConversacionGrupal* conversGrup = new ConversacionGrupal();
         Conversacion *convers = it->second;
         conversPriv = dynamic_cast<ConversacionPrivada*>(convers);
+        conversGrup = dynamic_cast<ConversacionGrupal*>(convers);
 
         cout << "\n----------------------------\n";
-        cout << conversPriv->getOtroParticipante(user)->getNombre() << ": " << conversPriv->getOtroParticipante(user)->getNumTel() << endl;
-        cout << "Id Conversación: " << conversPriv->getId() << endl;
-    
+        if(conversPriv!=NULL)
+        {//Caso Conversacion Privada
+          cout << conversPriv->getOtroParticipante(user)->getNombre() << ": " << conversPriv->getOtroParticipante(user)->getNumTel() << endl;
+          cout << "Id Conversación: " << conversPriv->getId() << endl;
         }
+        else if (conversGrup!=NULL)
+        {//Caso Conversacion Grupal
+          cout << "Grupo : " << conversGrup->getNombre() << endl;
+          cout << "Id Conversación: " << conversGrup->getId() << endl;
+        }
+      }
    }
 }
 
@@ -64,121 +72,122 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, 
 
   ControllerUsuario* cu = ControllerUsuario::getInstancia();
   Usuario* destinatario = user->getContacto(numTelContacto);
-  numTelDest = destinatario->getNumTel();
   DtUsuario dtUser = user->pedirDatos();
-  numTelRte = dtUser.getNumTel();
-
+  
   if(destinatario==NULL)
   {
-    throw std::invalid_argument("\nERROR - El número ingresado no está en su lista de contactos");
+    cout << "ERROR: El número ingresado no está en su lista de contactos" << endl;
   }
+  else
+  { 
+    numTelDest = destinatario->getNumTel();
+    numTelRte = dtUser.getNumTel();
+    idConve = rand() % 100 + 1;
 
-  idConve = rand() % 100 + 1;
+    ConversacionPrivada* converPriv = new ConversacionPrivada(idConve, true, user, destinatario);
+    Conversacion *conver = converPriv;
+    converPriv = dynamic_cast<ConversacionPrivada*>(conver);
+    
+    //Agrego la conversación a la lista de convers del sistema
+    this->colConversSis.insert({converPriv->getId(), converPriv});
+    //Agrego la conversacion a la lista de conversaciones de los usuarios.
+    user->setConver(converPriv);
+    destinatario->setConver(converPriv);
 
-  ConversacionPrivada* converPriv = new ConversacionPrivada(idConve, true, user, destinatario);
-  Conversacion *conver = converPriv;
-  converPriv = dynamic_cast<ConversacionPrivada*>(conver);
-  
-  //Agrego la conversación a la lista de convers del sistema
-  this->colConversSis.insert({converPriv->getId(), converPriv});
-  //Agrego la conversacion a la lista de conversaciones de los usuarios.
-  user->setConver(converPriv);
-  destinatario->setConver(converPriv);
+          cout << "\n----------------------------\n";
+          cout << "Elige la opcion que desees:\n\n";
+          cout << "  1) Enviar Mensaje Simple" << endl;
+          cout << "  2) Enviar Imagen" << endl;
+          cout << "  3) Enviar Video" << endl;
+          cout << "  4) Enviar Contacto" << endl;
+          cout << "\n----------------------------\n";
 
-        cout << "\n----------------------------\n";
-			  cout << "Elige la opcion que desees:\n\n";
-			  cout << "  1) Enviar Mensaje Simple" << endl;
-			  cout << "  2) Enviar Imagen" << endl;
-			  cout << "  3) Enviar Video" << endl;
-        cout << "  4) Enviar Contacto" << endl;
-			  cout << "\n----------------------------\n";
+          cin >> optmsj;
 
-			  cin >> optmsj;
-
-			  switch (optmsj)
-			  {
-			  case 1:
-				  //Enviar Mensaje Simple
-          cout << "Ingresar el texto desee enviar" << endl;
-          cin >> texto;
-          //cout << endl;
-          msj = enviarMsjSimple(texto, fechaSistema, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-          cout << endl;
-          cout << "Id Conversación: " << conver->getId() << endl;      
-				break;
-        case 2:
-          //Enviar Imagen
-          cout << "Ingresar URL de la imagen que desee enviar" << endl;
-          cin >> url;
-          cout << endl;
-          cout << "Ingresar formato de la imagen que desee enviar" << endl;
-          cin >> formato;
-          cout << endl;
-          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
-          cin >> tamanio;
-          cout << endl;
-          cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
-          cin >> texto;
-          cout << endl;
-          msj = enviarMsjImagen(url, tamanio, formato, fechaSistema, texto, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          //vistoPor = new VistoMensaje(numTelRte,NULL,false);
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-          cout << endl;
-          cout << "Id Conversación: " << conver->getId() << endl;
-        break;
-        case 3:
-          //Enviar Video    
-          cout << "Ingresar URL del video que desee enviar" << endl;
-          cin >> url;
-          cout << endl;
-          cout << "Ingresar duracion del video que desee enviar" << endl;
-          cin >> duracion;
-          cout << endl;
-          //msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-          cout << endl;
-          cout << "Id Conversación: " << conver->getId() << endl;
-        break;
-        case 4:
-          //Enviar Contacto 
-          cu->listarContactos(user);
-          cout << "Ingresar número de celular del contacto que desee enviar" << endl;
-          cin >> numTelCto;
-          cout << endl;
-          msj = enviarMsjCompartirContacto(numTelCto, fechaSistema, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-          cout << endl;
-          cout << "Id Conversación: " << conver->getId() << endl;
-        break;
-        default:
-            cout << optmsj << " no es una opcion correcta \n" << endl;
+          switch (optmsj)
+          {
+          case 1:
+            //Enviar Mensaje Simple
+            cout << "Ingresar el texto desee enviar" << endl;
+            cin >> texto;
+            //cout << endl;
+            msj = enviarMsjSimple(texto, fechaSistema, numTelRte);
+            //Agrego la instancia de vistoPor a la instancia de mensaje creada
+            msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+            //Agrego al mensaje a la lista de mensajes de la conversación.
+            conver->setMensaje(msj);
+            this->colMensajesSis.insert({msj->getCodigo(), msj});
+            cout << "El mensaje ha sido enviado correctamente";
+            msj->getFechayHora()->mostrarFechayHoraEnviado();
+            cout << endl;
+            cout << "Id Conversación: " << conver->getId() << endl;      
+          break;
+          case 2:
+            //Enviar Imagen
+            cout << "Ingresar URL de la imagen que desee enviar" << endl;
+            cin >> url;
+            cout << endl;
+            cout << "Ingresar formato de la imagen que desee enviar" << endl;
+            cin >> formato;
+            cout << endl;
+            cout << "Ingresar tamano de la imagen que desee enviar" << endl;
+            cin >> tamanio;
+            cout << endl;
+            cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
+            cin >> texto;
+            cout << endl;
+            msj = enviarMsjImagen(url, tamanio, formato, fechaSistema, texto, numTelRte);
+            //Agrego la instancia de vistoPor a la instancia de mensaje creada
+            //vistoPor = new VistoMensaje(numTelRte,NULL,false);
+            msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+            //Agrego al mensaje a la lista de mensajes de la conversación.
+            conver->setMensaje(msj);
+            this->colMensajesSis.insert({msj->getCodigo(), msj});
+            cout << "El mensaje ha sido enviado correctamente";
+            msj->getFechayHora()->mostrarFechayHoraEnviado();
+            cout << endl;
+            cout << "Id Conversación: " << conver->getId() << endl;
+          break;
+          case 3:
+            //Enviar Video    
+            cout << "Ingresar URL del video que desee enviar" << endl;
+            cin >> url;
+            cout << endl;
+            cout << "Ingresar duracion del video que desee enviar" << endl;
+            cin >> duracion;
+            cout << endl;
+            //msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
+            //Agrego la instancia de vistoPor a la instancia de mensaje creada
+            msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+            //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
+            conver->setMensaje(msj);
+            this->colMensajesSis.insert({msj->getCodigo(), msj});
+            cout << "El mensaje ha sido enviado correctamente";
+            msj->getFechayHora()->mostrarFechayHoraEnviado();
+            cout << endl;
+            cout << "Id Conversación: " << conver->getId() << endl;
+          break;
+          case 4:
+            //Enviar Contacto 
+            cu->listarContactos(user);
+            cout << "Ingresar número de celular del contacto que desee enviar" << endl;
+            cin >> numTelCto;
+            cout << endl;
+            msj = enviarMsjCompartirContacto(numTelCto, fechaSistema, numTelRte);
+            //Agrego la instancia de vistoPor a la instancia de mensaje creada
+            msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+            //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
+            conver->setMensaje(msj);
+            this->colMensajesSis.insert({msj->getCodigo(), msj});
+            cout << "El mensaje ha sido enviado correctamente";
+            msj->getFechayHora()->mostrarFechayHoraEnviado();
+            cout << endl;
+            cout << "Id Conversación: " << conver->getId() << endl;
+          break;
+          default:
+              cout << optmsj << " no es una opcion correcta \n" << endl;
+          }
         }
-
 }
 
 Mensaje* ControllerConvMens::enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)
@@ -223,107 +232,160 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
 {
   int optmsj, numTelCto, numTelRte, numTelDest;
   float duracion;
+  map<int, Usuario*> colParticipantes;
   string texto, url, tamanio, formato;
   Mensaje* msj;
 
   ConversacionPrivada* converPriv;
+  ConversacionGrupal* converGrup;
   Conversacion *conver = user->getConver(idConver);
   if(conver==NULL)
   {
-    throw std::invalid_argument("\nERROR - El id ingresado no está en su lista de conversaciones");
+    cout << "ERROR - El id ingresado no está en su lista de conversaciones";
   }
-  converPriv = dynamic_cast<ConversacionPrivada*>(conver);
+  else
+  {
+    converPriv = dynamic_cast<ConversacionPrivada*>(conver);
+    converGrup = dynamic_cast<ConversacionGrupal*>(conver);
 
-  ControllerUsuario* cu = ControllerUsuario::getInstancia();
-  numTelDest = converPriv->getOtroParticipante(user)->getNumTel();
-  DtUsuario dtUser = user->pedirDatos();
-  numTelRte = dtUser.getNumTel();
+    if(converPriv!=NULL)
+    {
+      numTelDest = converPriv->getOtroParticipante(user)->getNumTel();
+    }
+    else if (converGrup!=NULL)
+    {
+      colParticipantes = converGrup->getListaParticipantes();
+    }
 
-        cout << "\n----------------------------\n";
-			  cout << "Elige la opcion que desees:\n";
-			  cout << "  1) Enviar Mensaje Simple" << endl;
-			  cout << "  2) Enviar Imagen" << endl;
-			  cout << "  3) Enviar Video" << endl;
-        cout << "  4) Enviar Contacto" << endl;
-			  cout << "\n----------------------------\n";
+    ControllerUsuario* cu = ControllerUsuario::getInstancia();
+    DtUsuario dtUser = user->pedirDatos();
+    numTelRte = dtUser.getNumTel();
 
-			  cin >> optmsj;
+    cout << "\n----------------------------\n";
+    cout << "Elige la opcion que desees:\n";
+    cout << "  1) Enviar Mensaje Simple" << endl;
+    cout << "  2) Enviar Imagen" << endl;
+    cout << "  3) Enviar Video" << endl;
+    cout << "  4) Enviar Contacto" << endl;
+    cout << "\n----------------------------\n";
 
-			  switch (optmsj)
-			  {
-			  case 1:
-				  //Enviar Mensaje Simple
-          cout << "Ingresar el texto desee enviar" << endl;
-          cin >> texto;
-          //cout << endl;
-          msj = enviarMsjSimple(texto, fecEnvio, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
+    cin >> optmsj;
+
+    switch (optmsj)
+    {
+    case 1:
+      //Enviar Mensaje Simple
+      cout << "Ingresar el texto desee enviar" << endl;
+      cin >> texto;
+      //cout << endl;
+      msj = enviarMsjSimple(texto, fecEnvio, numTelRte);
+      //Agrego la instancia de vistoPor a la instancia de mensaje creada
+      if(converPriv!=NULL)
+      {//Caso Conversacion Privada
           msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();  
-				break;
-        case 2:
-          //Enviar Imagen
-          cout << "Ingresar URL de la imagen que desee enviar" << endl;
-          cin >> url;
-          cout << endl;
-          cout << "Ingresar formato de la imagen que desee enviar" << endl;
-          cin >> formato;
-          cout << endl;
-          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
-          cin >> tamanio;
-          cout << endl;
-          cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
-          cin >> texto;
-          cout << endl;
-          msj = enviarMsjImagen(url, tamanio, formato, fecEnvio, texto, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-        break;
-        case 3:
-          //Enviar Video    
-          cout << "Ingresar URL del video que desee enviar" << endl;
-          cin >> url;
-          cout << endl;
-          cout << "Ingresar duracion del video que desee enviar" << endl;
-          cin >> duracion;
-          cout << endl;
-          //msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-        break;
-        case 4:
-          //Enviar Contacto 
-          cu->listarContactos(user);
-          cout << "Ingresar número de celular del contacto que desee enviar" << endl;
-          cin >> numTelCto;
-          cout << endl;
-          msj = enviarMsjCompartirContacto(numTelCto, fecEnvio, numTelRte);
-          //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-          //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
-          conver->setMensaje(msj);
-          this->colMensajesSis.insert({msj->getCodigo(), msj});
-          cout << "El mensaje ha sido enviado correctamente";
-          msj->getFechayHora()->mostrarFechayHoraEnviado();
-        break;
-        default:
-            cout << optmsj << " no es una opcion correcta \n" << endl;
+      }
+      else if (converGrup!=NULL)
+      {//Caso Conversacion Grupal
+        for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+        {
+            msj->setVistoPor(new VistoMensaje(it->second->getNumTel(),NULL,false));
         }
-
+      }
+      //Agrego al mensaje a la lista de mensajes de la conversación.
+      conver->setMensaje(msj);
+      this->colMensajesSis.insert({msj->getCodigo(), msj});
+      cout << "El mensaje ha sido enviado correctamente";
+      msj->getFechayHora()->mostrarFechayHoraEnviado();  
+    break;
+    case 2:
+      //Enviar Imagen
+      cout << "Ingresar URL de la imagen que desee enviar" << endl;
+      cin >> url;
+      cout << endl;
+      cout << "Ingresar formato de la imagen que desee enviar" << endl;
+      cin >> formato;
+      cout << endl;
+      cout << "Ingresar tamano de la imagen que desee enviar" << endl;
+      cin >> tamanio;
+      cout << endl;
+      cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
+      cin >> texto;
+      cout << endl;
+      msj = enviarMsjImagen(url, tamanio, formato, fecEnvio, texto, numTelRte);
+      //Agrego la instancia de vistoPor a la instancia de mensaje creada
+      if(converPriv!=NULL)
+      {//Caso Conversacion Privada
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+      }
+      else if (converGrup!=NULL)
+      {//Caso Conversacion Grupal
+        for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+        {
+            msj->setVistoPor(new VistoMensaje(it->second->getNumTel(),NULL,false));
+        }
+      }
+      //Agrego al mensaje a la lista de mensajes de la conversación.
+      conver->setMensaje(msj);
+      this->colMensajesSis.insert({msj->getCodigo(), msj});
+      cout << "El mensaje ha sido enviado correctamente";
+      msj->getFechayHora()->mostrarFechayHoraEnviado();
+      break;
+      case 3:
+        //Enviar Video    
+        cout << "Ingresar URL del video que desee enviar" << endl;
+        cin >> url;
+        cout << endl;
+        cout << "Ingresar duracion del video que desee enviar" << endl;
+        cin >> duracion;
+        cout << endl;
+        //msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
+        //Agrego la instancia de vistoPor a la instancia de mensaje creada
+        if(converPriv!=NULL)
+        {//Caso Conversacion Privada
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+        }
+        else if (converGrup!=NULL)
+        {//Caso Conversacion Grupal
+          for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+          {
+            msj->setVistoPor(new VistoMensaje(it->second->getNumTel(),NULL,false));
+          }
+        }
+        //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
+        conver->setMensaje(msj);
+        this->colMensajesSis.insert({msj->getCodigo(), msj});
+        cout << "El mensaje ha sido enviado correctamente";
+        msj->getFechayHora()->mostrarFechayHoraEnviado();
+      break;
+      case 4:
+        //Enviar Contacto 
+        cu->listarContactos(user);
+        cout << "Ingresar número de celular del contacto que desee enviar" << endl;
+        cin >> numTelCto;
+        cout << endl;
+        msj = enviarMsjCompartirContacto(numTelCto, fecEnvio, numTelRte);
+        //Agrego la instancia de vistoPor a la instancia de mensaje creada
+        if(converPriv!=NULL)
+        {//Caso Conversacion Privada
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
+        }
+        else if (converGrup!=NULL)
+        {//Caso Conversacion Grupal
+          for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+          {
+            msj->setVistoPor(new VistoMensaje(it->second->getNumTel(),NULL,false));
+          }
+        }
+        //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
+        conver->setMensaje(msj);
+        this->colMensajesSis.insert({msj->getCodigo(), msj});
+        cout << "El mensaje ha sido enviado correctamente";
+        msj->getFechayHora()->mostrarFechayHoraEnviado();
+      break;
+      default:
+        cout << optmsj << " no es una opcion correcta \n" << endl;
+      }
+    }
 }
 
 void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, Usuario* user, DtFechaHora* fecVisto)
@@ -331,59 +393,120 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, Usuario* us
   ControllerUsuario* cu = ControllerUsuario::getInstancia();
 
   VistoMensaje* vistoPor;
+  ConversacionGrupal* converGrup;
   ConversacionPrivada* converPriv;
   Conversacion *conver = user->getConver(idConver);
   if(conver==NULL)
   {
-      throw std::invalid_argument("\nERROR - El id ingresado no está en su lista de conversaciones");
-  }
-  converPriv = dynamic_cast<ConversacionPrivada*>(conver);
-
-  if (conver->isColMensajesEmpty()){
-      cout << "Esta conversación no tiene mensajes" << endl;
+    cout << "ERROR - El id ingresado no está en su lista de conversaciones";
   }
   else
   {
-      map<string,Mensaje*> colMensajesPorConver = converPriv->getListaMensajes();
+    converPriv = dynamic_cast<ConversacionPrivada*>(conver);
+    converGrup = dynamic_cast<ConversacionGrupal*>(conver);
+
+    if (conver->isColMensajesEmpty()){
+        cout << "Esta conversación no tiene mensajes" << endl;
+    }
+    else
+    {
+        map<string,Mensaje*> colMensajesPorConver = conver->getListaMensajes();
+          
+        for (auto it = colMensajesPorConver.begin(); it != colMensajesPorConver.end(); it++)
+        {
+          MSimple* msjSimple = new MSimple();
+          MImagen* msjImg = new MImagen();
+          //MVideo* msjVideo = new MVideo();
+          MContacto* msjCon = new MContacto();
+          Mensaje *msj = it->second;
+          msjSimple = dynamic_cast<MSimple*>(msj);
+          msjImg = dynamic_cast<MImagen*>(msj);
+          //msjVideo = dynamic_cast<MVideo*>(msj);
+          msjCon = dynamic_cast<MContacto*>(msj);
+
+          Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+          DtFechaHora* fechaIngreso = NULL;
+
+          if(converGrup!=NULL)
+          {
+            fechaIngreso = converGrup->getFechaIngresoParticipante(user->getNumTel());
+          }
+
+          if(msj->getFechayHora()->esMayorIgualQue(fechaIngreso)){
         
-      for (auto it = colMensajesPorConver.begin(); it != colMensajesPorConver.end(); it++){
- 
-      MSimple* msjSimple = new MSimple();
-      Mensaje *msj = it->second;
-      msjSimple = dynamic_cast<MSimple*>(msj);
+            cout << "\n----------------------------\n";
+            if(msjSimple!=NULL)
+            {//Caso Msj Simple
+              cout << remitente->getNombre() << ": " << msjSimple->getTexto() << endl;
+              cout << "Codigo: " << msjSimple->getCodigo();
+            }
+            else if(msjImg!=NULL)
+            {//Caso Msj Imagen
+              cout << remitente->getNombre() << ": " << msjImg->getUrl() << endl;
+              cout << "Codigo: " << msjImg->getCodigo();
+            }
+            /*else if(msjVideo!=NULL)
+            {//Caso Msj Video
+              cout << remitente->getNombre() << ": " << msjVideo->getUrl() << endl;
+              cout << "Codigo: " << msjVideo->getCodigo();
+            }*/
+            else if(msjCon!=NULL)
+            {//Caso Msj Contacto
+              cout << remitente->getNombre() << ": Nombre contacto -:" << msjCon->getContacto().getNombre() << " - Número contacto -:" << msjCon->getContacto().getNumTel() << endl;
+              cout << "Codigo: " << msjCon->getCodigo();
+            }
 
-      Usuario* remitente = cu->encontrarUsuarioxnumTel(msjSimple->getNumRemitente());
-
-      cout << "\n----------------------------\n";
-      cout << remitente->getNombre() << ": " << msjSimple->getTexto() << endl;
-      cout << "Codigo: " << msjSimple->getCodigo();
-
-      if(remitente==user)
-      {
-          vistoPor = msjSimple->getVistoPor(converPriv->getOtroParticipante(user)->getNumTel());
-          if(vistoPor->getVisto()) 
-          {
-            vistoPor->getfecHoraVisto()->mostrarFechayHoraVisto();
+            if(remitente==user)
+            {
+                map<int, Usuario*> colParticipantes;
+                bool visto;
+                if(converPriv!=NULL)
+                {
+                    vistoPor = msj->getVistoPor(converPriv->getOtroParticipante(user)->getNumTel());
+                    visto = vistoPor->getVisto();
+                }
+                else if(converGrup!=NULL)
+                {
+                  colParticipantes = converGrup->getListaParticipantes();
+                    for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+                    {
+                      if(it->second!=user)
+                      {
+                        vistoPor = msj->getVistoPor(it->second->getNumTel()); 
+                        if(vistoPor!=NULL)
+                        {
+                          visto = vistoPor->getVisto();
+                          if(!visto){break;} 
+                        }
+                      }       
+                    }
+                }
+                if(visto) 
+                {
+                  if(converPriv!=NULL){vistoPor->getfecHoraVisto()->mostrarFechayHoraVisto();}           
+                  else if(converGrup!=NULL){cout << endl << "VISTO por TODOS";}
+                }
+                else
+                {
+                  msj->getFechayHora()->mostrarFechayHoraEnviado();
+                }    
+            }
+            else
+            {
+                vistoPor = msjSimple->getVistoPor(user->getNumTel());
+                if(!vistoPor->getVisto()) 
+                {
+                  vistoPor->setVisto();
+                  vistoPor->setFecHoraVisto(fecVisto);
+                }
+                msjSimple->getFechayHora()->mostrarFechayHoraEnviado();
+            }
           }
-          else
-          {
-            msjSimple->getFechayHora()->mostrarFechayHoraEnviado();
-          }    
-      }
-      else
-      {
-          vistoPor = msjSimple->getVistoPor(user->getNumTel());
-          if(!vistoPor->getVisto()) 
-          {
-            vistoPor->setVisto();
-            vistoPor->setFecHoraVisto(fecVisto);
-          }
-          msjSimple->getFechayHora()->mostrarFechayHoraEnviado();
-      }
-    
-      }
+        }
+        //Aca Termina el Listado de los mensajes
+        //Faltan seleccionar el mensaje para ver detalle
+    }
   }
-
 }
 
 string ControllerConvMens::randomStr(int ch)
@@ -391,10 +514,10 @@ string ControllerConvMens::randomStr(int ch)
   string result = "";
   bool salir = false;
   const int ch_MAX = 26;
-  char alpha[ch_MAX] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+  char alpha[ch_MAX] = {  'a', 'b', 'c', 'd', 'e', 'f', 'g',
                           'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                          'o', 'p', 'q', 'r', 's', 't', 'u',
-                          'v', 'w', 'x', 'y', 'z' };
+                          'o', 'p', 'q', 'r', 's', 't', 
+                          'u','v', 'w', 'x', 'y', 'z' };
   do
   {
   

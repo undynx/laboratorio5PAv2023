@@ -13,13 +13,15 @@ class MImagen : public Mensaje
         string formato;
         string tamano;
         string texto;
-        map<int,VistoMensaje*> vistoPor;
+
     public:
         MImagen();
         MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamano, string texto);
+        string getUrl();
         string getFormato();
         string getTamano();
         string getTexto();
+        void setUrl(string url);
         void setFormato(string formato);
         void setTamano(string tamano);
         void setTexto(string texto);
