@@ -1,10 +1,8 @@
 #ifndef INTERFACECONVMENS_H
 #define INTERFACECONVMENS_H
-#include <list>
-#include <string.h>
+#include <map>
 #include <stdlib.h>
-#include <stdio.h>
-#include <set>
+#include <string.h>
 #include "Mensaje.h"
 #include "MSimple.h"
 #include "MVideo.h"
@@ -17,17 +15,12 @@
 #include "ConversacionPrivada.h"
 #include "ConversacionGrupal.h"
 #include "ConversacionArchivada.h"
-#include "DtConversacion.h"
-#include "DtConversacionGrupal.h"
-#include "DtConversacionPrivada.h"
-#include "DtConversacionArchivada.h"
 
 using namespace std;
 
 class InterfaceConvMens {
 	public:
         virtual void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
-        //virtual int getcantArchivadas()=0;
         virtual void listarConversacionesActivas(Usuario* user)=0;
         virtual void setConversacionColSis(Conversacion *conv, int id) = 0;
         // virtual set<DtConversacionGrupal> mostrarConverG() = 0;

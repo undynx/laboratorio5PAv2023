@@ -19,7 +19,7 @@ int main()
   InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
 
   bool salir = false;
-  int opt,optreloj,optenvmsj,optvermsj;
+  int opt,optreloj,optenvmsj,optvermsj,optgrupo;
   int numTel,idConver;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
@@ -156,7 +156,7 @@ int main()
             break;
             case 2:
               //Ver las conversaciones archivadas
-
+              
             break;
             case 3:
               //Iniciar conversación con un contacto nuevo;
@@ -217,23 +217,28 @@ int main()
         }
       break;
       case 9:
-        int opcion;
-        cout << "Eligi la opcion que desees \n" << endl;
-        cout << "  1) Alta grupo" << endl;
-        cout << "  2) Agregar participantes" << endl;
-        cout << "  3) Agregar administradores" << endl;
-        cout << "  4) Mis grupos" << endl;
-
-        cin >> opcion;
-
-        switch(opcion)
+        if (iSesion->loggedIn() == false)
         {
+            cout << " ERROR: Debes iniciar sesion antes de poder crear/modificar grupos" << endl;
+        }
+        else
+        {
+          cout << "Eligi la opcion que desees \n" << endl;
+          cout << "  1) Alta grupo" << endl;
+          cout << "  2) Agregar participantes" << endl;
+          cout << "  3) Agregar administradores" << endl;
+          cout << "  4) Eliminar participante" << endl;
+
+          cin >> optgrupo;
+
+          string nomGrupo, urlGrupo;
+          int numTel, id;
+
+          switch(optgrupo)
+          {
           case 1: //Alta grupo
-            if (iSesion->loggedIn() == false)
-            {
-              cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
-            }
-            else if(iSesion->getUserLoggeado()->getListaContactos().empty()){
+
+          if(iSesion->getUserLoggeado()->getListaContactos().empty()){
               cout << "  ERROR: No tienes ningun contacto con el que iniciar un grupo" << endl;
             } else
             {
@@ -247,27 +252,35 @@ int main()
               iGrupo->crearGrupo(nomGrupo, urlGrupo, fechaSistema);
               cout << "Grupo creado" << endl;
             }
-
           break;
           case 2: //Agregar participante
-          int numTel, id;
           cout << "Ingresa el numero de telefono del participante" << endl;
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          iGrupo->agregarParticipante(numTel, id);
+          iGrupo->agregarParticipante(numTel, id, fechaSistema);
           break;
           case 3: //Agregar administrador
+          cout << "Ingresa el numero de telefono del administrador" << endl;
+          cin >> numTel;
+          cout << "Ingresa el id del grupo" << endl;
+          cin >> id;
+          iGrupo->agregarAdministrador(numTel, id);
           break;
-          case 4: //Mis grupos
-          
+          case 4: //Eliminar participante
+          cout << "Ingresa el numero de telefono del participante" << endl;
+          cin >> numTel;
+          cout << "Ingresa el id del grupo" << endl;
+          cin >> id;
+          iGrupo->eliminarParticipante(numTel, id);
           break;
           }
-        break;
+      }
+      break;
       case 10: //Mi perfil
         if (iSesion->loggedIn() == false)
         {
-          cout << "  ERROR: Debes iniciar sesion para ver tu perfil" << endl;
+          cout << "ERROR: Debes iniciar sesion para ver tu perfil" << endl;
         }else {
           cout << "Nombre: " << iSesion->getUserLoggeado()->getNombre() << endl;
           cout << "Imagen: " << iSesion->getUserLoggeado()->getImagen() << endl;

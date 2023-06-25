@@ -11,12 +11,14 @@ class MVideo : public Mensaje
     private:
         string url;
         float duracion;
-        map<int,VistoMensaje*> vistoPor;
+
     public:
         MVideo();
         MVideo(string codigo, int numTelRemitente, DtFechaHora* fechayHora,string url, float duracion);
+        string getUrl();
         float getDuracion();
         void setDuracion(float duracion);
+        void setUrl(string url);
         ~MVideo();
 };
 #endif

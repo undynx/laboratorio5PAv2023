@@ -66,4 +66,89 @@ void DtFechaHora::mostrarFechayHoraEnviado(){
     cout <<" a las "<<getHora()<<":"<<getMin();
 }
 
+bool DtFechaHora::esMayorIgualQue(DtFechaHora* fechaHora)
+{
+    if(fechaHora==NULL)
+    {
+        return true;
+    }
+
+    if(this->getAnio()!=fechaHora->getAnio())
+    {
+        return (this->getAnio()>fechaHora->getAnio());
+    }
+    else
+    {
+        if(this->getMes()!=fechaHora->getMes())
+        {
+            return (this->getMes()>fechaHora->getMes());
+        }
+        else
+        {
+            if(this->getDia()!=fechaHora->getDia())
+            {
+                return (this->getDia()>fechaHora->getDia());
+            }
+            else
+            {
+                if(this->getHora()!=fechaHora->getHora())
+                {
+                    return (this->getHora()>fechaHora->getDia());
+                }
+                else
+                {
+                     if(this->getMin()!=fechaHora->getMin())
+                    {
+                        return (this->getHora()>fechaHora->getMin());
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool DtFechaHora::esIgualQue(DtFechaHora* fechaHora){
+
+    if(this->getAnio()!=fechaHora->getAnio())
+    {
+        return false;
+    }
+    else
+    {
+         if(this->getMes()!=fechaHora->getMes())
+        {
+            return false;
+        }
+        else
+        {
+            if(this->getDia()!=fechaHora->getDia())
+            {
+                return false;
+            }
+            else
+            {
+                if(this->getHora()!=fechaHora->getHora())
+                {
+                    return false;
+                }
+                else
+                {
+                    if(this->getMin()!=fechaHora->getMin())
+                    {
+                    return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }    
+        }
+    }
+}
+
  DtFechaHora::~DtFechaHora() {};

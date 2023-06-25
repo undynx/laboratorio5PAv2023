@@ -12,6 +12,11 @@ MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, st
 }
 
 //Gettes
+string MImagen::getUrl()
+{
+    return this->url;
+
+}
 
 string MImagen::getFormato()
 {
@@ -32,6 +37,10 @@ string MImagen::getTexto()
 }
 
 //Setters
+void MImagen::setUrl(string url)
+{
+    this->url = url;
+}
 
 void MImagen::setFormato(string formato)
 {

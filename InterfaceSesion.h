@@ -1,5 +1,7 @@
 #ifndef INTERFACESESION_H
 #define INTERFACESESION_H
+#include <string>
+#include "Usuario.h"
 
 using namespace std;
 

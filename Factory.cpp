@@ -1,13 +1,4 @@
 #include "Factory.h"
-#include "ControllerConvMens.h"
-#include "ControllerUsuario.h"
-#include "ControllerGrupo.h"
-#include "ControllerSesion.h"
-#include "ControllerSesion.h"
-#include "InterfaceConvMens.h"
-#include "InterfaceGrupo.h"
-#include "InterfaceSesion.h"
-#include "InterfaceUsuario.h"
 #include <stdlib.h>
 
 using namespace std;

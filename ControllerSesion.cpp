@@ -1,7 +1,5 @@
 #include "ControllerSesion.h"
 #include "Factory.h"
-#include "Usuario.h"
-
 using namespace std;
 
 ControllerSesion *ControllerSesion::instancia = NULL;

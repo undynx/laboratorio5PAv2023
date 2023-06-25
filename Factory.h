@@ -1,7 +1,5 @@
 #ifndef FACTORY_H
 #define FACTORY_H
-
-#include "Factory.h"
 #include "ControllerConvMens.h"
 #include "ControllerUsuario.h"
 #include "ControllerGrupo.h"

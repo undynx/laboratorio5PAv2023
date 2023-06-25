@@ -1,9 +1,7 @@
 #ifndef CONTROLLERCONVMENS_H
 #define CONTROLLERCONVMENS_H
-#include <map>
-#include <stdlib.h>
-#include "InterfaceConvMens.h"
 
+#include "InterfaceConvMens.h"
 
 class ControllerConvMens: public InterfaceConvMens {
     private:
@@ -13,7 +11,6 @@ class ControllerConvMens: public InterfaceConvMens {
         //map <int,Conversacion*> colConversUsuario; //Lista aux - se utiliza para acceder a la lista de conversaciones de un usuario
         //PseudoAtributos
         //Memoria del Controller
-        int cantArchivadas; //Contador de conversaciones archivadas
     public:
         ControllerConvMens();
         static ControllerConvMens *getInstancia();

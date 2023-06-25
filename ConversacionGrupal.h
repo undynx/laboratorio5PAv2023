@@ -15,6 +15,7 @@ class ConversacionGrupal: public Conversacion{
         map<int, Usuario*> colAdministradores;
         map<int, Usuario*> colParticipantes;
         DtFechaHora* fechayHora;
+        map<int, DtFechaHora*> colFechasIngresosParticipantes; //Guarda la fecha de ingreso de cada participante
     public:
         ConversacionGrupal();
         ConversacionGrupal(int id, bool activo,string nombre, string imagen, DtFechaHora* fechayHora);
@@ -24,12 +25,15 @@ class ConversacionGrupal: public Conversacion{
         void setImagen(string);
         Usuario* getParticipante(int numTel);
         Usuario* getAdministrador(int numTel);
+        DtFechaHora* getFechaIngresoParticipante(int numTel);
         void setParticipante(Usuario* participante);
         void eliminarParticipante(int numTel);
         void setAdministrador(Usuario *administrador);
+        void setFechaIngresoParticipante(int numTel, DtFechaHora* fechaIngreso);
         bool perteneceParticipante(int numTel);
         bool perteneceAdministrador(int numTel);
         map <int, Usuario*> getListaParticipantes();
+        map<int, DtFechaHora*> getListaIngresosParticipantes();
         DtFechaHora* getFechayHora();
         void setFechayHora(DtFechaHora*);
         virtual void mostrarDatosC();

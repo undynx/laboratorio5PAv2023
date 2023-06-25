@@ -1,8 +1,4 @@
 #include "ControllerGrupo.h"
-#include "ControllerSesion.h"
-#include "ControllerUsuario.h"
-#include "Usuario.h"
-
 
 ControllerGrupo *ControllerGrupo::instancia = NULL;
 
@@ -48,37 +44,126 @@ void ControllerGrupo::listarContactosRest(int idGrupo)
 
 }
 
-void ControllerGrupo::agregarParticipante(int numTel, int id)
+void ControllerGrupo::agregarParticipante(int numTel, int id, DtFechaHora* fechaIngreso)
 {
   ControllerSesion *cSesion = ControllerSesion::getInstancia();
   Usuario *userLoggeado = cSesion->getUserLoggeado();
 
   Usuario* participante = userLoggeado->getContacto(numTel);
-  ConversacionGrupal* cg = encontrarGrupoPorId(id);
-  if(cg->perteneceParticipante(numTel)){
-    cout << "  ERROR: Este usuario ya es participante del grupo" << endl;
-  } else {
-    cg->setParticipante(participante);
+
+  if(participante==NULL)
+  {
+     cout << "ERROR: El número ingresado no existe en su lista de contactos" << endl;
   }
+  else
+  {
+    ConversacionGrupal* cg = encontrarGrupoPorId(id);
+
+    if(cg==NULL){
+      cout << "ERROR: El id ingresado no existe en su lista de conversaciones" << endl;
+    }
+    else
+    {
+      if(cg->perteneceAdministrador(userLoggeado->getNumTel()))
+      {
+        if(cg->perteneceParticipante(numTel)){
+          cout << " ERROR: Este usuario ya es participante del grupo" << endl;
+        } else {
+          cg->setParticipante(participante);
+          cg->setFechaIngresoParticipante(numTel, fechaIngreso);
+          participante->setConver(cg);
+          map<string,Mensaje*> colMensajesConverGrup = cg->getListaMensajes();
+          for (auto it = colMensajesConverGrup.begin(); it != colMensajesConverGrup.end(); it++)
+          {
+              if(it->second->getFechayHora()->esIgualQue(fechaIngreso))
+              {
+                it->second->setVistoPor(new VistoMensaje(numTel,NULL,false));
+              }
+          }
+          cout << "Se agregó participante al grupo" << endl;
+        }
+      }
+      else
+      {
+        cout << "ERROR: Para realizar esta acción debe ser administrador del grupo" << endl;
+      }
+    }
+  }
+
 }
 
-void ControllerGrupo::quitarParticipante(int numTel, int id)
+void ControllerGrupo::eliminarParticipante(int numTel, int id)
 {
-  ConversacionGrupal *cg = encontrarGrupoPorId(id);
-  cg->eliminarParticipante(numTel);
+
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *userLoggeado = cSesion->getUserLoggeado();
+  Usuario* participante = userLoggeado->getContacto(numTel);
+
+  if(participante==NULL)
+  {
+     cout << "ERROR: El número ingresado no existe en su lista de contactos" << endl;
+  }
+  else
+  {
+    ConversacionGrupal* cg = encontrarGrupoPorId(id);
+
+    if(cg==NULL){
+      cout << "ERROR: El id ingresado no existe en su lista de conversaciones" << endl;
+    }
+    else
+    {
+        cg->eliminarParticipante(numTel);
+        cout << "Se eliminó al participante del grupo" << endl;
+    }
+
+  }
+
 }
 
 void ControllerGrupo::agregarAdministrador(int numTel, int id)
 {
+
   ControllerSesion *cSesion = ControllerSesion::getInstancia();
   Usuario *userLoggeado = cSesion->getUserLoggeado();
-
   Usuario* administrador = userLoggeado->getContacto(numTel);
-  ConversacionGrupal* cg = encontrarGrupoPorId(id);
-  cg->setAdministrador(administrador);
+
+  if(administrador==NULL)
+  {
+     cout << "ERROR: El número ingresado no existe en su lista de contactos" << endl;
+  }
+  else
+  {
+    ConversacionGrupal* cg = encontrarGrupoPorId(id);
+
+    if(cg==NULL){
+      cout << "ERROR: El id ingresado no existe en su lista de conversaciones" << endl;
+    }
+    else
+    {
+
+      if(cg->perteneceAdministrador(userLoggeado->getNumTel()))
+      {
+          if(cg->perteneceAdministrador(numTel)){
+            cout << "ERROR: Este usuario ya es administrador del grupo" << endl;
+          }
+          else if(!cg->perteneceParticipante(numTel)){
+            cout << "ERROR: El usuario no es participante del grupo" << endl;
+          }
+          else
+          {
+          cg->setAdministrador(administrador);
+          cout << "Usuario agregado correctamente como administrador del grupo" << endl;
+        }
+      }
+      else
+      {
+        cout << "ERROR: Para realizar esta acción debe ser administrador del grupo" << endl;
+      }
+    }
+  }
 }
 
-int ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora *fechayHora)
+int ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora* fechayHora)
 {
   int id = rand() % 100 + 1;
   int contacto;
@@ -94,6 +179,7 @@ int ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora *fechayHo
 
   cg->setAdministrador(userLoggeado);
   cg->setParticipante(userLoggeado);
+  cg->setFechaIngresoParticipante(userLoggeado->getNumTel(), fechayHora);
   // Agrego la conversacion a la lista de conversaciones del usuario
   userLoggeado->setConver(cg);
   ControllerConvMens *ccm = ControllerConvMens::getInstancia();
@@ -118,10 +204,10 @@ int ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora *fechayHo
     else
     {
       if(cg->perteneceParticipante(contacto)){
-        quitarParticipante(contacto, id);
+        eliminarParticipante(contacto, id);
         cout << "Participante eliminado con éxito" << endl;
       }else {
-        agregarParticipante(contacto, id);
+        agregarParticipante(contacto, id, fechayHora);
         cout << "Participante agregado con éxito" << endl;
       }
       cout << "Deseas seguir agregando participantes?" << endl;
