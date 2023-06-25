@@ -5,11 +5,7 @@
 using namespace std;
 
 ControllerSesion *ControllerSesion::instancia = NULL;
-
-ControllerSesion::ControllerSesion()
-{
-	this->userLoggeado = NULL;
-}
+ControllerSesion::ControllerSesion(){}
 
 ControllerSesion *ControllerSesion::getInstancia()
 {
@@ -22,6 +18,7 @@ ControllerSesion *ControllerSesion::getInstancia()
 
 Usuario *ControllerSesion::getUserLoggeado()
 {
+	this->getInstancia();
 	return this->userLoggeado;
 }
 
@@ -169,7 +166,7 @@ void ControllerSesion::modificarUsuario(){
 	int opt;
 	string modificacion;
 	Usuario *user;
-	ControllerUsuario *cUsuario = ControllerUsuario::getinstancia();
+	ControllerUsuario *cUsuario = ControllerUsuario::getInstancia();
 
 	cout << "¿Qué deseas modificar?" << endl;
 	cout << "  1) Nombre de usuario" << endl;

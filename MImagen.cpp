@@ -3,34 +3,29 @@
 
 MImagen::MImagen() {}
 
-MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamaño, string texto):Mensaje(codigo, numTelRemitente, fechayHora)
+MImagen::MImagen(string codigo, int numTelRemitente, DtFechaHora* fechayHora, string url, string formato, string tamano, string texto):Mensaje(codigo, numTelRemitente, fechayHora)
 {
     this->url = url;
     this->formato = formato;
-    this->tamaño = tamaño;
+    this->tamano = tamano;
     this->texto = texto;
-}
-
-DtMensaje* MImagen::mostrarDatosM()
-{
-    //Muestra datos mensaje video. hjm,
 }
 
 //Gettes
 
-std::string MImagen::getFormato()
+string MImagen::getFormato()
 {
     return this->formato;
 
 }
 
-std::string MImagen::getTamaño()
+string MImagen::getTamano()
 {
-    return this->tamaño;
+    return this->tamano;
 
 }
 
-std::string MImagen::getTexto()
+string MImagen::getTexto()
 {
     return this->texto;
 
@@ -43,9 +38,9 @@ void MImagen::setFormato(string formato)
     this->formato = formato;
 }
 
-void MImagen::setTamaño(string tamaño)
+void MImagen::setTamano(string tamano)
 {
-    this->tamaño = tamaño;
+    this->tamano = tamano;
 }
 
 void MImagen::setTexto(string texto)

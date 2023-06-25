@@ -12,8 +12,8 @@ class ConversacionGrupal: public Conversacion{
     private:
         string nombre;
         string imagen;
-        map<int,Usuario*> colAdministradores;
-        map<int,Usuario*> colParticipantes;
+        map<int, Usuario*> colAdministradores;
+        map<int, Usuario*> colParticipantes;
         DtFechaHora* fechayHora;
     public:
         ConversacionGrupal();
@@ -23,8 +23,12 @@ class ConversacionGrupal: public Conversacion{
         string getImagen();
         void setImagen(string);
         Usuario* getParticipante(int numTel);
+        Usuario* getAdministrador(int numTel);
         void setParticipante(Usuario* participante);
+        void eliminarParticipante(int numTel);
+        void setAdministrador(Usuario *administrador);
         bool perteneceParticipante(int numTel);
+        bool perteneceAdministrador(int numTel);
         map <int, Usuario*> getListaParticipantes();
         DtFechaHora* getFechayHora();
         void setFechayHora(DtFechaHora*);
@@ -32,3 +36,4 @@ class ConversacionGrupal: public Conversacion{
         ~ConversacionGrupal();
 };
 #endif
+

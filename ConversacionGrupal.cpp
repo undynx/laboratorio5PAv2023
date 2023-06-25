@@ -5,9 +5,9 @@
 ConversacionGrupal::ConversacionGrupal(){}
 
 ConversacionGrupal::ConversacionGrupal(int id, bool activo, string nombre, string imagen, DtFechaHora* fechayHora) : Conversacion(id, activo){
-    this-> nombre=nombre;
-    this-> imagen=imagen;
-    this-> fechayHora=fechayHora;
+    this->nombre = nombre;
+    this->imagen = imagen;
+    this->fechayHora = fechayHora;
 }
 
 //Gettes
@@ -41,18 +41,20 @@ void ConversacionGrupal::setFechayHora(DtFechaHora* fechayHora){
     this->fechayHora=fechayHora;
 }
 
-void ConversacionGrupal::setParticipante(Usuario* u){
-
-    //Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
-    this->colParticipantes.insert({u->getNumTel(), u});
-
-}
-
 //Metodos
 
 bool ConversacionGrupal::perteneceParticipante(int numTel)
 {
     if (colParticipantes.find(numTel) != colParticipantes.end())
+    {
+          return true;
+    }
+    return false;
+}
+
+bool ConversacionGrupal::perteneceAdministrador(int numTel)
+{
+    if (colAdministradores.find(numTel) != colAdministradores.end())
     {
           return true;
     }
@@ -68,6 +70,36 @@ void ConversacionGrupal::mostrarDatosC(){
     
     //hay que desarrollar
 }
+
+Usuario* ConversacionGrupal::getAdministrador(int numTel)
+{
+    if (colAdministradores.find(numTel) != colAdministradores.end())
+    {
+          return colAdministradores.at(numTel);
+    }
+    return NULL;
+}
+
+void ConversacionGrupal::setParticipante(Usuario *u)
+{
+    // Agrego al usuario que viene por parametro "u" a la lista de participantes de la conversacion
+    this->colParticipantes.insert({u->getNumTel(), u});
+}
+
+void ConversacionGrupal::eliminarParticipante(int numTel)
+{
+    auto iter = this->colParticipantes.find(numTel);
+    if(iter != this->colParticipantes.end()){
+        this->colParticipantes.erase(numTel);
+    }
+}
+
+void ConversacionGrupal::setAdministrador(Usuario* administrador)
+{
+    //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion
+    this->colAdministradores.insert({administrador->getNumTel(), administrador});
+}
+
 
 //Destructor
 ConversacionGrupal::~ConversacionGrupal(){}

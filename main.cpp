@@ -8,21 +8,22 @@
 
 using namespace std;
 
-Factory *fact = Factory::getInstancia();
-InterfaceSesion *iSesion = fact->getInterfaceSesion();
-InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
-InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
-InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
-
 DtFechaHora *fechaSistema = new DtFechaHora(28, 12, 2023, 21, 30);
 
 int main()
 {
+  Factory *fact = Factory::getInstancia();
+  InterfaceSesion *iSesion = fact->getInterfaceSesion();
+  InterfaceUsuario *iUsuario = fact->getInterfaceUsuario();
+  InterfaceConvMens *iConvMens = fact->getInterfaceConvMens();
+  InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
+
   bool salir = false;
   int opt,optreloj,optenvmsj,optvermsj;
   int numTel,idConver;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
+  Usuario *user;
 
   do {
 
@@ -49,18 +50,18 @@ int main()
     cin >> opt;
 
     switch(opt) {
-      case 1: //Abrir app
-          try
-          {
-            cout << "Ingresar número de celular" << endl;
-            cin >> numTel;
-            iSesion->abrirApp(numTel, fechaSistema);
-          }
-          catch (std::exception &e)
-          {
-            std::cerr << e.what() << '\n';
-          }
-      break;
+      case 1: // Abrir app
+        try
+        {
+          cout << "Ingresar número de celular" << endl;
+          cin >> numTel;
+          iSesion->abrirApp(numTel, fechaSistema);
+        }
+        catch (std::exception &e)
+        {
+          std::cerr << e.what() << '\n';
+        }
+        break;
       case 2: //Alta usuario
           try
           {
@@ -68,11 +69,17 @@ int main()
             cin >> numTel;
             cout << "Ingresar el nombre" << endl;
             cin >> nombre;
+            cin.ignore();
             cout << "Ingresar la URL de perfil" << endl;
-            cin >> imagen;
+            getline(cin, imagen);
             cout << "Ingresar la descripcion" << endl;
-            cin >> descripcion;
-            iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+            getline(cin, descripcion);
+            user = iUsuario->encontrarUsuarioxnumTel(numTel);
+            if(user == NULL) {
+              iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+            }else {
+              cout << "  ERROR: Ya existe un usuario con el numero " << numTel << endl;
+            }
           }
           catch (std::exception &e)
           {
@@ -212,6 +219,51 @@ int main()
 
         }
       break;
+      case 9:
+        int opcion;
+        cout << "Eligi la opcion que desees \n" << endl;
+        cout << "  1) Alta grupo" << endl;
+        cout << "  2) Agregar participantes" << endl;
+        cout << "  3) Agregar administradores" << endl;
+        cout << "  4) Mis grupos" << endl;
+
+        cin >> opcion;
+
+        switch(opcion)
+        {
+          case 1: //Alta grupo
+            if (iSesion->loggedIn() == false)
+            {
+              cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
+            }
+            else
+            {
+              cin.ignore();
+              string nomGrupo, urlGrupo;
+              cout << "Ingrese los datos del grupo a crear" << endl;
+              cout << "Nombre del grupo" << endl;
+              getline(cin, nomGrupo);
+              cout << "URL de la imagen" << endl;
+              getline(cin, urlGrupo);
+              iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
+              cout << "Grupo creado" << endl;
+            }
+          break;
+          case 2: //Agregar participante
+          int numTel, id;
+          cout << "Ingresa el numero de telefono del participante" << endl;
+          cin >> numTel;
+          cout << "Ingresa el id del grupo" << endl;
+          cin >> id;
+          iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
+          break;
+          case 3: //Agregar administrador
+          break;
+          case 4: //Mis grupos
+          
+          break;
+          }
+        break;
       case 13: //Mi perfil
         if (iSesion->loggedIn() == false)
         {
@@ -248,7 +300,7 @@ int main()
           cout << "Ingresar mes:\n";
           cin >> mes;
           cout << endl;
-          cout << "Ingresar año:\n";
+          cout << "Ingresar ano:\n";
           cin >> anio;
           cout << endl;
           cout << "Ingresar hora:\n";

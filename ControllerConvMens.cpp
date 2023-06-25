@@ -14,6 +14,17 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
   return instancia;
 }
 
+Conversacion* ControllerConvMens::getConverSis(int idConver){
+  auto itr = colConversSis.find(idConver);
+
+  if (itr != colConversSis.end())
+  {
+    return itr->second;
+  }
+  return NULL;
+}
+
+
 //int ControllerConvMens::getcantArchivadas(){
 //  this->cantArchivadas;
 //}
@@ -44,14 +55,14 @@ void ControllerConvMens::listarConversacionesActivas(Usuario* user)
    }
 }
 
-int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)
+void ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)
 {
   int optmsj, numTelCto, numTelRte, numTelDest,idConve;
   float duracion;
   string texto, url, tamanio, formato;
   Mensaje* msj;
 
-  ControllerUsuario* cu = ControllerUsuario::getinstancia();
+  ControllerUsuario* cu = ControllerUsuario::getInstancia();
   Usuario* destinatario = user->getContacto(numTelContacto);
   numTelDest = destinatario->getNumTel();
   DtUsuario dtUser = user->pedirDatos();
@@ -110,7 +121,7 @@ int ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, D
           cout << "Ingresar formato de la imagen que desee enviar" << endl;
           cin >> formato;
           cout << endl;
-          cout << "Ingresar tamaño de la imagen que desee enviar" << endl;
+          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
           cin >> tamanio;
           cout << endl;
           cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
@@ -180,7 +191,7 @@ Mensaje* ControllerConvMens::enviarMsjSimple(string texto, DtFechaHora* fecEnvio
 
 Mensaje* ControllerConvMens::enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente)
 {
-  MImagen* MsjImg = new MImagen(randomStr(5), numTelRemitente ,fecEnvio, url, formato, tamanio, texto);
+  MImagen* MsjImg = new MImagen(randomStr(5), numTelRemitente, fecEnvio, url, formato, tamanio, texto);
   Mensaje *Msj = MsjImg;
   MsjImg = dynamic_cast<MImagen*>(Msj);
   return MsjImg;
@@ -196,7 +207,7 @@ Mensaje* ControllerConvMens::enviarMsjImagen(string url, string tamanio, string 
 
 Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente)
 {
-  ControllerUsuario* cu = ControllerUsuario::getinstancia();
+  ControllerUsuario* cu = ControllerUsuario::getInstancia();
   Usuario* cto = cu->encontrarUsuarioxnumTel(celularCompContacto);
 
   DtUsuario dtContacto = DtUsuario(cto->getNumTel(),cto->getNombre(), cto->getFecReg(), cto->getImagen(), cto->getDescripcion(), cto->getUltCon());
@@ -210,7 +221,7 @@ Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto,
 
 void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* user, DtFechaHora* fecEnvio)
 {
-  int optmsj, numTelCto, numTelRte, numTelDest, idConve;
+  int optmsj, numTelCto, numTelRte, numTelDest;
   float duracion;
   string texto, url, tamanio, formato;
   Mensaje* msj;
@@ -224,7 +235,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
   }
   converPriv = dynamic_cast<ConversacionPrivada*>(conver);
 
-  ControllerUsuario* cu = ControllerUsuario::getinstancia();
+  ControllerUsuario* cu = ControllerUsuario::getInstancia();
   numTelDest = converPriv->getOtroParticipante(user)->getNumTel();
   DtUsuario dtUser = user->pedirDatos();
   numTelRte = dtUser.getNumTel();
@@ -264,7 +275,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           cout << "Ingresar formato de la imagen que desee enviar" << endl;
           cin >> formato;
           cout << endl;
-          cout << "Ingresar tamaño de la imagen que desee enviar" << endl;
+          cout << "Ingresar tamano de la imagen que desee enviar" << endl;
           cin >> tamanio;
           cout << endl;
           cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
@@ -322,7 +333,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
 
 void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, Usuario* user, DtFechaHora* fecVisto)
 {
-  ControllerUsuario* cu = ControllerUsuario::getinstancia();
+  ControllerUsuario* cu = ControllerUsuario::getInstancia();
 
   VistoMensaje* vistoPor;
   ConversacionPrivada* converPriv;
@@ -418,6 +429,10 @@ Mensaje* ControllerConvMens::encontrarMensaje(string codigo)
 }
 
 ControllerConvMens::~ControllerConvMens(){}
+
+void ControllerConvMens::setConversacionColSis(Conversacion* conv, int id){
+   this->colConversSis.insert({id, conv});
+}
 
 /*int mostrarCantidad(){}
 set<DtConversacion> seleccionarConversacion(string id){}

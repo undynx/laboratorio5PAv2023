@@ -5,17 +5,17 @@
 DtConversacionPrivada::DtConversacionPrivada(){}
 
 DtConversacionPrivada::DtConversacionPrivada(int numTel, string nombre){
-    this-> numTel=numTel;
-    this-> nombre=nombre;
+    this->numTel = numTel;
+    this->nombre = nombre;
 }
 
 //Getters
 
 int DtConversacionPrivada::getNumTel(){
-    return this-> numTel=numTel;
+    return this->numTel;
 }
 string DtConversacionPrivada::getNombre(){
-    this-> nombre=nombre;
+    return this->nombre;
 }
 
 //Destructor
