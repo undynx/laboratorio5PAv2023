@@ -22,7 +22,7 @@ void ControllerGrupo::listarContactosPart(int idGrupo)
   map<int, Usuario*> colParticipantes = grupo->getListaParticipantes();
   for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
   {
-    cout << it->second->getNombre() << " -: " << it->second->getNumTel() << endl;
+    cout << it->second->getNombre() << ": " << it->second->getNumTel() << endl;
   }
 
 
@@ -38,8 +38,7 @@ void ControllerGrupo::listarContactosRest(int idGrupo, Usuario *userLoggeado)
   {
     if (colParticipantes.find(it->first) == colParticipantes.end())
     {
-      cout << "\n----------------------------\n";
-      cout << it->second->getNombre() << " -: " << it->second->getNumTel() << endl;
+      cout << it->second->getNombre() << ": " << it->second->getNumTel() << endl;
     }
     
   }
@@ -82,7 +81,11 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
   cg = dynamic_cast<ConversacionGrupal*>(conver);
   cg->setAdministrador(userLoggeado);
   cg->setParticipante(userLoggeado);
+  // Agrego la conversacion a la lista de conversaciones del usuario
   userLoggeado->setConver(cg);
+  ControllerConvMens *ccm = ControllerConvMens::getInstancia();
+  ccm->setConversacionColSis(cg, id);
+
   cout << "Grupo creado con el id: " << id <<endl;
 
   do{
@@ -112,22 +115,9 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
 
 ConversacionGrupal* ControllerGrupo::encontrarGrupoPorId(int id)
 {
-  ControllerConvMens* ccm = ControllerConvMens::getInstancia();
-  ConversacionGrupal* cg = new ConversacionGrupal();
-  Conversacion* conver = ccm->getConverSis(id);
-  cg = dynamic_cast<ConversacionGrupal*>(conver);
+  ControllerConvMens *ccm = ControllerConvMens::getInstancia();
+  ConversacionGrupal *cg;
+  Conversacion *conver = ccm->getConverSis(id);
+  cg = dynamic_cast<ConversacionGrupal *>(conver);
   return cg;
 }
-
-/*Usuario *ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
-{
-  this->getInstancia();
-  Usuario *user = NULL;
-
-  if (instancia->colUsuarios.find(numTel) != instancia->colUsuarios.end())
-  {
-    user = instancia->colUsuarios.at(numTel);
-  }
-
-  return user;
-}*/

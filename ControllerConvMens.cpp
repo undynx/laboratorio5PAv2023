@@ -15,12 +15,13 @@ ControllerConvMens *ControllerConvMens::getInstancia(){
 }
 
 Conversacion* ControllerConvMens::getConverSis(int idConver){
+  auto itr = colConversSis.find(idConver);
 
- if (colConversSis.find(idConver) != colConversSis.end())
-    {
-          return colConversSis.at(idConver);
-    }
-    return NULL;
+  if (itr != colConversSis.end())
+  {
+    return itr->second;
+  }
+  return NULL;
 }
 
 
@@ -428,6 +429,10 @@ Mensaje* ControllerConvMens::encontrarMensaje(string codigo)
 }
 
 ControllerConvMens::~ControllerConvMens(){}
+
+void ControllerConvMens::setConversacionColSis(Conversacion* conv, int id){
+   this->colConversSis.insert({id, conv});
+}
 
 /*int mostrarCantidad(){}
 set<DtConversacion> seleccionarConversacion(string id){}

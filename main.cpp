@@ -23,6 +23,7 @@ int main()
   int numTel,idConver;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
+  Usuario *user;
 
   do {
 
@@ -73,7 +74,12 @@ int main()
             getline(cin, imagen);
             cout << "Ingresar la descripcion" << endl;
             getline(cin, descripcion);
-            iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+            user = iUsuario->encontrarUsuarioxnumTel(numTel);
+            if(user == NULL) {
+              iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+            }else {
+              cout << "  ERROR: Ya existe un usuario con el numero " << numTel << endl;
+            }
           }
           catch (std::exception &e)
           {
