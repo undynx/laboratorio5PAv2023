@@ -1,12 +1,11 @@
 #ifndef INTERFACEUSUARIO_H
 #define INTERFACEUSUARIO_H
-
-#include <list>
-#include <string.h>
-#include "Usuario.h"
-#include "ControllerSesion.h"
-#include <set>
+#include <map>
+#include <iostream>
 #include <stdlib.h>
+#include <string.h>
+#include "ControllerSesion.h"
+#include "Usuario.h"
 
 using namespace std;
 

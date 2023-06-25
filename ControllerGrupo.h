@@ -1,9 +1,6 @@
 #ifndef CONTROLLERGRUPO_H
 #define CONTROLLERGRUPO_H
 
-#include <stdlib.h>
-#include <map>
-#include <list>
 #include "InterfaceGrupo.h"
 
 class ControllerGrupo: public InterfaceGrupo {

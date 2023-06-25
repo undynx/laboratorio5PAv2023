@@ -241,7 +241,7 @@ int main()
               getline(cin, nomGrupo);
               cout << "URL de la imagen" << endl;
               getline(cin, urlGrupo);
-              //iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
+              iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
               cout << "Grupo creado" << endl;
             }
           break;
@@ -251,7 +251,7 @@ int main()
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          //iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
+          iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
           break;
           case 3: //Agregar administrador
           break;

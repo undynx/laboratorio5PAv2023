@@ -1,6 +1,4 @@
-#include "Factory.h"
 #include "ControllerUsuario.h"
-#include "InterfaceUsuario.h"
 
 ControllerUsuario* ControllerUsuario::instancia=NULL;
 

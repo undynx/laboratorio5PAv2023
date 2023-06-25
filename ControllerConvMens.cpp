@@ -5,7 +5,7 @@ using namespace std;
 ControllerConvMens* ControllerConvMens::instancia=NULL;
 
 ControllerConvMens::ControllerConvMens(){
-  this->cantArchivadas = 0;
+  
 }
 
 ControllerConvMens *ControllerConvMens::getInstancia(){
@@ -225,7 +225,6 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
   float duracion;
   string texto, url, tamanio, formato;
   Mensaje* msj;
-  VistoMensaje* vistoPor;
 
   ConversacionPrivada* converPriv;
   Conversacion *conver = user->getConver(idConver);
@@ -259,8 +258,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           //cout << endl;
           msj = enviarMsjSimple(texto, fecEnvio, numTelRte);
           //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          vistoPor = new VistoMensaje(numTelDest,NULL,false);
-          msj->setVistoPor(vistoPor);
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
           //Agrego al mensaje a la lista de mensajes de la conversación.
           conver->setMensaje(msj);
           this->colMensajesSis.insert({msj->getCodigo(), msj});
@@ -283,8 +281,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           cout << endl;
           msj = enviarMsjImagen(url, tamanio, formato, fecEnvio, texto, numTelRte);
           //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          vistoPor = new VistoMensaje(numTelDest,NULL,false);
-          msj->setVistoPor(vistoPor);
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
           //Agrego al mensaje a la lista de mensajes de la conversación.
           conver->setMensaje(msj);
           this->colMensajesSis.insert({msj->getCodigo(), msj});
@@ -301,8 +298,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           cout << endl;
           //msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
           //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          vistoPor = new VistoMensaje(numTelDest,NULL,false);
-          msj->setVistoPor(vistoPor);
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
           //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
           conver->setMensaje(msj);
           this->colMensajesSis.insert({msj->getCodigo(), msj});
@@ -317,8 +313,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
           cout << endl;
           msj = enviarMsjCompartirContacto(numTelCto, fecEnvio, numTelRte);
           //Agrego la instancia de vistoPor a la instancia de mensaje creada
-          vistoPor = new VistoMensaje(numTelDest,NULL,false);
-          msj->setVistoPor(vistoPor);
+          msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
           //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
           conver->setMensaje(msj);
           this->colMensajesSis.insert({msj->getCodigo(), msj});

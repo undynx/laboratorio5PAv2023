@@ -1,13 +1,6 @@
 #ifndef CONTROLLERUSUARIO_H
 #define CONTROLLERUSUARIO_H
-
 #include "InterfaceUsuario.h"
-#include "ControllerSesion.h"
-#include "Usuario.h"
-#include <map>
-
-#include <iostream>
-#include <stdlib.h>
 
 class ControllerUsuario: public InterfaceUsuario
 {

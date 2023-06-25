@@ -1,8 +1,5 @@
 #ifndef SESION_H
 #define SESION_H
-
-#include <string>
-#include "Usuario.h"
 #include "InterfaceSesion.h"
 
 class ControllerSesion : public InterfaceSesion

@@ -1,7 +1,7 @@
 #ifndef INTERFACEGRUPO_H
 #define INTERFACEGRUPO_H
-
-#include "DtUsuario.h"
+#include <stdlib.h>
+#include <map>
 #include "Usuario.h"
 #include "ConversacionGrupal.h"
 #include "ControllerSesion.h"

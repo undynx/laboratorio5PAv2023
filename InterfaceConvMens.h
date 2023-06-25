@@ -1,10 +1,8 @@
 #ifndef INTERFACECONVMENS_H
 #define INTERFACECONVMENS_H
-#include <list>
-#include <string.h>
+#include <map>
 #include <stdlib.h>
-#include <stdio.h>
-#include <set>
+#include <string.h>
 #include "Mensaje.h"
 #include "MSimple.h"
 #include "MVideo.h"

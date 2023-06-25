@@ -1,8 +1,4 @@
 #include "ControllerGrupo.h"
-#include "ControllerSesion.h"
-#include "ControllerUsuario.h"
-#include "Usuario.h"
-
 
 ControllerGrupo *ControllerGrupo::instancia = NULL;
 
