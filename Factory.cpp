@@ -15,22 +15,22 @@ Factory *Factory::getInstancia() {
 }
 
 InterfaceSesion *Factory::getInterfaceSesion() {
-  InterfaceSesion *cs = new ControllerSesion();
+  InterfaceSesion *cs = ControllerSesion::getInstancia();
   return cs;
 }
 
 InterfaceConvMens *Factory::getInterfaceConvMens() {
-  InterfaceConvMens *ccm = new ControllerConvMens();
+  InterfaceConvMens *ccm = ControllerConvMens::getInstancia();
   return ccm;
 }
 
 InterfaceUsuario *Factory::getInterfaceUsuario() {
-  InterfaceUsuario *cu = new ControllerUsuario();
+  InterfaceUsuario *cu = ControllerUsuario::getInstancia();
   return cu;
 }
 
 InterfaceGrupo* Factory::getInterfaceGrupo(){
-  InterfaceGrupo *cg = new ControllerGrupo();
+  InterfaceGrupo *cg = ControllerGrupo::getInstancia();
   return cg;
 }
 

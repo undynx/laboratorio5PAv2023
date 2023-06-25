@@ -29,6 +29,7 @@ int main()
 
     cout << "\n----------------------------\n";
     cout << "Elige la opcion que desees:\n \n";
+    cout << "  0) Precargar datos" << endl;
     cout << "  1) Abrir app" << endl;
     cout << "  2) Alta usuario" << endl;
     cout << "  3) Agregar Contacto" << endl;
@@ -37,11 +38,11 @@ int main()
     cout << "  6) Ver Mensaje" << endl;
     cout << "  7) Eliminar Mensaje" << endl;
     cout << "  8) Archivar Conversación" << endl;
-    cout << "  9) Grupos" << endl;
+    cout << "  9) Gestion de grupos" << endl;
     cout << "  10) Mi perfil" << endl;
     cout << "  11) Reloj del Sistema" << endl;
     cout << "  12) Salir" << endl;
-    cout << "  0) Cerrar sesion" << endl;
+    cout << "  13) Cerrar sesion" << endl;
     cout << "\n----------------------------\n";
 
     cin >> opt;
@@ -99,7 +100,7 @@ int main()
                 cout << "----------------------------" << endl;
                 cout << "\nIngresa el numero del usuario que queres agregar a tus contactos" << endl;
                 cin >> numTel;
-                iUsuario->agregarContacto(numTel, iSesion->getUserLoggeado());
+                iUsuario->agregarContacto(numTel);
 
                 cout << "\nDeseas seguir agregando contactos?" << endl;
                 cout << "  1) SI \n  2) NO" << endl;
@@ -134,7 +135,6 @@ int main()
             cout << "----------------------------" << endl;
             cout << "CONVERSACIONES: ";
             iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
-            //cout << "Archivadas: " << iConvMens->getcantArchivadas();
             cout << "----------------------------";
 
             cout << "\n----------------------------\n";
@@ -237,35 +237,42 @@ int main()
           switch(optgrupo)
           {
           case 1: //Alta grupo
-          cin.ignore();
-          cout << "Ingrese los datos del grupo a crear" << endl;
-          cout << "Nombre del grupo" << endl;
-          getline(cin, nomGrupo);
-          cout << "URL de la imagen" << endl;
-          getline(cin, urlGrupo);
-          iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
-          cout << "Grupo creado" << endl;
+
+          if(iSesion->getUserLoggeado()->getListaContactos().empty()){
+              cout << "  ERROR: No tienes ningun contacto con el que iniciar un grupo" << endl;
+            } else
+            {
+              cin.ignore();
+              string nomGrupo, urlGrupo;
+              cout << "Ingrese los datos del grupo a crear" << endl;
+              cout << "Nombre del grupo" << endl;
+              getline(cin, nomGrupo);
+              cout << "URL de la imagen" << endl;
+              getline(cin, urlGrupo);
+              iGrupo->crearGrupo(nomGrupo, urlGrupo, fechaSistema);
+              cout << "Grupo creado" << endl;
+            }
           break;
           case 2: //Agregar participante
           cout << "Ingresa el numero de telefono del participante" << endl;
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado(), fechaSistema);
+          iGrupo->agregarParticipante(numTel, id, fechaSistema);
           break;
           case 3: //Agregar administrador
           cout << "Ingresa el numero de telefono del administrador" << endl;
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          iGrupo->agregarAdministrador(numTel, id, iSesion->getUserLoggeado());
+          iGrupo->agregarAdministrador(numTel, id);
           break;
           case 4: //Eliminar participante
           cout << "Ingresa el numero de telefono del participante" << endl;
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          iGrupo->eliminarParticipante(numTel, id, iSesion->getUserLoggeado());
+          iGrupo->eliminarParticipante(numTel, id);
           break;
           }
       }
@@ -328,12 +335,67 @@ int main()
         //Salir
         salir = true;
       break;
-      case 0: // Cerrar app
+      case 13: // Cerrar app
         if (iSesion->loggedIn() == false)
           cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
         else
           iSesion->cerrarApp(fechaSistema);
       break;
+        case 0:
+          //Crea los usuarios
+          Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
+          Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);
+          Usuario * pablo = iUsuario->altaUsuario(80246810, "Pablo Iglesias", "home/img/perfil/pablo.png", "Hola! Estoy aquí", fechaSistema);
+          Usuario * sara = iUsuario->altaUsuario(80666777, "Sara Ruiz", "home/img/perfil/sara.png", "Estoy feliz!", fechaSistema);
+          
+          //Agrega los contactos
+          juan->setContacto(maria);
+          juan->setContacto(pablo);
+          juan->setContacto(sara);
+          maria->setContacto(juan);
+          maria->setContacto(pablo);
+          pablo->setContacto(juan);
+          pablo->setContacto(maria);
+          pablo->setContacto(sara);
+          sara->setContacto(juan);
+          sara->setContacto(pablo);
+          
+          //Crea el grupo
+          int idGrupo = 1;
+          DtFechaHora *fechaGrupo = new DtFechaHora(22, 05, 2023, 15, 35);
+          ConversacionGrupal *cg = new ConversacionGrupal(idGrupo, true, "Amigos", "home/img/amigos.png", fechaGrupo);
+          Conversacion *conver = cg;
+          cg = dynamic_cast<ConversacionGrupal *>(conver);
+          cg->setAdministrador(juan);
+          cg->setParticipante(juan);
+          juan->setConver(cg);
+          ControllerConvMens *ccm = ControllerConvMens::getInstancia();
+          ccm->setConversacionColSis(cg, idGrupo);
+
+          //Agrega los participantes al grupo
+          cg->setParticipante(maria);
+          cg->setParticipante(pablo);
+          cg->setParticipante(sara);
+
+          //Crea conversacion entre Juan y Maria
+          int idConvJyM = 2;
+          ConversacionPrivada *converPrivJyM = new ConversacionPrivada(idConvJyM, true, juan, maria);
+          Conversacion *converJyM = converPrivJyM;
+          converPrivJyM = dynamic_cast<ConversacionPrivada *>(converJyM);
+          ccm->setConversacionColSis(converJyM, idConvJyM);
+          juan->setConver(converPrivJyM);
+          maria->setConver(converPrivJyM);
+
+          // Crea conversacion entre Pablo y Sara
+          int idConvPyS = 3;
+          ConversacionPrivada *converPrivPyS = new ConversacionPrivada(idConvPyS, true, pablo, sara);
+          Conversacion *converPyS = converPrivPyS;
+          converPrivPyS = dynamic_cast<ConversacionPrivada *>(converPyS);
+          ccm->setConversacionColSis(converPyS, idConvPyS);
+          pablo->setConver(converPrivPyS);
+          sara->setConver(converPrivPyS);
+
+          break;
       }
   } while (!salir);
 
