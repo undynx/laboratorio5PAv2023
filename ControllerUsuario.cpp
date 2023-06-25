@@ -56,7 +56,7 @@ Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
     return user;
 }
 
-void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
+void ControllerUsuario::agregarContacto(int numTel) {
 
     // Primero busco si el usuario existe en el sistema
     //ControllerSesion* cs = ControllerSesion::getInstancia();
@@ -64,6 +64,8 @@ void ControllerUsuario::agregarContacto(int numTel, Usuario* user) {
     //Llamar a una instancia nueva de sesión genera problemas con la sesión.
     //Lo mejor es pasar el usuario logeado por parametro
 
+    ControllerSesion *cSesion = ControllerSesion::getInstancia();
+    Usuario *user = cSesion->getUserLoggeado();
     Usuario *contacto = NULL;
     contacto = encontrarUsuarioxnumTel(numTel);
 

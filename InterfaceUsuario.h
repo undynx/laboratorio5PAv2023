@@ -15,7 +15,7 @@ class InterfaceUsuario {
 		virtual Usuario* altaUsuario(int numTel,string nombre, string imagen, string descripcion, DtFechaHora* fecReg)=0; 
 		virtual bool ingresarNumero(int numTel)=0;
     virtual Usuario* encontrarUsuarioxnumTel(int numTel)=0;
-    virtual void agregarContacto(int numTel, Usuario* user) = 0;
+    virtual void agregarContacto(int numTel) = 0;
     virtual void listarContactos(Usuario* user)= 0;
     // virtual void agregarContacto() = 0;
     //  virtual set<DtUsuario> listarContactos(int numTel)=0;

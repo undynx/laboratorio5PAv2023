@@ -28,8 +28,11 @@ void ControllerGrupo::listarContactosPart(int idGrupo)
 
 }
 
-void ControllerGrupo::listarContactosRest(int idGrupo, Usuario *userLoggeado)
+void ControllerGrupo::listarContactosRest(int idGrupo)
 {
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *userLoggeado = cSesion->getUserLoggeado();
+
   ConversacionGrupal *grupo = encontrarGrupoPorId(idGrupo);
 
   map<int, Usuario *> colRestantes = userLoggeado->getListaContactos();
@@ -45,8 +48,11 @@ void ControllerGrupo::listarContactosRest(int idGrupo, Usuario *userLoggeado)
 
 }
 
-void ControllerGrupo::agregarParticipante(int numTel, int id, Usuario* userLoggeado)
+void ControllerGrupo::agregarParticipante(int numTel, int id)
 {
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *userLoggeado = cSesion->getUserLoggeado();
+
   Usuario* participante = userLoggeado->getContacto(numTel);
   ConversacionGrupal* cg = encontrarGrupoPorId(id);
   if(cg->perteneceParticipante(numTel)){
@@ -62,16 +68,17 @@ void ControllerGrupo::quitarParticipante(int numTel, int id)
   cg->eliminarParticipante(numTel);
 }
 
-void ControllerGrupo::agregarAdministrador(int numTel, int id, Usuario* userLoggeado)
+void ControllerGrupo::agregarAdministrador(int numTel, int id)
 {
-  ControllerSesion* cs = ControllerSesion::getInstancia();
-  Usuario* user = cs->getUserLoggeado();
-  Usuario* administrador = user->getContacto(numTel);
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *userLoggeado = cSesion->getUserLoggeado();
+
+  Usuario* administrador = userLoggeado->getContacto(numTel);
   ConversacionGrupal* cg = encontrarGrupoPorId(id);
   cg->setAdministrador(administrador);
 }
 
-ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string nombre, string url, DtFechaHora *fechayHora)
+int ControllerGrupo::crearGrupo(string nombre, string url, DtFechaHora *fechayHora)
 {
   int id = rand() % 100 + 1;
   int contacto;
@@ -81,6 +88,9 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
   ConversacionGrupal* cg = new ConversacionGrupal(id, true, nombre, url, fechayHora);
   Conversacion* conver = cg;
   cg = dynamic_cast<ConversacionGrupal*>(conver);
+
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *userLoggeado = cSesion->getUserLoggeado();
 
   cg->setAdministrador(userLoggeado);
   cg->setParticipante(userLoggeado);
@@ -95,7 +105,7 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
   do{
     cout << "\n----------------------------" << endl;
     cout << "CONTACTOS" << endl;
-    listarContactosRest(id, userLoggeado);
+    listarContactosRest(id);
     cout << "----------------------------" << endl;
     cout << "PARTICIPANTES" << endl;
     listarContactosPart(id);
@@ -111,7 +121,7 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
         quitarParticipante(contacto, id);
         cout << "Participante eliminado con éxito" << endl;
       }else {
-        agregarParticipante(contacto, id, userLoggeado);
+        agregarParticipante(contacto, id);
         cout << "Participante agregado con éxito" << endl;
       }
       cout << "Deseas seguir agregando participantes?" << endl;
@@ -126,7 +136,7 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
 
   } while (!salir);
 
-  return cg;
+  return id;
 }
 
 ConversacionGrupal* ControllerGrupo::encontrarGrupoPorId(int id)

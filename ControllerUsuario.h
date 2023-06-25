@@ -23,7 +23,7 @@ public:
     Usuario *altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg);
     bool ingresarNumero(int numTel);
     Usuario* encontrarUsuarioxnumTel(int numTel);
-    void agregarContacto(int numTel, Usuario* user);
+    void agregarContacto(int numTel);
     Usuario *encontrarContactoxNumTel(int numTel);
     void listarContactos(Usuario* user);
     // set<DtUsuario> listarContactos(Usuario* user);
