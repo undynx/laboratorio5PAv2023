@@ -19,7 +19,7 @@ int main()
   InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
 
   bool salir = false;
-  int opt,optreloj,optenvmsj,optvermsj;
+  int opt,optreloj,optenvmsj,optvermsj,optgrupo;
   int numTel,idConver;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
@@ -37,13 +37,10 @@ int main()
     cout << "  6) Ver Mensaje" << endl;
     cout << "  7) Eliminar Mensaje" << endl;
     cout << "  8) Archivar Conversación" << endl;
-    cout << "  9) Alta Grupo" << endl;
-    cout << "  10) Agregar Participante" << endl;
-    cout << "  11) Agregar Administrador" << endl;
-    cout << "  12) Eliminar Participante" << endl;
-    cout << "  13) Mi perfil" << endl;
-    cout << "  14) Reloj del Sistema" << endl;
-    cout << "  15) Salir" << endl;
+    cout << "  9) Grupos" << endl;
+    cout << "  10) Mi perfil" << endl;
+    cout << "  11) Reloj del Sistema" << endl;
+    cout << "  12) Salir" << endl;
     cout << "  0) Cerrar sesion" << endl;
     cout << "\n----------------------------\n";
 
@@ -159,7 +156,7 @@ int main()
             break;
             case 2:
               //Ver las conversaciones archivadas
-
+              
             break;
             case 3:
               //Iniciar conversación con un contacto nuevo;
@@ -220,16 +217,15 @@ int main()
         }
       break;
       case 9:
-        int opcion;
         cout << "Eligi la opcion que desees \n" << endl;
         cout << "  1) Alta grupo" << endl;
         cout << "  2) Agregar participantes" << endl;
         cout << "  3) Agregar administradores" << endl;
-        cout << "  4) Mis grupos" << endl;
+        cout << "  4) Eliminar participante" << endl;
 
-        cin >> opcion;
+        cin >> optgrupo;
 
-        switch(opcion)
+        switch(optgrupo)
         {
           case 1: //Alta grupo
             if (iSesion->loggedIn() == false)
@@ -245,7 +241,7 @@ int main()
               getline(cin, nomGrupo);
               cout << "URL de la imagen" << endl;
               getline(cin, urlGrupo);
-              iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
+              //iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
               cout << "Grupo creado" << endl;
             }
           break;
@@ -255,16 +251,16 @@ int main()
           cin >> numTel;
           cout << "Ingresa el id del grupo" << endl;
           cin >> id;
-          iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
+          //iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
           break;
           case 3: //Agregar administrador
           break;
-          case 4: //Mis grupos
+          case 4: //Eliminar participante
           
           break;
           }
         break;
-      case 13: //Mi perfil
+      case 10: //Mi perfil
         if (iSesion->loggedIn() == false)
         {
           cout << "  ERROR: Debes iniciar sesion para ver tu perfil" << endl;
@@ -275,7 +271,7 @@ int main()
           iSesion->getUserLoggeado()->getFecReg()->mostrarFechayHoraRegistro();
         }
       break;
-      case 14:
+      case 11:
         //Modificar Reloj
         cout << "\n----------------------------\n";
 			  cout << "Elige la opcion que desees:\n";
@@ -318,7 +314,7 @@ int main()
         default:
         cout << "  ERROR: no es una opcion correcta" << endl;
       break;
-      case 15:
+      case 12:
         //Salir
         salir = true;
       break;
