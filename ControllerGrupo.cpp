@@ -45,28 +45,30 @@ void ControllerGrupo::listarContactosRest(int idGrupo, Usuario *userLoggeado)
 
 }
 
-void ControllerGrupo::agregarParticipante(int numTel, int id)
+void ControllerGrupo::agregarParticipante(int numTel, int id, Usuario* userLoggeado)
 {
-  ControllerSesion* cs = ControllerSesion::getInstancia();
-  Usuario* user = cs->getUserLoggeado();
-  Usuario* participante = user->getContacto(numTel);
+  Usuario* participante = userLoggeado->getContacto(numTel);
   ConversacionGrupal* cg = encontrarGrupoPorId(id);
-  cg->setParticipante(participante);
+  if(cg->perteneceParticipante(numTel)){
+    cout << "  ERROR: Este usuario ya es participante del grupo" << endl;
+  } else {
+    cg->setParticipante(participante);
+  }
 }
 
-void ControllerGrupo::agregarAdministrador(int numTel, int id)
+void ControllerGrupo::quitarParticipante(int numTel, int id)
+{
+  ConversacionGrupal *cg = encontrarGrupoPorId(id);
+  cg->eliminarParticipante(numTel);
+}
+
+void ControllerGrupo::agregarAdministrador(int numTel, int id, Usuario* userLoggeado)
 {
   ControllerSesion* cs = ControllerSesion::getInstancia();
   Usuario* user = cs->getUserLoggeado();
   Usuario* administrador = user->getContacto(numTel);
   ConversacionGrupal* cg = encontrarGrupoPorId(id);
   cg->setAdministrador(administrador);
-}
-
-void ControllerGrupo::quitarParticipante(int numTel, int id)
-{
-  ControllerSesion* cs = ControllerSesion::getInstancia();
-  Usuario* participante = cs->getUserLoggeado();
 }
 
 ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string nombre, string url, DtFechaHora *fechayHora)
@@ -79,11 +81,13 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
   ConversacionGrupal* cg = new ConversacionGrupal(id, true, nombre, url, fechayHora);
   Conversacion* conver = cg;
   cg = dynamic_cast<ConversacionGrupal*>(conver);
+
   cg->setAdministrador(userLoggeado);
   cg->setParticipante(userLoggeado);
   // Agrego la conversacion a la lista de conversaciones del usuario
   userLoggeado->setConver(cg);
   ControllerConvMens *ccm = ControllerConvMens::getInstancia();
+  // Agrego la conversacion a la lista de conversaciones del sistema
   ccm->setConversacionColSis(cg, id);
 
   cout << "Grupo creado con el id: " << id <<endl;
@@ -98,14 +102,26 @@ ConversacionGrupal *ControllerGrupo::crearGrupo(Usuario *userLoggeado, string no
     cout << "----------------------------" << endl;
     cout << "Ingresa el numero del contacto a ingresar o quitar: " << endl;
     cin >> contacto;
-    agregarParticipante(contacto, id);
-    cout << "Deseas seguir agregando participantes?" << endl;
-    cout << "  1) SI" << endl;
-    cout << "  2) NO" << endl;
-    cin >> opt;
-
-    if(opt == 2){
-      salir = true;
+    if(userLoggeado->getContacto(contacto) == NULL){
+      cout << "  ERROR: No tenes ningun contacto con ese numero" << endl;
+    }
+    else
+    {
+      if(cg->perteneceParticipante(contacto)){
+        quitarParticipante(contacto, id);
+        cout << "Participante eliminado con éxito" << endl;
+      }else {
+        agregarParticipante(contacto, id, userLoggeado);
+        cout << "Participante agregado con éxito" << endl;
+      }
+      cout << "Deseas seguir agregando participantes?" << endl;
+      cout << "  1) SI" << endl;
+      cout << "  2) NO" << endl;
+      cin >> opt;
+      if (opt == 2)
+      {
+        salir = true;
+      }
     }
 
   } while (!salir);

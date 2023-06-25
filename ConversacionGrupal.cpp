@@ -86,6 +86,14 @@ void ConversacionGrupal::setParticipante(Usuario *u)
     this->colParticipantes.insert({u->getNumTel(), u});
 }
 
+void ConversacionGrupal::eliminarParticipante(int numTel)
+{
+    auto iter = this->colParticipantes.find(numTel);
+    if(iter != this->colParticipantes.end()){
+        this->colParticipantes.erase(numTel);
+    }
+}
+
 void ConversacionGrupal::setAdministrador(Usuario* administrador)
 {
     //Agrego al usuario que viene por parametro "administrador" a la lista de participantes de la conversacion

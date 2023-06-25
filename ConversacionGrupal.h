@@ -25,7 +25,8 @@ class ConversacionGrupal: public Conversacion{
         Usuario* getParticipante(int numTel);
         Usuario* getAdministrador(int numTel);
         void setParticipante(Usuario* participante);
-        void setAdministrador(Usuario* administrador);
+        void eliminarParticipante(int numTel);
+        void setAdministrador(Usuario *administrador);
         bool perteneceParticipante(int numTel);
         bool perteneceAdministrador(int numTel);
         map <int, Usuario*> getListaParticipantes();

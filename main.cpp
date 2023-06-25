@@ -219,24 +219,50 @@ int main()
 
         }
       break;
-      case 9: 
-        //Alta Grupo
+      case 9:
+        int opcion;
+        cout << "Eligi la opcion que desees \n" << endl;
+        cout << "  1) Alta grupo" << endl;
+        cout << "  2) Agregar participantes" << endl;
+        cout << "  3) Agregar administradores" << endl;
+        cout << "  4) Mis grupos" << endl;
 
-        if(iSesion->loggedIn()==false){
-          cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
+        cin >> opcion;
 
-        }else{
-          cin.ignore();
-          string nomGrupo, urlGrupo;
-          cout << "Ingrese los datos del grupo a crear" << endl;
-          cout << "Nombre del grupo" << endl;
-          getline(cin, nomGrupo);
-          cout << "URL de la imagen" << endl;
-          getline(cin, urlGrupo);
-          iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
-          cout << "Grupo creado" << endl;
-        }
-
+        switch(opcion)
+        {
+          case 1: //Alta grupo
+            if (iSesion->loggedIn() == false)
+            {
+              cout << "  ERROR: Debes iniciar sesion antes de poder crear un grupo" << endl;
+            }
+            else
+            {
+              cin.ignore();
+              string nomGrupo, urlGrupo;
+              cout << "Ingrese los datos del grupo a crear" << endl;
+              cout << "Nombre del grupo" << endl;
+              getline(cin, nomGrupo);
+              cout << "URL de la imagen" << endl;
+              getline(cin, urlGrupo);
+              iGrupo->crearGrupo(iSesion->getUserLoggeado(), nomGrupo, urlGrupo, fechaSistema);
+              cout << "Grupo creado" << endl;
+            }
+          break;
+          case 2: //Agregar participante
+          int numTel, id;
+          cout << "Ingresa el numero de telefono del participante" << endl;
+          cin >> numTel;
+          cout << "Ingresa el id del grupo" << endl;
+          cin >> id;
+          iGrupo->agregarParticipante(numTel, id, iSesion->getUserLoggeado());
+          break;
+          case 3: //Agregar administrador
+          break;
+          case 4: //Mis grupos
+          
+          break;
+          }
         break;
       case 13: //Mi perfil
         if (iSesion->loggedIn() == false)

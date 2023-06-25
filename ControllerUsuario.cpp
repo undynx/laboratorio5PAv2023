@@ -50,7 +50,7 @@ Usuario* ControllerUsuario::encontrarUsuarioxnumTel(int numTel)
 
     if(instancia->colUsuarios.find(numTel) != instancia->colUsuarios.end())
     {  
-          user = instancia->colUsuarios.at(numTel);
+        user = instancia->colUsuarios.at(numTel);
     }
     
     return user;
