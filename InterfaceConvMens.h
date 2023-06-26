@@ -20,8 +20,8 @@ using namespace std;
 
 class InterfaceConvMens {
 	public:
-        virtual void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)=0;
-        virtual void listarConversacionesActivas(Usuario* user)=0;
+        virtual void iniciarConversacion(int numTelContacto, DtFechaHora* fechaSistema)=0;
+        virtual void listarConversacionesActivas()=0;
         virtual void setConversacionColSis(Conversacion *conv, int id) = 0;
         // virtual set<DtConversacionGrupal> mostrarConverG() = 0;
         // virtual set<DtConversacionPrivada> mostrarConverP() = 0;
@@ -31,8 +31,8 @@ class InterfaceConvMens {
         virtual  DtMensaje borrarMensaje(DtConversacion borrar)=0;
         virtual set<DtConversacion> seleccionarConversacionesTodas()=0;*/
         virtual Conversacion *getConverSis(int idConver) = 0;
-        virtual void ingresarIdConversacionEnviarMsj(int idConve, Usuario* user, DtFechaHora* fecEnvio)=0;
-        virtual void ingresarIdConversacionMostrar(int idConve, Usuario* user, DtFechaHora* fecVisto)=0;
+        virtual void ingresarIdConversacionEnviarMsj(int idConve, DtFechaHora* fecEnvio)=0;
+        virtual void ingresarIdConversacionMostrar(int idConve, DtFechaHora* fecVisto)=0;
         virtual string randomStr(int ch)=0;
         virtual Mensaje* encontrarMensaje(string codigo)=0;
         virtual Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)=0;

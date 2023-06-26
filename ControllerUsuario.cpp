@@ -100,12 +100,11 @@ void ControllerUsuario::agregarContacto(int numTel) {
 }
 
 //Muestra en consola todos los usuarios en la lista de contactos
-void ControllerUsuario::listarContactos(Usuario* user){
+void ControllerUsuario::listarContactos(){
 
-    //ControllerSesion* cs = ControllerSesion::getInstancia();
-    //Usuario *user = cs->getUserLoggeado();
-    //Llamar a una instancia nueva de sesión genera problemas con la sesión.
-    //Lo mejor es pasar el usuario logeado por parametro
+    ControllerSesion *cSesion = ControllerSesion::getInstancia();
+    Usuario *user = cSesion->getUserLoggeado();
+
     map<int, Usuario*> colContactos = user->getListaContactos();
 
     for (auto it = colContactos.begin(); it != colContactos.end(); it++){

@@ -75,6 +75,8 @@ int main()
             user = iUsuario->encontrarUsuarioxnumTel(numTel);
             if(user == NULL) {
               iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+              cout << endl;
+              cout << "Se dió de alta al usuario" << numTel << endl;
             }else {
               cout << "  ERROR: Ya existe un usuario con el numero " << numTel << endl;
             }
@@ -96,7 +98,7 @@ int main()
               {
                 cout << "----------------------------" << endl;
                 cout << "CONTACTOS: " << endl;
-                iUsuario->listarContactos(iSesion->getUserLoggeado());
+                iUsuario->listarContactos();
                 cout << "----------------------------" << endl;
                 cout << "\nIngresa el numero del usuario que queres agregar a tus contactos" << endl;
                 cin >> numTel;
@@ -134,7 +136,7 @@ int main()
           {
             cout << "----------------------------" << endl;
             cout << "CONVERSACIONES: ";
-            iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+            iConvMens->listarConversacionesActivas();
             cout << "----------------------------";
 
             cout << "\n----------------------------\n";
@@ -152,7 +154,7 @@ int main()
               //Seleccionar conversación activa
               cout << "Ingresar el id de la conversación" << endl;
               cin >> idConver;
-              iConvMens->ingresarIdConversacionEnviarMsj(idConver,iSesion->getUserLoggeado(), fechaSistema);
+              iConvMens->ingresarIdConversacionEnviarMsj(idConver, fechaSistema);
             break;
             case 2:
               //Ver las conversaciones archivadas
@@ -162,11 +164,11 @@ int main()
               //Iniciar conversación con un contacto nuevo;
               cout << "----------------------------" << endl;
               cout << "CONTACTOS: " << endl;
-              iUsuario->listarContactos(iSesion->getUserLoggeado());
+              iUsuario->listarContactos();
               cout << "----------------------------" << endl;
               cout << "Ingresar número de celular del contacto con el cual quiere iniciar la conversación" << endl;
               cin >> numTel;
-              iConvMens->iniciarConversacion(numTel,iSesion->getUserLoggeado(), fechaSistema);
+              iConvMens->iniciarConversacion(numTel, fechaSistema);
             break;
             //default:
               //cout << opt << " no es una opcion correcta \n" << endl;
@@ -186,7 +188,7 @@ int main()
         { 
         cout << "----------------------------" << endl;
         cout << "CONVERSACIONES: ";
-        iConvMens->listarConversacionesActivas(iSesion->getUserLoggeado());
+        iConvMens->listarConversacionesActivas();
         //cout << "Archivadas: " << iConvMens->getcantArchivadas();
         cout << "----------------------------";
 
@@ -204,7 +206,7 @@ int main()
 				  //Seleccionar conversación activa
           cout << "Ingresar el id de la conversación" << endl;
           cin >> idConver;
-          iConvMens->ingresarIdConversacionMostrar(idConver,iSesion->getUserLoggeado(), fechaSistema);
+          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema);
 				break;
         case 2:
           //Ver las conversaciones archivadas

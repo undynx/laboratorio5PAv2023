@@ -29,8 +29,10 @@ Conversacion* ControllerConvMens::getConverSis(int idConver){
 //  this->cantArchivadas;
 //}
 
-void ControllerConvMens::listarConversacionesActivas(Usuario* user)
+void ControllerConvMens::listarConversacionesActivas()
 {
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *user = cSesion->getUserLoggeado();
 
   if(user->isEmptyColConvers())
   {
@@ -63,13 +65,15 @@ void ControllerConvMens::listarConversacionesActivas(Usuario* user)
    }
 }
 
-void ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema)
+void ControllerConvMens::iniciarConversacion(int numTelContacto, DtFechaHora* fechaSistema)
 {
   int optmsj, numTelCto, numTelRte, numTelDest,idConve;
   float duracion;
   string texto, url, tamanio, formato;
   Mensaje* msj;
 
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *user = cSesion->getUserLoggeado();
   ControllerUsuario* cu = ControllerUsuario::getInstancia();
   Usuario* destinatario = user->getContacto(numTelContacto);
   DtUsuario dtUser = user->pedirDatos();
@@ -169,7 +173,7 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, Usuario* user, 
           break;
           case 4:
             //Enviar Contacto 
-            cu->listarContactos(user);
+            cu->listarContactos();
             cout << "Ingresar número de celular del contacto que desee enviar" << endl;
             cin >> numTelCto;
             cout << endl;
@@ -228,13 +232,16 @@ Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto,
 }
 
 
-void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* user, DtFechaHora* fecEnvio)
+void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, DtFechaHora* fecEnvio)
 {
   int optmsj, numTelCto, numTelRte, numTelDest;
   float duracion;
   map<int, Usuario*> colParticipantes;
   string texto, url, tamanio, formato;
   Mensaje* msj;
+
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *user = cSesion->getUserLoggeado();
 
   ConversacionPrivada* converPriv;
   ConversacionGrupal* converGrup;
@@ -359,7 +366,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
       break;
       case 4:
         //Enviar Contacto 
-        cu->listarContactos(user);
+        cu->listarContactos();
         cout << "Ingresar número de celular del contacto que desee enviar" << endl;
         cin >> numTelCto;
         cout << endl;
@@ -388,8 +395,10 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, Usuario* 
     }
 }
 
-void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, Usuario* user, DtFechaHora* fecVisto)
+void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto)
 {
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *user = cSesion->getUserLoggeado();
   ControllerUsuario* cu = ControllerUsuario::getInstancia();
 
   VistoMensaje* vistoPor;
