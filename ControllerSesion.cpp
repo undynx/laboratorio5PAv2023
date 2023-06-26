@@ -215,7 +215,6 @@ void ControllerSesion::cerrarApp(DtFechaHora* fechaUltCon){
 	if (isLoggedIn){
 		userLoggeado->setUltCon(fechaUltCon);
 		this->userLoggeado = NULL;
-		this->instancia = NULL;
 		cout << "Sesión cerrada exitosamente" << endl;
 	}else{
 		cout << "No hay ninguna sesión activa" << endl;

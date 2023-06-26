@@ -16,17 +16,17 @@ class ControllerConvMens: public InterfaceConvMens {
         static ControllerConvMens *getInstancia();
         ~ControllerConvMens();
         Conversacion* getConverSis(int idConver);
-        void iniciarConversacion(int numTelContacto, Usuario* user, DtFechaHora* fechaSistema);
+        void iniciarConversacion(int numTelContacto, DtFechaHora* fechaSistema);
         void setConversacionColSis(Conversacion *conv, int id);
-        void listarConversacionesActivas(Usuario *user);
+        void listarConversacionesActivas();
         /*set<DtConversacionGrupal> mostrarConverG();
         set<DtConversacionPrivada> mostrarConverP();
         set<DtConversacion> seleccionarConversacion(int id);
         set<DtMensaje> datosMensajes(string id);
         DtMensaje borrarMensaje(DtConversacion borrar);
         set<DtConversacion> seleccionarConversacionesTodas();*/
-        void ingresarIdConversacionEnviarMsj(int idConve, Usuario* user, DtFechaHora* fecEnvio);
-        void ingresarIdConversacionMostrar(int idConver, Usuario* user, DtFechaHora* fecVisto);
+        void ingresarIdConversacionEnviarMsj(int idConve, DtFechaHora* fecEnvio);
+        void ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto);
         string randomStr(int ch);
         Mensaje* encontrarMensaje(string codigo);
         Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);

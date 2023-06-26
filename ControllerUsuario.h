@@ -18,7 +18,7 @@ public:
     Usuario* encontrarUsuarioxnumTel(int numTel);
     void agregarContacto(int numTel);
     Usuario *encontrarContactoxNumTel(int numTel);
-    void listarContactos(Usuario* user);
+    void listarContactos();
     // set<DtUsuario> listarContactos(Usuario* user);
     // void cancelar();
     // void salir();
