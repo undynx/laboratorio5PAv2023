@@ -39,6 +39,8 @@ class InterfaceConvMens {
      //   virtual Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente)=0;
         virtual Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente)=0;
         virtual Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente)=0;
+        virtual void verArchivadas()=0;  
+        virtual void archivarConversacion(Usuario *user)=0;
      //   virtual set<DtConversacion> buscarConv(int id)=0;
      //   virtual set<DtConversacion> buscarConvArch(int id)=0;
      //   virtual DtMensaje seleccionarMsj(int id)=0;
