@@ -226,7 +226,7 @@ int main()
         }else 
         { 
         iConvMens->listarConversacionesActivas();
-        iConvMens->archivarConversacion(iSesion->getUserLoggeado());
+        iConvMens->archivarConversacion();
         }
         break;
       case 9:

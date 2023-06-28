@@ -122,14 +122,14 @@ map <int, Conversacion*> Usuario::getListaConvers()
     return this->colConvers;
 }
 
-/*map <int, Conversacion*> Usuario::getListaArchivadas()
-{
-    return this->colArchivadas;
+void Usuario::eraseConver(int idConver){
+
+ if (colConvers.find(idConver) != colConvers.end())
+    {
+          this->colConvers.erase(idConver);
+    }
 }
 
-bool Usuario::isEmptyArchivadas(){
-    return this->colArchivadas.empty();
-}*/
 
 bool Usuario::isEmptyColConvers(){
     return this->colConvers.empty();
