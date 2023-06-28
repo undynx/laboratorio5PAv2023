@@ -24,6 +24,7 @@ class Conversacion{
         Mensaje* getMensaje(string codigo);
         void setMensaje(Mensaje* codigo);
         map <string, Mensaje*> getListaMensajes();
+        void setListaMensajes(map <string, Mensaje*> colMensajes);
         //map <string, DtMensaje*> getListaMensajesDt();
         bool isColMensajesEmpty();
         //Conversacion seleccionarConversacion();

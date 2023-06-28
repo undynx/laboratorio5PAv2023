@@ -26,7 +26,7 @@ Mensaje* Conversacion::getMensaje(string codigo){
 
 //Setters
 void Conversacion::setActivo(bool activo){
-    
+
     this->activo=activo;
 }
 
@@ -63,6 +63,11 @@ Conversacion Conversacion::archivar(bool archivada){
 map <string, Mensaje*> Conversacion::getListaMensajes()
 {
     return this->colMensajes;
+}
+
+void Conversacion::setListaMensajes(map <string, Mensaje*> colMensajes)
+{
+    this->colMensajes =  colMensajes;
 }
 
 /*map <string, DtMensaje*> Conversacion::getListaMensajesDt()
