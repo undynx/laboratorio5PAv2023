@@ -64,6 +64,14 @@ Conversacion* Usuario::getConver(int idConver){
     return NULL;
 }
 
+/*Conversacion* Usuario::getConverArch(int idConver){
+
+ if (colArchivadas.find(idConver) != colArchivadas.end())
+    {
+          return colArchivadas.at(idConver);
+    }
+    return NULL;
+}*/
 
 DtUsuario Usuario::pedirDatos(){
     DtUsuario dtuser = DtUsuario(this->numTel,this->nombre,this->fecReg,this->imagen,this->descripcion,this->ultCon);
@@ -113,6 +121,15 @@ map <int, Conversacion*> Usuario::getListaConvers()
 {
     return this->colConvers;
 }
+
+/*map <int, Conversacion*> Usuario::getListaArchivadas()
+{
+    return this->colArchivadas;
+}
+
+bool Usuario::isEmptyArchivadas(){
+    return this->colArchivadas.empty();
+}*/
 
 bool Usuario::isEmptyColConvers(){
     return this->colConvers.empty();

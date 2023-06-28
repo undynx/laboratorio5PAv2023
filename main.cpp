@@ -158,6 +158,7 @@ int main()
             break;
             case 2:
               //Ver las conversaciones archivadas
+              iConvMens->verArchivadas();
               
             break;
             case 3:
@@ -218,6 +219,16 @@ int main()
 
         }
       break;
+      case 8:
+        //Archivar Conversacion
+        if(iSesion->loggedIn() == false) {
+        cout << "ERROR: Debes iniciar sesion antes de poder archivar conversaciones" << endl;
+        }else 
+        { 
+        iConvMens->listarConversacionesActivas();
+        iConvMens->archivarConversacion(iSesion->getUserLoggeado());
+        }
+        break;
       case 9:
         if (iSesion->loggedIn() == false)
         {

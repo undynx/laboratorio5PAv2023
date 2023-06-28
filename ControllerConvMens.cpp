@@ -1,5 +1,5 @@
 #include "ControllerConvMens.h"
-
+#include <iostream>
 using namespace std;
 
 ControllerConvMens* ControllerConvMens::instancia=NULL;
@@ -51,12 +51,12 @@ void ControllerConvMens::listarConversacionesActivas()
         conversGrup = dynamic_cast<ConversacionGrupal*>(convers);
 
         cout << "\n----------------------------\n";
-        if(conversPriv!=NULL)
+        if(conversPriv!=NULL && conversPriv->getActivo()==true)
         {//Caso Conversacion Privada
           cout << conversPriv->getOtroParticipante(user)->getNombre() << ": " << conversPriv->getOtroParticipante(user)->getNumTel() << endl;
           cout << "Id Conversación: " << conversPriv->getId() << endl;
         }
-        else if (conversGrup!=NULL)
+        else if (conversGrup!=NULL && conversGrup->getActivo()==true)
         {//Caso Conversacion Grupal
           cout << "Grupo : " << conversGrup->getNombre() << endl;
           cout << "Id Conversación: " << conversGrup->getId() << endl;
@@ -555,11 +555,82 @@ Mensaje* ControllerConvMens::encontrarMensaje(string codigo)
 
 }
 
-ControllerConvMens::~ControllerConvMens(){}
 
 void ControllerConvMens::setConversacionColSis(Conversacion* conv, int id){
    this->colConversSis.insert({id, conv});
 }
+
+int ControllerConvMens::getCantArchivadas(){
+  return this->cantArchivadas;
+}
+
+void ControllerConvMens::archivarConversacion(Usuario* user){
+  
+
+  Conversacion *arch;
+  ConversacionArchivada *archivar = new ConversacionArchivada;
+  ControllerConvMens cont;
+  int idconver;
+
+  map <int,Conversacion*> colArchivadas = user->getListaConvers();
+
+  cout<<"Ingrese la id de la conversacion que desee archivar: "<<endl;
+  cin>>idconver;
+  cout<<"------------------------------"<<endl;
+  
+      arch = user->getConver(idconver);     
+      arch->setActivo(false);
+      archivar = dynamic_cast<ConversacionArchivada*>(arch);
+    //  user->getListaConvers().insert({idconver,archivar});
+      this->cantArchivadas++;
+      cout<<"Conversaciones Archivadas: " << this->cantArchivadas<<endl;
+      cout<<"Se archivo la conversacion " << idconver <<endl;
+  /*  auto iter = colConversUsuario.find(idconver);
+    if (iter != colConversUsuario.end()) {
+        colConversUsuario.erase(iter);*/    
+    // sera necesario borrarlo de la coleccion de activas?????
+ 
+}
+
+
+void ControllerConvMens::verArchivadas(){
+    
+ /*  if(user->isEmptyArchivadas())
+  {
+      cout<<"------------------------------"<<endl;
+      cout << "No tiene ninguna conversacion archivada" << endl;;
+  }
+  else
+  {*/
+  ControllerSesion *cSesion = ControllerSesion::getInstancia();
+  Usuario *user = cSesion->getUserLoggeado();
+    cout<<"llego antes del for"<<endl;
+    map <int,Conversacion*> colArchivadas = user->getListaConvers();
+    for (auto it = colArchivadas.begin(); it != colArchivadas.end(); it++){
+      cout<<"llego despues del for"<<endl;
+      if( user->getConver(it->first)->getActivo()==false){
+            ConversacionArchivada *archivada = new ConversacionArchivada;
+            Conversacion *convers = it->second;
+            archivada = dynamic_cast<ConversacionArchivada*>(convers);
+            if (archivada != NULL) {
+                // La conversión a ConversacionArchivada se realizó con éxito
+              cout << "\n----------------------------\n";
+              cout << archivada->getOtroParticipante(user)->getNombre() << ": " << archivada->getOtroParticipante(user)->getNumTel() << endl;
+              cout << "Id Conversación: " << archivada->getId() << endl;
+              //  cout << archivada->getId() << endl;
+            } else {
+                // La conversión no se pudo realizar
+                cout << "La conversión a ConversacionArchivada falló." << endl;
+                }
+              cout<<archivada->getId()<<endl;
+
+          }
+      }  
+    }      
+
+
+ControllerConvMens::~ControllerConvMens(){}
+
 
 /*int mostrarCantidad(){}
 set<DtConversacion> seleccionarConversacion(string id){}
