@@ -9,10 +9,10 @@ Conversacion::Conversacion(int idConver, bool activo){
 
 //Gettes
 bool Conversacion::getActivo(){
-    return this-> activo=activo;
+    return this-> activo;
 }
 int Conversacion::getId(){
-    return this-> id=id;
+    return this-> id;
 }
 
 Mensaje* Conversacion::getMensaje(string codigo){
@@ -26,8 +26,10 @@ Mensaje* Conversacion::getMensaje(string codigo){
 
 //Setters
 void Conversacion::setActivo(bool activo){
+    
     this->activo=activo;
 }
+
 void Conversacion::setId(int id){
     this->id=id;
 }

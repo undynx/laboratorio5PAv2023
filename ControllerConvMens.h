@@ -28,7 +28,7 @@ class ControllerConvMens: public InterfaceConvMens {
         Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);   
         Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente);
         Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente);
-        void archivarConversacion(Usuario *user);
+        void archivarConversacion();
         void verArchivadas();
         //set<DtConversacion> buscarConv(int id);
         //set<DtConversacion> buscarConvArch(int id);

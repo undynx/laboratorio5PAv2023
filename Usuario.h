@@ -42,6 +42,7 @@ class Usuario{
         Usuario* getContacto(int numtel);
         Conversacion* getConver(int id);
         void setConver(Conversacion* conver);
+        void eraseConver(int id);
         bool isEmptyColConvers();
         DtUsuario setUsuario(DtUsuario u);
         void setContacto(Usuario* u);
