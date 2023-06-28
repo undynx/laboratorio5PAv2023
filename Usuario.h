@@ -22,6 +22,7 @@ class Usuario{
        DtFechaHora* ultCon;
        map <int, Usuario*> colContactos;
        map <int,Conversacion*> colConvers;
+     //   map <int,Conversacion*> colArchivadas;// Lista de conversaciones archivadas
        set <Estado*> estado;
     public:
         Usuario();
@@ -46,6 +47,9 @@ class Usuario{
         void setContacto(Usuario* u);
         map <int, Usuario*> getListaContactos();
         map <int,Conversacion*> getListaConvers();
+      /*  map <int,Conversacion*> getListaArchivadas();
+        Conversacion* getConverArch(int idConver);
+         bool isEmptyArchivadas();*/
         ~Usuario();
 };
 #endif
