@@ -32,7 +32,9 @@ class InterfaceConvMens {
         virtual set<DtConversacion> seleccionarConversacionesTodas()=0;*/
         virtual Conversacion *getConverSis(int idConver) = 0;
         virtual void ingresarIdConversacionEnviarMsj(int idConve, DtFechaHora* fecEnvio)=0;
+        virtual void ingresarIdConversacionEnviarMsjArch(int idConve, DtFechaHora* fecEnvio)=0;
         virtual void ingresarIdConversacionMostrar(int idConve, DtFechaHora* fecVisto)=0;
+        virtual void ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto)=0;
         virtual string randomStr(int ch)=0;
         virtual Mensaje* encontrarMensaje(string codigo)=0;
         virtual Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente)=0;

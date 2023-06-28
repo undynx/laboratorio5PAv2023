@@ -16,13 +16,14 @@ class ControllerConvMens: public InterfaceConvMens {
         ControllerConvMens();
         static ControllerConvMens *getInstancia();
         ~ControllerConvMens();
-        int getCantArchivadas();
         Conversacion* getConverSis(int idConver);
         void iniciarConversacion(int numTelContacto, DtFechaHora* fechaSistema);
         void setConversacionColSis(Conversacion *conv, int id);
         void listarConversacionesActivas();        
-        void ingresarIdConversacionEnviarMsj(int idConve, DtFechaHora* fecEnvio);
+        void ingresarIdConversacionEnviarMsj(int idConver, DtFechaHora* fecEnvio);
+        void ingresarIdConversacionEnviarMsjArch(int idConver, DtFechaHora* fecEnvio);
         void ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto);
+        void ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto);
         string randomStr(int ch);
         Mensaje* encontrarMensaje(string codigo);
         Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);   

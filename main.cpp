@@ -20,7 +20,7 @@ int main()
 
   bool salir = false;
   int opt,optreloj,optenvmsj,optvermsj,optgrupo;
-  int numTel,idConver;
+  int numTel,idConver, idConverArch;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
   Usuario *user;
@@ -41,8 +41,8 @@ int main()
     cout << "  9) Gestion de grupos" << endl;
     cout << "  10) Mi perfil" << endl;
     cout << "  11) Reloj del Sistema" << endl;
-    cout << "  12) Salir" << endl;
-    cout << "  13) Cerrar sesion" << endl;
+    cout << "  12) Cerrar sesion" << endl;
+    cout << "  13) Salir" << endl;
     cout << "\n----------------------------\n";
 
     cin >> opt;
@@ -159,7 +159,10 @@ int main()
             case 2:
               //Ver las conversaciones archivadas
               iConvMens->verArchivadas();
-              
+              cout << "---------------------------\n";
+              cout << "Ingresar el id de la conversación archivada" << endl;
+              cin >> idConverArch;
+              iConvMens->ingresarIdConversacionEnviarMsjArch(idConverArch, fechaSistema);
             break;
             case 3:
               //Iniciar conversación con un contacto nuevo;
@@ -211,7 +214,11 @@ int main()
 				break;
         case 2:
           //Ver las conversaciones archivadas
-
+          iConvMens->verArchivadas();
+          cout << "---------------------------\n";
+          cout << "Ingresar el id de la conversación archivada" << endl;
+          cin >> idConverArch;
+          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema);
         break;
         //default:
           //cout << opt << " no es una opcion correcta \n" << endl;
@@ -344,17 +351,17 @@ int main()
         default:
         cout << "  ERROR: no es una opcion correcta" << endl;
       break;
-      case 12:
-        //Salir
-        salir = true;
-      break;
-      case 13: // Cerrar app
+      case 12: // Cerrar app
         if (iSesion->loggedIn() == false)
           cout << "  ERROR: No existe ninguna sesión iniciada" << endl;
         else
           iSesion->cerrarApp(fechaSistema);
       break;
-        case 0:
+      case 13:
+        //Salir
+        salir = true;
+      break;
+      case 0:
           //Crea los usuarios
           Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
           Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);
