@@ -22,7 +22,7 @@ int main()
   int opt,optreloj,optenvmsj,optvermsj,optgrupo;
   int numTel,idConver;
   string nombre, imagen, descripcion;
-  int dia, mes, anio, hora, min;
+  int dia, mes, anio, hora, min, cant=0;
   Usuario *user;
 
   do {
@@ -74,7 +74,7 @@ int main()
             getline(cin, descripcion);
             user = iUsuario->encontrarUsuarioxnumTel(numTel);
             if(user == NULL) {
-              iUsuario->altaUsuario(numTel, nombre, imagen, descripcion, fechaSistema);
+              iUsuario->altaUsuario(numTel, nombre, imagen, cant,  descripcion, fechaSistema);
               cout << endl;
               cout << "Se dió de alta al usuario" << numTel << endl;
             }else {
@@ -226,7 +226,7 @@ int main()
         }else 
         { 
         iConvMens->listarConversacionesActivas();
-        iConvMens->archivarConversacion(iSesion->getUserLoggeado());
+        iConvMens->archivarConversacion();
         }
         break;
       case 9:
@@ -356,10 +356,10 @@ int main()
       break;
         case 0:
           //Crea los usuarios
-          Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
-          Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);
-          Usuario * pablo = iUsuario->altaUsuario(80246810, "Pablo Iglesias", "home/img/perfil/pablo.png", "Hola! Estoy aquí", fechaSistema);
-          Usuario * sara = iUsuario->altaUsuario(80666777, "Sara Ruiz", "home/img/perfil/sara.png", "Estoy feliz!", fechaSistema);
+          Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", 0,"Amo usar esta app", fechaSistema);
+          Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png",0, "Me encanta Prog. Avanzada", fechaSistema);
+          Usuario * pablo = iUsuario->altaUsuario(80246810, "Pablo Iglesias", "home/img/perfil/pablo.png",0, "Hola! Estoy aquí", fechaSistema);
+          Usuario * sara = iUsuario->altaUsuario(80666777, "Sara Ruiz", "home/img/perfil/sara.png",0, "Estoy feliz!", fechaSistema);
           
           //Agrega los contactos
           juan->setContacto(maria);

@@ -14,13 +14,13 @@ ControllerUsuario* ControllerUsuario::getInstancia()
 
 ControllerUsuario::~ControllerUsuario() {}
 
-Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg)
+Usuario* ControllerUsuario::altaUsuario(int numTel, string nombre, string imagen, int cant,  string descripcion, DtFechaHora* fecReg)
 {
     DtFechaHora* ultCon = fecReg;
 
     this->getInstancia();
 
-    Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, descripcion, ultCon);
+    Usuario* user = new Usuario(numTel, nombre, fecReg, imagen, cant, descripcion, ultCon);
 
     instancia->colUsuarios.insert({numTel, user});
 

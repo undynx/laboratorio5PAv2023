@@ -24,9 +24,10 @@ class Usuario{
        map <int,Conversacion*> colConvers;
      //   map <int,Conversacion*> colArchivadas;// Lista de conversaciones archivadas
        set <Estado*> estado;
+       int cantArchivadas;
     public:
         Usuario();
-        Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon);
+        Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, int cant, string descripcion, DtFechaHora* ultCon);
         int getNumTel();
         void setNumTel(int numtel);
         string getNombre();
@@ -42,6 +43,9 @@ class Usuario{
         Usuario* getContacto(int numtel);
         Conversacion* getConver(int id);
         void setConver(Conversacion* conver);
+        void eraseConver(int idConver);
+        int getCantArchivadas();
+        void setCantArchivadas(int);
         bool isEmptyColConvers();
         DtUsuario setUsuario(DtUsuario u);
         void setContacto(Usuario* u);

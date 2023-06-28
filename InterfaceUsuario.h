@@ -11,7 +11,7 @@ using namespace std;
 
 class InterfaceUsuario {
 	public: 
-		virtual Usuario* altaUsuario(int numTel,string nombre, string imagen, string descripcion, DtFechaHora* fecReg)=0; 
+		virtual Usuario* altaUsuario(int numTel,string nombre, string imagen, int cant,  string descripcion, DtFechaHora* fecReg)=0; 
 		virtual bool ingresarNumero(int numTel)=0;
     virtual Usuario* encontrarUsuarioxnumTel(int numTel)=0;
     virtual void agregarContacto(int numTel) = 0;

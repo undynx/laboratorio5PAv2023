@@ -13,7 +13,7 @@ public:
     ControllerUsuario();
     static ControllerUsuario *getInstancia();
     ~ControllerUsuario();
-    Usuario *altaUsuario(int numTel, string nombre, string imagen, string descripcion, DtFechaHora* fecReg);
+    Usuario *altaUsuario(int numTel, string nombre, string imagen, int cant, string descripcion, DtFechaHora* fecReg);
     bool ingresarNumero(int numTel);
     Usuario* encontrarUsuarioxnumTel(int numTel);
     void agregarContacto(int numTel);

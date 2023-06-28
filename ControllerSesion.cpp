@@ -43,7 +43,7 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 	InterfaceUsuario* iUsuario = fact->getInterfaceUsuario();
 	//this->getInstancia();
 
-	int opt;
+	int opt, cant=0;
 	bool existeNum = false;
 	bool salir = false;
 	string flag = "";
@@ -130,7 +130,7 @@ int ControllerSesion::abrirApp(int numTel, DtFechaHora* fechaSesion){
 				cout << "Ingresar la descripcion" << endl;
 				getline(cin, desc);
 				cout << endl;
-				user = iUsuario->altaUsuario(numTel, nombre, img, desc, fecCon);
+				user = iUsuario->altaUsuario(numTel, nombre, img, cant, desc, fecCon);
 				setUserLoggeado(user);
 				cout << "Se dio de alta su usuario correcatmente.\n";
     			fecCon->mostrarFechayHoraConexion();

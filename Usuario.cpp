@@ -6,13 +6,14 @@
 
 Usuario::Usuario() {}
 
-Usuario::Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon){
+Usuario::Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, int cant, string descripcion, DtFechaHora* ultCon){
     this->numTel = numTel;
     this->nombre = nombre;
     this->fecReg = fecReg;
     this->imagen = imagen;
     this->descripcion = descripcion;
     this->ultCon = ultCon;
+    this->cantArchivadas=cant;
 }
 
 //Getters
@@ -46,6 +47,10 @@ void Usuario::setUltCon(DtFechaHora* ultCon)
     this->ultCon = ultCon;
 }
 
+ int Usuario::getCantArchivadas(){
+    return this->cantArchivadas;
+ }
+
 Usuario* Usuario::getContacto(int numTel){
 
  if (colContactos.find(numTel) != colContactos.end())
@@ -64,15 +69,6 @@ Conversacion* Usuario::getConver(int idConver){
     return NULL;
 }
 
-/*Conversacion* Usuario::getConverArch(int idConver){
-
- if (colArchivadas.find(idConver) != colArchivadas.end())
-    {
-          return colArchivadas.at(idConver);
-    }
-    return NULL;
-}*/
-
 DtUsuario Usuario::pedirDatos(){
     DtUsuario dtuser = DtUsuario(this->numTel,this->nombre,this->fecReg,this->imagen,this->descripcion,this->ultCon);
     return dtuser;
@@ -84,6 +80,9 @@ DtUsuario Usuario::pedirDatos(){
 void Usuario::setNumTel(int numtel){
     this->numTel = numtel;
 }
+ void Usuario::setCantArchivadas(int cantArchivadas){
+    this->cantArchivadas=cantArchivadas;
+ }
 
 void Usuario::setNombre(string nombre){
     this->nombre = nombre;
@@ -122,14 +121,13 @@ map <int, Conversacion*> Usuario::getListaConvers()
     return this->colConvers;
 }
 
-/*map <int, Conversacion*> Usuario::getListaArchivadas()
-{
-    return this->colArchivadas;
-}
+void Usuario::eraseConver(int idConver){
 
-bool Usuario::isEmptyArchivadas(){
-    return this->colArchivadas.empty();
-}*/
+ if (colConvers.find(idConver) != colConvers.end())
+    {
+          this->colConvers.erase(idConver);
+    }
+}
 
 bool Usuario::isEmptyColConvers(){
     return this->colConvers.empty();
