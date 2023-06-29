@@ -445,6 +445,8 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsjArch(int idConver, DtFec
            
         user->setConver(converPriv);
         destinatario->setConver(converPriv);
+        user->setCantArchivadas(user->getCantArchivadas() - 1);
+        destinatario->setCantArchivadas(user->getCantArchivadas() - 1);
     }
 
     cout << "\n----------------------------\n";
@@ -658,6 +660,11 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
         }
         //Aca Termina el Listado de los mensajes
         //Faltan seleccionar el mensaje para ver detalle
+        
+
+        //if(eliminar){
+        //}
+        //else{ }
     }
   }
 }
@@ -851,7 +858,8 @@ void ControllerConvMens::archivarConversacion(){
           {           
           user->setConver(converArch);//Agrego la conversación archivada a la colección del usuario
           destinatario->setConver(converArch);
-          //cout<<"Conversaciones Archivadas: " << this->cantArchivadas<<endl;
+          user->setCantArchivadas(user->getCantArchivadas() + 1);
+          destinatario->setCantArchivadas(user->getCantArchivadas() + 1);
           cout<<"Se archivó la conversacion con Id: " << idConver <<endl;
           }
 

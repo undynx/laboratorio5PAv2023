@@ -20,6 +20,7 @@ class Usuario{
        string imagen;
        string descripcion;
        DtFechaHora* ultCon;
+       int cantArchivadas;
        map <int, Usuario*> colContactos;
        map <int,Conversacion*> colConvers;
      //   map <int,Conversacion*> colArchivadas;// Lista de conversaciones archivadas
@@ -38,6 +39,8 @@ class Usuario{
         void setDescripcion(string desc);
         DtFechaHora* getUltCon();
         void setUltCon(DtFechaHora* ultCon);
+        int getCantArchivadas();
+        void setCantArchivadas(int cantArchivadas);
         DtUsuario pedirDatos();
         Usuario* getContacto(int numtel);
         Conversacion* getConver(int id);
