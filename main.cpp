@@ -21,7 +21,7 @@ int main()
   bool salir = false;
   int opt,optreloj,optenvmsj,optvermsj,optgrupo;
   int numTel,idConver, idConverArch;
-  string nombre, imagen, descripcion;
+  string nombre, imagen, descripcion, cod;
   int dia, mes, anio, hora, min;
   Usuario *user;
 
@@ -226,6 +226,18 @@ int main()
 
         }
       break;
+      case 7:
+        //Eliminar Mensaje
+        if(iSesion->loggedIn() == false) {
+        cout << "ERROR: Debes iniciar sesion antes de poder archivar conversaciones" << endl;
+        }else
+        {
+          iConvMens->listarConversacionesActivas();
+          cout << "Ingrese el codigo del mensaje que desea eliminar: " << endl;
+          cin >> cod;
+          iConvMens->eliminarMensaje(cod);
+        } 
+      break;
       case 8:
         //Archivar Conversacion
         if(iSesion->loggedIn() == false) {
@@ -362,6 +374,8 @@ int main()
         salir = true;
       break;
       case 0:
+          cout << "  Datos cargados con exito" << endl;
+
           //Crea los usuarios
           Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
           Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);

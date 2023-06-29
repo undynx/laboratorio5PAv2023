@@ -43,6 +43,7 @@ class InterfaceConvMens {
         virtual Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente)=0;
         virtual void verArchivadas()=0;  
         virtual void archivarConversacion()=0;
+        virtual void eliminarMensaje(string codigo) = 0;
      //   virtual set<DtConversacion> buscarConv(int id)=0;
      //   virtual set<DtConversacion> buscarConvArch(int id)=0;
      //   virtual DtMensaje seleccionarMsj(int id)=0;

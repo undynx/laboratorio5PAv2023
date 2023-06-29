@@ -34,6 +34,7 @@ class Conversacion{
         //Conversacion archivar(bool archivada);
         virtual void mostrarDatosC()=0;
         int contar();
+        void borrarMensaje(string codigo);
         //Conversacion seleccionar(DtConversacion borrar);
         virtual ~Conversacion();
 };

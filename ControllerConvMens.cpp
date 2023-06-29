@@ -867,6 +867,26 @@ void ControllerConvMens::archivarConversacion(){
       }
 }
 
+void ControllerConvMens::eliminarMensaje(string codigo)
+{
+  ControllerConvMens *msj = ControllerConvMens::getInstancia();
+  Mensaje* conver = msj->encontrarMensaje(codigo);
+  
+  if (conver==NULL)
+  {
+    cout << "ERROR: El codigo ingresado no existe en su lista de mensajes"  <<endl;
+
+  }
+  else
+  {
+    Conversacion* mensaje;
+    mensaje->borrarMensaje(codigo);
+    cout << "Se eliminó el mensaje" << endl;
+  }
+
+}
+
+
 
 void ControllerConvMens::verArchivadas(){
     

@@ -31,6 +31,7 @@ class ControllerConvMens: public InterfaceConvMens {
         Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente);
         void archivarConversacion();
         void verArchivadas();
+        void eliminarMensaje(string codigo);
         //set<DtConversacion> buscarConv(int id);
         //set<DtConversacion> buscarConvArch(int id);
         //DtMensaje seleccionarMsj(int id);

@@ -41,6 +41,15 @@ void Conversacion::setMensaje(Mensaje* msj){
 
 }
 
+void Conversacion::borrarMensaje(string codigo)
+{
+    auto iter = this->colMensajes.find(codigo);
+    if(iter != this->colMensajes.end()){
+        this->colMensajes.erase(codigo);
+    }
+}
+
+
 //Metodos
 
 /*
