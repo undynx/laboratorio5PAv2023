@@ -137,6 +137,11 @@ int main()
             cout << "----------------------------" << endl;
             cout << "CONVERSACIONES: ";
             iConvMens->listarConversacionesActivas();
+            cout << endl;
+            cout << "----------------------------";
+            cout << endl;
+            cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+            cout << endl;
             cout << "----------------------------";
 
             cout << "\n----------------------------\n";
@@ -193,7 +198,11 @@ int main()
         cout << "----------------------------" << endl;
         cout << "CONVERSACIONES: ";
         iConvMens->listarConversacionesActivas();
-        //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+        cout << endl;
+        cout << "----------------------------";
+        cout << endl;
+        cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+        cout << endl;
         cout << "----------------------------";
 
         cout << "\n----------------------------\n";

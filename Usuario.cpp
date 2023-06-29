@@ -13,6 +13,7 @@ Usuario::Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, 
     this->imagen = imagen;
     this->descripcion = descripcion;
     this->ultCon = ultCon;
+    this->cantArchivadas = 0;
 }
 
 //Getters
@@ -39,6 +40,14 @@ string Usuario::getDescripcion(){
 
 DtFechaHora* Usuario::getUltCon(){
     return this->ultCon;
+}
+
+int Usuario::getCantArchivadas(){
+    return this->cantArchivadas;
+}
+
+void Usuario::setCantArchivadas(int cantArchivadas){
+    this->cantArchivadas = cantArchivadas;
 }
 
 void Usuario::setUltCon(DtFechaHora* ultCon)
