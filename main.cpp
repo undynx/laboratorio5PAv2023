@@ -19,7 +19,7 @@ int main()
   InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
 
   bool salir = false;
-  int opt,optreloj,optenvmsj,optvermsj,optgrupo;
+  int opt,optreloj,optenvmsj,optvermsj,optgrupo,optelimsj;
   int numTel,idConver, idConverArch;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
@@ -137,6 +137,11 @@ int main()
             cout << "----------------------------" << endl;
             cout << "CONVERSACIONES: ";
             iConvMens->listarConversacionesActivas();
+            cout << endl;
+            cout << "----------------------------";
+            cout << endl;
+            cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+            cout << endl;
             cout << "----------------------------";
 
             cout << "\n----------------------------\n";
@@ -174,8 +179,8 @@ int main()
               cin >> numTel;
               iConvMens->iniciarConversacion(numTel, fechaSistema);
             break;
-            //default:
-              //cout << opt << " no es una opcion correcta \n" << endl;
+            default:
+              cout << opt << " no es una opcion correcta \n" << endl;
             }             
         }
         catch (std::exception &e)
@@ -193,7 +198,11 @@ int main()
         cout << "----------------------------" << endl;
         cout << "CONVERSACIONES: ";
         iConvMens->listarConversacionesActivas();
-        //cout << "Archivadas: " << iConvMens->getcantArchivadas();
+        cout << endl;
+        cout << "----------------------------";
+        cout << endl;
+        cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+        cout << endl;
         cout << "----------------------------";
 
         cout << "\n----------------------------\n";
@@ -210,7 +219,7 @@ int main()
 				  //Seleccionar conversación activa
           cout << "Ingresar el id de la conversación" << endl;
           cin >> idConver;
-          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema);
+          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema, false);
 				break;
         case 2:
           //Ver las conversaciones archivadas
@@ -218,7 +227,53 @@ int main()
           cout << "---------------------------\n";
           cout << "Ingresar el id de la conversación archivada" << endl;
           cin >> idConverArch;
-          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema);
+          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, false);
+        break;
+        default:
+          cout << opt << " no es una opcion correcta \n" << endl;
+        }
+
+        }
+      break;
+      case 7: 
+        //Eliminar Mensaje
+        if(iSesion->loggedIn() == false) {
+          cout << "ERROR: Debes iniciar sesion antes de poder eliminar mensajes" << endl;
+        }else 
+        { 
+        cout << "----------------------------" << endl;
+        cout << "CONVERSACIONES: ";
+        iConvMens->listarConversacionesActivas();
+        cout << endl;
+        cout << "----------------------------";
+        cout << endl;
+        cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+        cout << endl;
+        cout << "----------------------------";
+
+        cout << "\n----------------------------\n";
+			  cout << "Elige la opcion que desees:\n";
+			  cout << "  1) Seleccionar conversación activa" << endl;
+			  cout << "  2) Ver las conversaciones archivadas" << endl;
+			  cout << "\n----------------------------\n";
+
+			  cin >> optelimsj;
+
+			  switch (optelimsj)
+			  {
+			  case 1:
+				  //Seleccionar conversación activa
+          cout << "Ingresar el id de la conversación" << endl;
+          cin >> idConver;
+          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema, true);
+				break;
+        case 2:
+          //Ver las conversaciones archivadas
+          iConvMens->verArchivadas();
+          cout << "---------------------------\n";
+          cout << "Ingresar el id de la conversación archivada" << endl;
+          cin >> idConverArch;
+          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, true);
         break;
         //default:
           //cout << opt << " no es una opcion correcta \n" << endl;
@@ -349,7 +404,7 @@ int main()
         }
         break;
         default:
-        cout << "  ERROR: no es una opcion correcta" << endl;
+        cout << "ERROR: no es una opcion correcta" << endl;
       break;
       case 12: // Cerrar app
         if (iSesion->loggedIn() == false)

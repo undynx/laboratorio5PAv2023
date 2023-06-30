@@ -24,6 +24,7 @@ class Mensaje {
         void setVistoPor(VistoMensaje* vistoPor);
         VistoMensaje* getVistoPor(int numVistoPor);
         map<int,VistoMensaje*> getListaVistoPor();
+        void eraseVistoPor(int numTel);
         //DtMensaje delete(DtMensaje); ??
         //DtMensaje seleccionar();
         virtual ~Mensaje();
