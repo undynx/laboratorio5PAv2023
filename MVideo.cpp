@@ -22,6 +22,14 @@ float MVideo::getDuracion()
     return this->duracion;
 }
 
+DtMVideo* MVideo::mostrarDatosM()
+{
+        DtMVideo* DtmsjVideo = new DtMVideo(this->getCodigo(),this->getNumRemitente(),this->getFechayHora(),this->getUrl(),this->getDuracion());
+        DtMensaje *Dtmsj = DtmsjVideo;
+        DtmsjVideo = dynamic_cast<DtMVideo*>(Dtmsj);
+
+        return DtmsjVideo;
+}
 
 //Setters
 void MVideo::setUrl(string url)

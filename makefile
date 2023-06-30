@@ -1,5 +1,5 @@
-todo: main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MContacto.o MVideo.o DtMContacto.o VistoMensaje.o
-	g++ -g -Wall -o main main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Estado.o DtEstado.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o MVideo.o DtMImagen.o MContacto.o DtMContacto.o VistoMensaje.o
+todo: main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o DtMImagen.o MContacto.o MVideo.o DtMVideo.o DtMContacto.o VistoMensaje.o
+	g++ -g -Wall -o main main.o Factory.o ControllerConvMens.o ControllerGrupo.o ControllerUsuario.o ControllerSesion.o Conversacion.o DtConversacion.o DtMensaje.o DtFechaHora.o DtUsuario.o Mensaje.o ConversacionGrupal.o DtConversacionGrupal.o Usuario.o ConversacionPrivada.o DtConversacionPrivada.o ConversacionArchivada.o DtConversacionArchivada.o MSimple.o DtMSimple.o MImagen.o MVideo.o DtMImagen.o MContacto.o DtMVideo.o DtMContacto.o VistoMensaje.o
 
 main.o: main.cpp
 	g++ -g -Wall -c main.cpp
@@ -33,12 +33,6 @@ DtFechaHora.o: DtFechaHora.cpp DtFechaHora.h
 
 DtUsuario.o: DtUsuario.cpp DtUsuario.h
 	g++ -g -Wall -c DtUsuario.cpp
-
-Estado.o: Estado.cpp Estado.h
-	g++ -g -Wall -c Estado.cpp
-
-DtEstado.o: DtEstado.cpp DtEstado.h
-	g++ -g -Wall -c DtEstado.cpp
 
 Mensaje.o: Mensaje.cpp Mensaje.h
 	g++ -g -Wall -c Mensaje.cpp
