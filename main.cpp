@@ -513,12 +513,14 @@ int main()
           Mensaje *msjSaraG = iConvMens->enviarMsjSimple("Miren que bueno este video!", fecha5, sara->getNumTel());
           msjSaraG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
           msjSaraG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          msjSaraG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha5, false)); //faltaba agregar el setVisto en false para U2
           cg->setMensaje(msjSaraG);
 
           //Sara manda un video
           Mensaje *msjSaraG2 = iConvMens->enviarMsjVideo("/url/video", 0.5, fecha5, sara->getNumTel());
           msjSaraG2->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
           msjSaraG2->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          msjSaraG2->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha5, false)); //faltaba agregar el setVisto en false para U2
           cg->setMensaje(msjSaraG2);
 
           //Juan manda el M3, visto por Pablo y Sara
@@ -526,6 +528,7 @@ int main()
           Mensaje *msjJuanG = iConvMens->enviarMsjSimple("Muy gracioso!", fecha6, juan->getNumTel());
           msjJuanG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha6, true));
           msjJuanG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha6, true));
+          msjJuanG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha6, false)); //faltaba agregar el setVisto en false para U2
           cg->setMensaje(msjJuanG);
 
           //Pablo manda M4, visto por Juan y Sara
@@ -533,6 +536,7 @@ int main()
           Mensaje *msjPabloG = iConvMens->enviarMsjSimple("Excelente!", fecha7, pablo->getNumTel());
           msjPabloG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha7, true));
           msjPabloG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha7, true));
+          msjPabloG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha7, false)); //faltaba agregar el setVisto en false para U2
           cg->setMensaje(msjPabloG);
 
           break;
