@@ -163,7 +163,7 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, DtFechaHora* fe
             cout << "Ingresar duracion del video que desee enviar" << endl;
             cin >> duracion;
             cout << endl;
-            //msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
+            msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
             //Agrego la instancia de vistoPor a la instancia de mensaje creada
             msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
             //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.

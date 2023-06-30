@@ -425,7 +425,8 @@ int main()
         //Salir
         salir = true;
       break;
-      case 0:
+      case 0: 
+          cout << "Datos de prueba cargados" << endl;
           //Crea los usuarios
           Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
           Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);
