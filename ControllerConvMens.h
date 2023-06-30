@@ -1,6 +1,5 @@
 #ifndef CONTROLLERCONVMENS_H
 #define CONTROLLERCONVMENS_H
-
 #include "InterfaceConvMens.h"
 
 class ControllerConvMens: public InterfaceConvMens {
