@@ -70,6 +70,10 @@ void Conversacion::setListaMensajes(map <string, Mensaje*> colMensajes)
     this->colMensajes =  colMensajes;
 }
 
+void Conversacion::eraseMensaje(string codigo){
+    this->colMensajes.erase(codigo);
+}
+
 /*map <string, DtMensaje*> Conversacion::getListaMensajesDt()
 {
     map<string,DtMensaje*> colDtMensajes;

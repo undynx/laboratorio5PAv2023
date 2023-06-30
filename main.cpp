@@ -19,7 +19,7 @@ int main()
   InterfaceGrupo *iGrupo = fact->getInterfaceGrupo();
 
   bool salir = false;
-  int opt,optreloj,optenvmsj,optvermsj,optgrupo;
+  int opt,optreloj,optenvmsj,optvermsj,optgrupo,optelimsj;
   int numTel,idConver, idConverArch;
   string nombre, imagen, descripcion;
   int dia, mes, anio, hora, min;
@@ -162,12 +162,15 @@ int main()
               iConvMens->ingresarIdConversacionEnviarMsj(idConver, fechaSistema);
             break;
             case 2:
-              //Ver las conversaciones archivadas
-              iConvMens->verArchivadas();
-              cout << "---------------------------\n";
-              cout << "Ingresar el id de la conversación archivada" << endl;
-              cin >> idConverArch;
-              iConvMens->ingresarIdConversacionEnviarMsjArch(idConverArch, fechaSistema);
+              // Ver las conversaciones archivadas
+              bool hayArchivadas;
+              hayArchivadas = iConvMens->verArchivadas();
+              if(hayArchivadas) {
+                cout << "---------------------------\n";
+                cout << "Ingresar el id de la conversación archivada" << endl;
+                cin >> idConverArch;
+                iConvMens->ingresarIdConversacionEnviarMsjArch(idConverArch, fechaSistema);
+              }
             break;
             case 3:
               //Iniciar conversación con un contacto nuevo;
@@ -179,8 +182,8 @@ int main()
               cin >> numTel;
               iConvMens->iniciarConversacion(numTel, fechaSistema);
             break;
-            //default:
-              //cout << opt << " no es una opcion correcta \n" << endl;
+            default:
+              cout << opt << " no es una opcion correcta \n" << endl;
             }             
         }
         catch (std::exception &e)
@@ -219,18 +222,70 @@ int main()
 				  //Seleccionar conversación activa
           cout << "Ingresar el id de la conversación" << endl;
           cin >> idConver;
-          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema);
+          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema, false);
 				break;
         case 2:
           //Ver las conversaciones archivadas
-          iConvMens->verArchivadas();
-          cout << "---------------------------\n";
-          cout << "Ingresar el id de la conversación archivada" << endl;
-          cin >> idConverArch;
-          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema);
+          bool hayArchivadas;
+          hayArchivadas = iConvMens->verArchivadas();
+          if(hayArchivadas){
+            cout << "---------------------------\n";
+            cout << "Ingresar el id de la conversación archivada" << endl;
+            cin >> idConverArch;
+            iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, false);
+          }
         break;
-        //default:
-          //cout << opt << " no es una opcion correcta \n" << endl;
+        default:
+          cout << opt << " no es una opcion correcta \n" << endl;
+        }
+
+        }
+      break;
+      case 7: 
+        //Eliminar Mensaje
+        if(iSesion->loggedIn() == false) {
+          cout << "ERROR: Debes iniciar sesion antes de poder eliminar mensajes" << endl;
+        }else 
+        { 
+        cout << "----------------------------" << endl;
+        cout << "CONVERSACIONES: ";
+        iConvMens->listarConversacionesActivas();
+        cout << endl;
+        cout << "----------------------------";
+        cout << endl;
+        cout << "Archivadas: " << iSesion->getUserLoggeado()->getCantArchivadas(); 
+        cout << endl;
+        cout << "----------------------------";
+
+        cout << "\n----------------------------\n";
+			  cout << "Elige la opcion que desees:\n";
+			  cout << "  1) Seleccionar conversación activa" << endl;
+			  cout << "  2) Ver las conversaciones archivadas" << endl;
+			  cout << "\n----------------------------\n";
+
+			  cin >> optelimsj;
+
+			  switch (optelimsj)
+			  {
+			  case 1:
+				  //Seleccionar conversación activa
+          cout << "Ingresar el id de la conversación" << endl;
+          cin >> idConver;
+          iConvMens->ingresarIdConversacionMostrar(idConver, fechaSistema, true);
+				break;
+        case 2:
+          //Ver las conversaciones archivadas
+          bool hayArchivadas;
+          hayArchivadas = iConvMens->verArchivadas();
+          if(hayArchivadas) {
+            cout << "---------------------------\n";
+            cout << "Ingresar el id de la conversación archivada" << endl;
+            cin >> idConverArch;
+            iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, true);
+          }
+        break;
+        default:
+          cout << opt << " no es una opcion correcta \n" << endl;
         }
 
         }
@@ -358,7 +413,7 @@ int main()
         }
         break;
         default:
-        cout << "  ERROR: no es una opcion correcta" << endl;
+        cout << "ERROR: no es una opcion correcta" << endl;
       break;
       case 12: // Cerrar app
         if (iSesion->loggedIn() == false)
@@ -391,7 +446,7 @@ int main()
           
           //Crea el grupo
           int idGrupo = 1;
-          DtFechaHora *fechaGrupo = new DtFechaHora(22, 05, 2023, 15, 35);
+          DtFechaHora *fechaGrupo = new DtFechaHora(22, 5, 2023, 15, 35);
           ConversacionGrupal *cg = new ConversacionGrupal(idGrupo, true, "Amigos", "home/img/amigos.png", fechaGrupo);
           Conversacion *conver = cg;
           cg = dynamic_cast<ConversacionGrupal *>(conver);
@@ -403,8 +458,11 @@ int main()
 
           //Agrega los participantes al grupo
           cg->setParticipante(maria);
+          maria->setConver(cg);
           cg->setParticipante(pablo);
+          pablo->setConver(cg);
           cg->setParticipante(sara);
+          sara->setConver(cg);
 
           //Crea conversacion entre Juan y Maria
           int idConvJyM = 2;
@@ -423,6 +481,59 @@ int main()
           ccm->setConversacionColSis(converPyS, idConvPyS);
           pablo->setConver(converPrivPyS);
           sara->setConver(converPrivPyS);
+
+          //ENVIO MENSAJES
+          //--------------
+          //Maria envia en la conversacion con Juan el M5, visto
+          DtFechaHora *fecha1 = new DtFechaHora(23, 5, 2023, 12, 23);
+          Mensaje *msjMaria = iConvMens->enviarMsjSimple("Hola, me pasas el contacto de Sara que no lo tengo", fecha1, maria->getNumTel());
+          msjMaria->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha1, true));
+          converJyM->setMensaje(msjMaria);
+
+          //Juan envia contacto Sara a Maria, visto
+          DtFechaHora *fecha2 = new DtFechaHora(23, 5, 2023, 12, 25);
+          Mensaje *msjJuan = iConvMens->enviarMsjCompartirContacto(sara->getNumTel(), fecha2, juan->getNumTel());
+          msjJuan->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha2, true));
+          converJyM->setMensaje(msjJuan);
+
+          // Maria envia en la conversacion con Juan el M7, visto
+          DtFechaHora *fecha3 = new DtFechaHora(23, 5, 2023, 12, 26);
+          Mensaje *msjMaria2 = iConvMens->enviarMsjSimple("Gracias", fecha3, maria->getNumTel());
+          msjMaria2->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha3, true));
+          converJyM->setMensaje(msjMaria2);
+
+          // Sara le envia a Pablo el M8, visto
+          DtFechaHora *fecha4 = new DtFechaHora(23, 5, 2023, 18, 30);
+          Mensaje *msjSara = iConvMens->enviarMsjSimple("Hola Pablo, como estas?", fecha4, sara->getNumTel());
+          msjSara->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha4, true));
+          converPyS->setMensaje(msjSara);
+
+          // Sara manda M1 en el grupo, visto por Juan y Pablo
+          DtFechaHora *fecha5 = new DtFechaHora(23, 5, 2023, 18, 4);
+          Mensaje *msjSaraG = iConvMens->enviarMsjSimple("Miren que bueno este video!", fecha5, sara->getNumTel());
+          msjSaraG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
+          msjSaraG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          cg->setMensaje(msjSaraG);
+
+          //Sara manda un video
+          Mensaje *msjSaraG2 = iConvMens->enviarMsjVideo("/url/video", 0.5, fecha5, sara->getNumTel());
+          msjSaraG2->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
+          msjSaraG2->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          cg->setMensaje(msjSaraG2);
+
+          //Juan manda el M3, visto por Pablo y Sara
+          DtFechaHora *fecha6 = new DtFechaHora(23, 5, 2023, 18, 12);
+          Mensaje *msjJuanG = iConvMens->enviarMsjSimple("Muy gracioso!", fecha6, juan->getNumTel());
+          msjJuanG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha6, true));
+          msjJuanG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha6, true));
+          cg->setMensaje(msjJuanG);
+
+          //Pablo manda M4, visto por Juan y Sara
+          DtFechaHora *fecha7 = new DtFechaHora(23, 5, 2023, 18, 13);
+          Mensaje *msjPabloG = iConvMens->enviarMsjSimple("Excelente!", fecha7, pablo->getNumTel());
+          msjPabloG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha7, true));
+          msjPabloG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha7, true));
+          cg->setMensaje(msjPabloG);
 
           break;
       }

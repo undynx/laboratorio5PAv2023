@@ -6,7 +6,6 @@
 #include <set>
 #include "DtFechaHora.h"
 #include "DtUsuario.h"
-#include "Estado.h"
 #include "Conversacion.h"
 
 
@@ -24,7 +23,6 @@ class Usuario{
        map <int, Usuario*> colContactos;
        map <int,Conversacion*> colConvers;
      //   map <int,Conversacion*> colArchivadas;// Lista de conversaciones archivadas
-       set <Estado*> estado;
     public:
         Usuario();
         Usuario(int numTel, string nombre, DtFechaHora* fecReg, string imagen, string descripcion, DtFechaHora* ultCon);

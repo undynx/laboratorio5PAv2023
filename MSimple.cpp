@@ -8,7 +8,7 @@ MSimple::MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, st
     this->texto = texto;
 }
 
-DtMensaje* MSimple::mostrarDatosM()
+DtMSimple* MSimple::mostrarDatosM()
 {
         DtMSimple* DtmsjSimple = new DtMSimple(this->getCodigo(),this->getNumRemitente(),this->getFechayHora(),this->getTexto());
         DtMensaje *Dtmsj = DtmsjSimple;
