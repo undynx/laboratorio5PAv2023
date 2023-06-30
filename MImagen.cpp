@@ -36,6 +36,15 @@ string MImagen::getTexto()
 
 }
 
+DtMImagen* MImagen::mostrarDatosM()
+{
+        DtMImagen* DtmsjImagen = new DtMImagen(this->getCodigo(),this->getNumRemitente(),this->getFechayHora(),this->getCodigo(),this->getFormato(),this->getTamano(),this->getTexto());
+        DtMensaje *Dtmsj = DtmsjImagen;
+        DtmsjImagen = dynamic_cast<DtMImagen*>(Dtmsj);
+
+        return DtmsjImagen;
+}
+
 //Setters
 void MImagen::setUrl(string url)
 {
