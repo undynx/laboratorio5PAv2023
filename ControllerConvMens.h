@@ -30,7 +30,7 @@ class ControllerConvMens: public InterfaceConvMens {
         Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente);
         Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente);
         void archivarConversacion();
-        void verArchivadas();
+        bool verArchivadas();
 };  
 
 #endif
