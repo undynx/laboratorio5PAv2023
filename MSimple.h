@@ -17,7 +17,7 @@ class MSimple : public Mensaje
         MSimple(string codigo, int numTelRemitente, DtFechaHora* fechayhora, string texto);
         string getTexto();
         void setTexto(std::string texto);
-        virtual DtMensaje* mostrarDatosM();
+        virtual DtMSimple* mostrarDatosM();
         ~MSimple();
 };
 #endif

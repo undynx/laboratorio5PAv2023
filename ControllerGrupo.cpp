@@ -48,8 +48,8 @@ void ControllerGrupo::agregarParticipante(int numTel, int id, DtFechaHora* fecha
 {
   ControllerSesion *cSesion = ControllerSesion::getInstancia();
   Usuario *userLoggeado = cSesion->getUserLoggeado();
-
   Usuario* participante = userLoggeado->getContacto(numTel);
+  Conversacion *conver;
 
   if(participante==NULL)
   {
@@ -58,6 +58,8 @@ void ControllerGrupo::agregarParticipante(int numTel, int id, DtFechaHora* fecha
   else
   {
     ConversacionGrupal* cg = encontrarGrupoPorId(id);
+    conver = cg;
+    cg = dynamic_cast<ConversacionGrupal *>(conver);
 
     if(cg==NULL){
       cout << "ERROR: El id ingresado no existe en su lista de conversaciones" << endl;

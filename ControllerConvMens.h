@@ -1,6 +1,5 @@
 #ifndef CONTROLLERCONVMENS_H
 #define CONTROLLERCONVMENS_H
-
 #include "InterfaceConvMens.h"
 
 class ControllerConvMens: public InterfaceConvMens {
@@ -26,21 +25,12 @@ class ControllerConvMens: public InterfaceConvMens {
         void ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto, bool eliminar);
         string randomStr(int ch);
         Mensaje* encontrarMensaje(string codigo);
-        Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);   
+        Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);  
+        Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente); 
         Mensaje* enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente);
         Mensaje* enviarMsjImagen(string url, string tamanio, string formato, DtFechaHora* fecEnvio, string texto, int numTelRemitente);
         void archivarConversacion();
-        void verArchivadas();
-        //set<DtConversacion> buscarConv(int id);
-        //set<DtConversacion> buscarConvArch(int id);
-        //DtMensaje seleccionarMsj(int id);
-        /*set<DtConversacionGrupal> mostrarConverG();
-        set<DtConversacionPrivada> mostrarConverP();
-        set<DtConversacion> seleccionarConversacion(int id);
-        set<DtMensaje> datosMensajes(string id);
-        DtMensaje borrarMensaje(DtConversacion borrar);
-        set<DtConversacion> seleccionarConversacionesTodas();*/
-        //Mensaje* enviarMsjVideo(string url, float duracion, DtFechaHora* fecEnvio, int numTelRemitente);
+        bool verArchivadas();
 };  
 
 #endif

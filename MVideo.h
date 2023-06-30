@@ -2,6 +2,7 @@
 #define MVIDEO_H
 #include <string>
 #include "DtFechaHora.h"
+#include "DtMVideo.h"
 #include "Mensaje.h"
 
 using namespace std;
@@ -19,6 +20,7 @@ class MVideo : public Mensaje
         float getDuracion();
         void setDuracion(float duracion);
         void setUrl(string url);
+        virtual DtMVideo* mostrarDatosM();
         ~MVideo();
 };
 #endif

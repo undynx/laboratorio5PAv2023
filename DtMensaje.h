@@ -1,6 +1,5 @@
 #ifndef DTMENSAJE_H
 #define DTMENSAJE_H
-
 #include <string>
 #include "DtFechaHora.h"
 
