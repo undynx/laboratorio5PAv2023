@@ -47,6 +47,10 @@ map<int,VistoMensaje*> Mensaje::getListaVistoPor(){
 
 //Setters
 
+void Mensaje::eraseVistoPor(int numTel){
+    this->vistoPor.erase(numTel);
+}
+
 void Mensaje::setCodigo (string codigo){
     this->codigo = codigo;
 }

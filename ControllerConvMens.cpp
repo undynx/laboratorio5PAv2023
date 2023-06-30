@@ -537,7 +537,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsjArch(int idConver, DtFec
   }
 
 
-void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto)
+void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto, bool eliminar)
 {
   ControllerSesion *cSesion = ControllerSesion::getInstancia();
   Usuario *user = cSesion->getUserLoggeado();
@@ -565,6 +565,7 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
     }
     else
     {
+        map<int, Usuario*> colParticipantes;
         map<string,Mensaje*> colMensajesPorConver = conver->getListaMensajes();
           
         for (auto it = colMensajesPorConver.begin(); it != colMensajesPorConver.end(); it++)
@@ -581,13 +582,23 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
 
           Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
           DtFechaHora* fechaIngreso = NULL;
+          bool msjBorrado = false;
 
           if(converGrup!=NULL)
           {
             fechaIngreso = converGrup->getFechaIngresoParticipante(user->getNumTel());
+            colParticipantes = converGrup->getListaParticipantes();
+            if(remitente!=user)
+            {
+                if(msj->getVistoPor(user->getNumTel())==NULL)
+                {
+                    //Significa que hubo borrado logico
+                    msjBorrado = true;
+                }
+            }
           }
 
-          if(msj->getFechayHora()->esMayorIgualQue(fechaIngreso)){
+          if(msj->getFechayHora()->esMayorIgualQue(fechaIngreso) && !msjBorrado){
         
             cout << "\n----------------------------\n";
             if(msjSimple!=NULL)
@@ -613,7 +624,6 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
 
             if(remitente==user)
             {
-                map<int, Usuario*> colParticipantes;
                 bool visto;
                 if(converPriv!=NULL)
                 {
@@ -622,7 +632,6 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
                 }
                 else if(converGrup!=NULL)
                 {
-                  colParticipantes = converGrup->getListaParticipantes();
                     for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
                     {
                       if(it->second!=user)
@@ -648,23 +657,80 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
             }
             else
             {
-                vistoPor = msjSimple->getVistoPor(user->getNumTel());
+                vistoPor = msj->getVistoPor(user->getNumTel());
                 if(!vistoPor->getVisto()) 
                 {
                   vistoPor->setVisto();
                   vistoPor->setFecHoraVisto(fecVisto);
                 }
-                msjSimple->getFechayHora()->mostrarFechayHoraEnviado();
+                msj->getFechayHora()->mostrarFechayHoraEnviado();
             }
           }
         }
         //Aca Termina el Listado de los mensajes
         //Faltan seleccionar el mensaje para ver detalle
-        
-
-        //if(eliminar){
-        //}
-        //else{ }
+        string codigo;
+        if(eliminar==true)
+        {
+            cout << endl;
+            cout << "Ingresar el codigo del mensaje que desee eliminar" << endl;
+            cin >> codigo;
+            cout << endl;
+            if(converPriv!=NULL)
+            {
+              Mensaje* msj = converPriv->getMensaje(codigo);
+              Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+              //Eliminar mensaje privado
+              if(user==remitente){
+                msj->eraseVistoPor(user->getNumTel());
+                msj->eraseVistoPor(remitente->getNumTel());
+                converPriv->eraseMensaje(codigo);
+                colMensajesSis.erase(codigo);
+                msj->~Mensaje();
+                //Si es remitente lo elimina de todos los mensajes
+              }else
+              {
+                msj->eraseVistoPor(user->getNumTel());
+              }  
+            }
+            else if(converGrup!=NULL)
+            {
+              Mensaje* msj = converGrup->getMensaje(codigo);
+              Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+              map<int, Usuario*> colParticipantes = converGrup->getListaParticipantes();
+              //Eliminar mensaje privado
+              if(user==remitente){
+                for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+                    {
+                      if(it->second!=user)
+                      {
+                        if(msj->getVistoPor(it->second->getNumTel())!=NULL)
+                        {
+                            msj->eraseVistoPor(it->second->getNumTel());
+                        }
+                      }       
+                    }
+                converGrup->eraseMensaje(codigo);
+                colMensajesSis.erase(codigo);
+                msj->~Mensaje();
+                //Si es remitente lo elimina de todos los mensajes
+              }else
+              {
+                msj->eraseVistoPor(user->getNumTel());          
+              }  
+            }
+            else
+            {
+              cout << "El mensaje no pertenece a una conversación activa"<<endl; 
+            } 
+        }
+        else
+        {
+            //cout << endl;
+            //cout << "Ingresar el codigo del mensaje que desee ver" << endl;
+            //cin >> codigo;
+            //cout << endl;
+        }       
     }
   }
 }
@@ -711,7 +777,7 @@ void ControllerConvMens::setConversacionColSis(Conversacion* conv, int id){
    this->colConversSis.insert({id, conv});
 }
 
-void ControllerConvMens::ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto)
+void ControllerConvMens::ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto, bool eliminar)
 {
 
   ControllerSesion *cSesion = ControllerSesion::getInstancia();
@@ -795,13 +861,13 @@ void ControllerConvMens::ingresarIdConversacionMostrarArch(int idConver, DtFecha
             }
             else
             {
-                vistoPor = msjSimple->getVistoPor(user->getNumTel());
+                vistoPor = msj->getVistoPor(user->getNumTel());
                 if(!vistoPor->getVisto()) 
                 {
                   vistoPor->setVisto();
                   vistoPor->setFecHoraVisto(fecVisto);
                 }
-                msjSimple->getFechayHora()->mostrarFechayHoraEnviado();
+                msj->getFechayHora()->mostrarFechayHoraEnviado();
             }   
         }
         //Aca Termina el Listado de los mensajes

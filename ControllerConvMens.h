@@ -22,8 +22,8 @@ class ControllerConvMens: public InterfaceConvMens {
         void listarConversacionesActivas();        
         void ingresarIdConversacionEnviarMsj(int idConver, DtFechaHora* fecEnvio);
         void ingresarIdConversacionEnviarMsjArch(int idConver, DtFechaHora* fecEnvio);
-        void ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto);
-        void ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto);
+        void ingresarIdConversacionMostrar(int idConver, DtFechaHora* fecVisto, bool eliminar);
+        void ingresarIdConversacionMostrarArch(int idConver, DtFechaHora* fecVisto, bool eliminar);
         string randomStr(int ch);
         Mensaje* encontrarMensaje(string codigo);
         Mensaje* enviarMsjSimple(string texto, DtFechaHora* fecEnvio, int numTelRemitente);   
