@@ -212,13 +212,13 @@ Mensaje* ControllerConvMens::enviarMsjImagen(string url, string tamanio, string 
   return MsjImg;
 }
 
-/*Mensaje* ControllerConvMens::enviarMsjVideo(string url ,float duracion, DtFechaHora* fecEnvio, int numTelRemitente)
+Mensaje* ControllerConvMens::enviarMsjVideo(string url ,float duracion, DtFechaHora* fecEnvio, int numTelRemitente)
 {
   MVideo* MsjVideo = new MVideo(randomStr(5), numTelRemitente, fecEnvio, url, duracion);
   Mensaje *Msj = MsjVideo;
   MsjVideo = dynamic_cast<MVideo*>(Msj);
   return MsjVideo;
-}*/
+}
 
 Mensaje* ControllerConvMens::enviarMsjCompartirContacto(int celularCompContacto, DtFechaHora* fecEnvio, int numTelRemitente)
 {
@@ -352,7 +352,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, DtFechaHo
         cout << "Ingresar duracion del video que desee enviar" << endl;
         cin >> duracion;
         cout << endl;
-        //msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
+        msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
         //Agrego la instancia de vistoPor a la instancia de mensaje creada
         if(converPriv!=NULL)
         {//Caso Conversacion Privada
@@ -506,7 +506,7 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsjArch(int idConver, DtFec
         cout << "Ingresar duracion del video que desee enviar" << endl;
         cin >> duracion;
         cout << endl;
-        //msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
+        msj = enviarMsjVideo(url , duracion, fecEnvio, numTelRte);
         //Agrego la instancia de vistoPor a la instancia de mensaje creada
         msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
         //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
@@ -567,17 +567,18 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
     {
         map<int, Usuario*> colParticipantes;
         map<string,Mensaje*> colMensajesPorConver = conver->getListaMensajes();
+        bool mostreMsj = false;
           
         for (auto it = colMensajesPorConver.begin(); it != colMensajesPorConver.end(); it++)
         {
           MSimple* msjSimple = new MSimple();
           MImagen* msjImg = new MImagen();
-          //MVideo* msjVideo = new MVideo();
+          MVideo* msjVideo = new MVideo();
           MContacto* msjCon = new MContacto();
           Mensaje *msj = it->second;
           msjSimple = dynamic_cast<MSimple*>(msj);
           msjImg = dynamic_cast<MImagen*>(msj);
-          //msjVideo = dynamic_cast<MVideo*>(msj);
+          msjVideo = dynamic_cast<MVideo*>(msj);
           msjCon = dynamic_cast<MContacto*>(msj);
 
           Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
@@ -599,23 +600,27 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
           }
 
           if(msj->getFechayHora()->esMayorIgualQue(fechaIngreso) && !msjBorrado){
-        
+
+            mostreMsj = true;
+
             cout << "\n----------------------------\n";
             if(msjSimple!=NULL)
             {//Caso Msj Simple
+              //DtMSimple* dtMsjSimple = msjSimple->mostrarDatosM();
               cout << remitente->getNombre() << ": " << msjSimple->getTexto() << endl;
               cout << "Codigo: " << msjSimple->getCodigo();
             }
             else if(msjImg!=NULL)
             {//Caso Msj Imagen
+              //DtMImagen* dtMsjImg = msjImg->mostrarDatosM();
               cout << remitente->getNombre() << ": " << msjImg->getUrl() << endl;
               cout << "Codigo: " << msjImg->getCodigo();
             }
-            /*else if(msjVideo!=NULL)
+            else if(msjVideo!=NULL)
             {//Caso Msj Video
               cout << remitente->getNombre() << ": " << msjVideo->getUrl() << endl;
               cout << "Codigo: " << msjVideo->getCodigo();
-            }*/
+            }
             else if(msjCon!=NULL)
             {//Caso Msj Contacto
               cout << remitente->getNombre() << ": Nombre contacto -:" << msjCon->getContacto().getNombre() << " - Número contacto -:" << msjCon->getContacto().getNumTel() << endl;
@@ -668,68 +673,155 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
           }
         }
         //Aca Termina el Listado de los mensajes
-        //Faltan seleccionar el mensaje para ver detalle
-        string codigo;
-        if(eliminar==true)
+        //Faltan seleccionar el mensaje para ver detalle o eliminar
+        if(mostreMsj)
         {
-            cout << endl;
-            cout << "Ingresar el codigo del mensaje que desee eliminar" << endl;
-            cin >> codigo;
-            cout << endl;
-            if(converPriv!=NULL)
-            {
-              Mensaje* msj = converPriv->getMensaje(codigo);
-              Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
-              //Eliminar mensaje privado
-              if(user==remitente){
-                msj->eraseVistoPor(user->getNumTel());
-                msj->eraseVistoPor(remitente->getNumTel());
-                converPriv->eraseMensaje(codigo);
-                colMensajesSis.erase(codigo);
-                msj->~Mensaje();
-                //Si es remitente lo elimina de todos los mensajes
-              }else
+          cout << "\n----------------------------\n";
+          string codigo;
+          if(eliminar==true)
+          {
+              //Eliminar Mensaje
+              cout << endl;
+              cout << "Ingresar el codigo del mensaje que desee eliminar" << endl;
+              cin >> codigo;
+              cout << endl;
+              if(converPriv!=NULL)
               {
-                msj->eraseVistoPor(user->getNumTel());
-              }  
-            }
-            else if(converGrup!=NULL)
-            {
-              Mensaje* msj = converGrup->getMensaje(codigo);
-              Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
-              map<int, Usuario*> colParticipantes = converGrup->getListaParticipantes();
-              //Eliminar mensaje privado
-              if(user==remitente){
-                for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
-                    {
-                      if(it->second!=user)
-                      {
-                        if(msj->getVistoPor(it->second->getNumTel())!=NULL)
+                Mensaje* msj = converPriv->getMensaje(codigo);
+                if (msj==NULL)
+                {
+                    cout << "El mensaje no pertenece a la conversación o no existe"<<endl; 
+                }
+                else
+                {
+                  Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+                  //Eliminar mensaje privado
+                  if(user==remitente){
+                    msj->eraseVistoPor(user->getNumTel());
+                    msj->eraseVistoPor(remitente->getNumTel());
+                    converPriv->eraseMensaje(codigo);
+                    colMensajesSis.erase(codigo);
+                    msj->~Mensaje();
+                    //Si es remitente lo elimina de todos los mensajes
+                    cout << "\nMensaje eliminado de la conversación correctamente\n";
+                  }else
+                  {
+                    msj->eraseVistoPor(user->getNumTel());
+                    cout << "\nMensaje eliminado (para tí) correctamente\n";
+                  }  
+                }               
+              }
+              else if(converGrup!=NULL)
+              {
+                Mensaje* msj = converGrup->getMensaje(codigo);
+                if (msj==NULL)
+                {
+                    cout << "El mensaje no pertenece a la conversación o no existe"<<endl; 
+                }
+                else
+                {
+                  Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+                  colParticipantes = converGrup->getListaParticipantes();
+                  //Borrado fisico si es el remitente
+                  if(user==remitente){
+                    for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
                         {
-                            msj->eraseVistoPor(it->second->getNumTel());
+                          if(it->second!=user)
+                          {
+                            if(msj->getVistoPor(it->second->getNumTel())!=NULL)
+                            {
+                                msj->eraseVistoPor(it->second->getNumTel());
+                            }
+                          }       
                         }
-                      }       
-                    }
-                converGrup->eraseMensaje(codigo);
-                colMensajesSis.erase(codigo);
-                msj->~Mensaje();
-                //Si es remitente lo elimina de todos los mensajes
-              }else
+                    converGrup->eraseMensaje(codigo);
+                    colMensajesSis.erase(codigo);
+                    msj->~Mensaje();
+                    cout << "\nMensaje eliminado de la conversación correctamente\n";
+                    //Borrado logico si no es el remitente
+                  }else
+                  {
+                    msj->eraseVistoPor(user->getNumTel());    
+                    cout << "\nMensaje eliminado (para tí) correctamente\n";      
+                  } 
+                } 
+              }
+              else
               {
-                msj->eraseVistoPor(user->getNumTel());          
-              }  
-            }
-            else
-            {
-              cout << "El mensaje no pertenece a una conversación activa"<<endl; 
-            } 
+                cout << "El mensaje no pertenece a una conversación activa"<<endl; 
+              } 
+          }
+          else
+          {
+              //Ver Mensaje
+              cout << endl;
+              cout << "Ingresar el codigo del mensaje para ver la info de los receptores" << endl;
+              cin >> codigo;
+              cout << endl;
+              Mensaje* msj;
+              if(converPriv!=NULL){msj = converPriv->getMensaje(codigo);}
+              if(converGrup!=NULL){msj = converGrup->getMensaje(codigo);}
+              if (msj==NULL)
+              {
+                  cout << "El mensaje no pertenece a la conversación o no existe"<<endl; 
+              }
+              else
+              {
+                Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
+                if(remitente==user){
+                    VistoMensaje* vistoPor;
+                    cout << "\n----------------------------\n";
+                    if(converPriv!=NULL)
+                    {
+                      Usuario* destinatario = converPriv->getOtroParticipante(remitente);
+                      vistoPor = msj->getVistoPor(destinatario->getNumTel());
+                      if(vistoPor->getVisto())
+                      {
+                          cout << destinatario->getNombre() << " - " << destinatario->getNumTel() << endl;
+                          vistoPor->getfecHoraVisto()->mostrarFechayHoraVisto();
+                      }
+                      else
+                      {
+                        cout << "El mensaje aún no ha sido VISTO por su destinatario";
+                      }
+                  }
+                  else if(converGrup!=NULL)
+                  {
+                    Mensaje* msj = converGrup->getMensaje(codigo);
+                    colParticipantes = converGrup->getListaParticipantes(); 
+                    
+                      for (auto it = colParticipantes.begin(); it != colParticipantes.end(); it++)
+                      {;
+                        if(it->second!=user)
+                        {
+                          vistoPor = msj->getVistoPor(it->second->getNumTel()); 
+                          if(vistoPor!=NULL)
+                          {
+                            if(vistoPor->getVisto())
+                            {
+                              cout << "\n----------------------------\n";
+                              cout << it->second->getNombre() << " - " << it->second->getNumTel() << endl;
+                              vistoPor->getfecHoraVisto()->mostrarFechayHoraVisto();             
+                            }
+                          }
+                        }       
+                      }
+                  }
+                  else
+                  {
+                    cout << "El mensaje no pertenece a una conversación activa"<<endl; 
+                  } 
+                }
+                else
+                {
+                  cout << "Debe ser el remitente del mensaje para ver la info de los receptores"<<endl; 
+                }
+              }
+          }
         }
         else
         {
-            //cout << endl;
-            //cout << "Ingresar el codigo del mensaje que desee ver" << endl;
-            //cin >> codigo;
-            //cout << endl;
+            cout << "Esta conversación no tiene mensajes" << endl;
         }       
     }
   }
@@ -810,12 +902,12 @@ void ControllerConvMens::ingresarIdConversacionMostrarArch(int idConver, DtFecha
         {
           MSimple* msjSimple = new MSimple();
           MImagen* msjImg = new MImagen();
-          //MVideo* msjVideo = new MVideo();
+          MVideo* msjVideo = new MVideo();
           MContacto* msjCon = new MContacto();
           Mensaje *msj = it->second;
           msjSimple = dynamic_cast<MSimple*>(msj);
           msjImg = dynamic_cast<MImagen*>(msj);
-          //msjVideo = dynamic_cast<MVideo*>(msj);
+          msjVideo = dynamic_cast<MVideo*>(msj);
           msjCon = dynamic_cast<MContacto*>(msj);
 
           Usuario* remitente = cu->encontrarUsuarioxnumTel(msj->getNumRemitente());
@@ -831,11 +923,11 @@ void ControllerConvMens::ingresarIdConversacionMostrarArch(int idConver, DtFecha
             cout << remitente->getNombre() << ": " << msjImg->getUrl() << endl;
             cout << "Codigo: " << msjImg->getCodigo();
           }
-          /*else if(msjVideo!=NULL)
+          else if(msjVideo!=NULL)
           {//Caso Msj Video
             cout << remitente->getNombre() << ": " << msjVideo->getUrl() << endl;
             cout << "Codigo: " << msjVideo->getCodigo();
-          }*/
+          }
           else if(msjCon!=NULL)
           {//Caso Msj Contacto
             cout << remitente->getNombre() << ": Nombre contacto -:" << msjCon->getContacto().getNombre() << " - Número contacto -:" << msjCon->getContacto().getNumTel() << endl;

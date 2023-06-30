@@ -3,9 +3,9 @@
 DtMensaje::DtMensaje(){}
 
 DtMensaje::DtMensaje(string codigo, int numRemitente,DtFechaHora* fechayHora){
-    this->codigo=codigo;
-    this->fechayHora=fechayHora;
-    this->numRemitente=numRemitente;
+    this->codigo;
+    this->fechayHora;
+    this->numRemitente;
 }
 
 //Gettes

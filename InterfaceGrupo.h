@@ -18,7 +18,6 @@ class InterfaceGrupo{
     virtual void eliminarParticipante(int numTel, int id) = 0;
     virtual ConversacionGrupal* encontrarGrupoPorId(int id) = 0;
     virtual int crearGrupo(string nombre, string url, DtFechaHora* fechayHora) = 0;
-
 };
 
 #endif

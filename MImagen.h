@@ -3,6 +3,7 @@
 #include <string>
 #include "DtFechaHora.h"
 #include "Mensaje.h"
+#include "DtMImagen.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ class MImagen : public Mensaje
         void setFormato(string formato);
         void setTamano(string tamano);
         void setTexto(string texto);
+        virtual DtMImagen* mostrarDatosM();
         ~MImagen();
 };
 #endif
