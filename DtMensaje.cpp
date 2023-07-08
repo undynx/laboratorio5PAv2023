@@ -2,13 +2,13 @@
 //Constructores
 DtMensaje::DtMensaje(){}
 
-DtMensaje::DtMensaje(string codigo, int numRemitente,DtFechaHora* fechayHora){
-    this->codigo;
-    this->fechayHora;
-    this->numRemitente;
+DtMensaje::DtMensaje(string codigo, int numRemitente, DtFechaHora* fechayHora){
+    this->codigo = codigo;
+    this->fechayHora = fechayHora;
+    this->numRemitente = numRemitente;
 }
 
-//Gettes
+//Getters
 string DtMensaje::getCodigo(){
     return this->codigo;
 }

@@ -162,12 +162,15 @@ int main()
               iConvMens->ingresarIdConversacionEnviarMsj(idConver, fechaSistema);
             break;
             case 2:
-              //Ver las conversaciones archivadas
-              iConvMens->verArchivadas();
-              cout << "---------------------------\n";
-              cout << "Ingresar el id de la conversación archivada" << endl;
-              cin >> idConverArch;
-              iConvMens->ingresarIdConversacionEnviarMsjArch(idConverArch, fechaSistema);
+              // Ver las conversaciones archivadas
+              bool hayArchivadas;
+              hayArchivadas = iConvMens->verArchivadas();
+              if(hayArchivadas) {
+                cout << "---------------------------\n";
+                cout << "Ingresar el id de la conversación archivada" << endl;
+                cin >> idConverArch;
+                iConvMens->ingresarIdConversacionEnviarMsjArch(idConverArch, fechaSistema);
+              }
             break;
             case 3:
               //Iniciar conversación con un contacto nuevo;
@@ -223,11 +226,14 @@ int main()
 				break;
         case 2:
           //Ver las conversaciones archivadas
-          iConvMens->verArchivadas();
-          cout << "---------------------------\n";
-          cout << "Ingresar el id de la conversación archivada" << endl;
-          cin >> idConverArch;
-          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, false);
+          bool hayArchivadas;
+          hayArchivadas = iConvMens->verArchivadas();
+          if(hayArchivadas){
+            cout << "---------------------------\n";
+            cout << "Ingresar el id de la conversación archivada" << endl;
+            cin >> idConverArch;
+            iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, false);
+          }
         break;
         default:
           cout << opt << " no es una opcion correcta \n" << endl;
@@ -269,14 +275,17 @@ int main()
 				break;
         case 2:
           //Ver las conversaciones archivadas
-          iConvMens->verArchivadas();
-          cout << "---------------------------\n";
-          cout << "Ingresar el id de la conversación archivada" << endl;
-          cin >> idConverArch;
-          iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, true);
+          bool hayArchivadas;
+          hayArchivadas = iConvMens->verArchivadas();
+          if(hayArchivadas) {
+            cout << "---------------------------\n";
+            cout << "Ingresar el id de la conversación archivada" << endl;
+            cin >> idConverArch;
+            iConvMens->ingresarIdConversacionMostrarArch(idConverArch, fechaSistema, true);
+          }
         break;
-        //default:
-          //cout << opt << " no es una opcion correcta \n" << endl;
+        default:
+          cout << opt << " no es una opcion correcta \n" << endl;
         }
 
         }
@@ -416,7 +425,8 @@ int main()
         //Salir
         salir = true;
       break;
-      case 0:
+      case 0: 
+          cout << "Datos de prueba cargados" << endl;
           //Crea los usuarios
           Usuario * juan = iUsuario->altaUsuario(80123654, "Juan Perez", "home/img/perfil/juan.png", "Amo usar esta app", fechaSistema);
           Usuario * maria = iUsuario->altaUsuario(80765432, "Maria Fernandez", "home/img/perfil/maria.png", "Me encanta Prog. Avanzada", fechaSistema);
@@ -437,7 +447,7 @@ int main()
           
           //Crea el grupo
           int idGrupo = 1;
-          DtFechaHora *fechaGrupo = new DtFechaHora(22, 05, 2023, 15, 35);
+          DtFechaHora *fechaGrupo = new DtFechaHora(22, 5, 2023, 15, 35);
           ConversacionGrupal *cg = new ConversacionGrupal(idGrupo, true, "Amigos", "home/img/amigos.png", fechaGrupo);
           Conversacion *conver = cg;
           cg = dynamic_cast<ConversacionGrupal *>(conver);
@@ -449,8 +459,11 @@ int main()
 
           //Agrega los participantes al grupo
           cg->setParticipante(maria);
+          maria->setConver(cg);
           cg->setParticipante(pablo);
+          pablo->setConver(cg);
           cg->setParticipante(sara);
+          sara->setConver(cg);
 
           //Crea conversacion entre Juan y Maria
           int idConvJyM = 2;
@@ -469,6 +482,63 @@ int main()
           ccm->setConversacionColSis(converPyS, idConvPyS);
           pablo->setConver(converPrivPyS);
           sara->setConver(converPrivPyS);
+
+          //ENVIO MENSAJES
+          //--------------
+          //Maria envia en la conversacion con Juan el M5, visto
+          DtFechaHora *fecha1 = new DtFechaHora(23, 5, 2023, 12, 23);
+          Mensaje *msjMaria = iConvMens->enviarMsjSimple("Hola, me pasas el contacto de Sara que no lo tengo", fecha1, maria->getNumTel());
+          msjMaria->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha1, true));
+          converJyM->setMensaje(msjMaria);
+
+          //Juan envia contacto Sara a Maria, visto
+          DtFechaHora *fecha2 = new DtFechaHora(23, 5, 2023, 12, 25);
+          Mensaje *msjJuan = iConvMens->enviarMsjCompartirContacto(sara->getNumTel(), fecha2, juan->getNumTel());
+          msjJuan->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha2, true));
+          converJyM->setMensaje(msjJuan);
+
+          // Maria envia en la conversacion con Juan el M7, visto
+          DtFechaHora *fecha3 = new DtFechaHora(23, 5, 2023, 12, 26);
+          Mensaje *msjMaria2 = iConvMens->enviarMsjSimple("Gracias", fecha3, maria->getNumTel());
+          msjMaria2->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha3, true));
+          converJyM->setMensaje(msjMaria2);
+
+          // Sara le envia a Pablo el M8, visto
+          DtFechaHora *fecha4 = new DtFechaHora(23, 5, 2023, 18, 30);
+          Mensaje *msjSara = iConvMens->enviarMsjSimple("Hola Pablo, como estas?", fecha4, sara->getNumTel());
+          msjSara->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha4, true));
+          converPyS->setMensaje(msjSara);
+
+          // Sara manda M1 en el grupo, visto por Juan y Pablo
+          DtFechaHora *fecha5 = new DtFechaHora(23, 5, 2023, 18, 4);
+          Mensaje *msjSaraG = iConvMens->enviarMsjSimple("Miren que bueno este video!", fecha5, sara->getNumTel());
+          msjSaraG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
+          msjSaraG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          msjSaraG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha5, false)); //faltaba agregar el setVisto en false para U2
+          cg->setMensaje(msjSaraG);
+
+          //Sara manda un video
+          Mensaje *msjSaraG2 = iConvMens->enviarMsjVideo("/url/video", 0.5, fecha5, sara->getNumTel());
+          msjSaraG2->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha5, true));
+          msjSaraG2->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha5, true));
+          msjSaraG2->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha5, false)); //faltaba agregar el setVisto en false para U2
+          cg->setMensaje(msjSaraG2);
+
+          //Juan manda el M3, visto por Pablo y Sara
+          DtFechaHora *fecha6 = new DtFechaHora(23, 5, 2023, 18, 12);
+          Mensaje *msjJuanG = iConvMens->enviarMsjSimple("Muy gracioso!", fecha6, juan->getNumTel());
+          msjJuanG->setVistoPor(new VistoMensaje(pablo->getNumTel(), fecha6, true));
+          msjJuanG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha6, true));
+          msjJuanG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha6, false)); //faltaba agregar el setVisto en false para U2
+          cg->setMensaje(msjJuanG);
+
+          //Pablo manda M4, visto por Juan y Sara
+          DtFechaHora *fecha7 = new DtFechaHora(23, 5, 2023, 18, 13);
+          Mensaje *msjPabloG = iConvMens->enviarMsjSimple("Excelente!", fecha7, pablo->getNumTel());
+          msjPabloG->setVistoPor(new VistoMensaje(sara->getNumTel(), fecha7, true));
+          msjPabloG->setVistoPor(new VistoMensaje(juan->getNumTel(), fecha7, true));
+          msjPabloG->setVistoPor(new VistoMensaje(maria->getNumTel(), fecha7, false)); //faltaba agregar el setVisto en false para U2
+          cg->setMensaje(msjPabloG);
 
           break;
       }

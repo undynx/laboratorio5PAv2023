@@ -114,13 +114,13 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, DtFechaHora* fe
           {
           case 1:
             //Enviar Mensaje Simple
+            cin.ignore();
             cout << "Ingresar el texto desee enviar" << endl;
-            cin >> texto;
-            //cout << endl;
+            getline(cin, texto);
             msj = enviarMsjSimple(texto, fechaSistema, numTelRte);
-            //Agrego la instancia de vistoPor a la instancia de mensaje creada
-            msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-            //Agrego al mensaje a la lista de mensajes de la conversación.
+            // Agrego la instancia de vistoPor a la instancia de mensaje creada
+            msj->setVistoPor(new VistoMensaje(numTelDest, NULL, false));
+            // Agrego al mensaje a la lista de mensajes de la conversación.
             conver->setMensaje(msj);
             this->colMensajesSis.insert({msj->getCodigo(), msj});
             cout << "El mensaje ha sido enviado correctamente";
@@ -139,8 +139,9 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, DtFechaHora* fe
             cout << "Ingresar tamano de la imagen que desee enviar" << endl;
             cin >> tamanio;
             cout << endl;
+            cin.ignore();
             cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
-            cin >> texto;
+            getline(cin, texto);
             cout << endl;
             msj = enviarMsjImagen(url, tamanio, formato, fechaSistema, texto, numTelRte);
             //Agrego la instancia de vistoPor a la instancia de mensaje creada
@@ -162,7 +163,7 @@ void ControllerConvMens::iniciarConversacion(int numTelContacto, DtFechaHora* fe
             cout << "Ingresar duracion del video que desee enviar" << endl;
             cin >> duracion;
             cout << endl;
-            //msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
+            msj = enviarMsjVideo(url , duracion, fechaSistema, numTelRte);
             //Agrego la instancia de vistoPor a la instancia de mensaje creada
             msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
             //Agrego al mensaje a la lista de mensajes de la conversación y del sistema.
@@ -289,8 +290,9 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, DtFechaHo
     {
     case 1:
       //Enviar Mensaje Simple
+      cin.ignore();
       cout << "Ingresar el texto desee enviar" << endl;
-      cin >> texto;
+      getline(cin, texto);
       //cout << endl;
       msj = enviarMsjSimple(texto, fecEnvio, numTelRte);
       //Agrego la instancia de vistoPor a la instancia de mensaje creada
@@ -322,8 +324,9 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsj(int idConver, DtFechaHo
       cout << "Ingresar tamano de la imagen que desee enviar" << endl;
       cin >> tamanio;
       cout << endl;
+      cin.ignore();
       cout << "Ingresar descrpción de la imagen (puede ser vacía)" << endl;
-      cin >> texto;
+      getline(cin, texto);
       cout << endl;
       msj = enviarMsjImagen(url, tamanio, formato, fecEnvio, texto, numTelRte);
       //Agrego la instancia de vistoPor a la instancia de mensaje creada
@@ -463,18 +466,19 @@ void ControllerConvMens::ingresarIdConversacionEnviarMsjArch(int idConver, DtFec
     {
     case 1:
       //Enviar Mensaje Simple
+      cin.ignore();
       cout << "Ingresar el texto desee enviar" << endl;
-      cin >> texto;
-      //cout << endl;
+      getline(cin, texto);
+      // cout << endl;
       msj = enviarMsjSimple(texto, fecEnvio, numTelRte);
-      //Agrego la instancia de vistoPor a la instancia de mensaje creada
-      msj->setVistoPor(new VistoMensaje(numTelDest,NULL,false));
-      //Agrego al mensaje a la lista de mensajes de la conversación.
+      // Agrego la instancia de vistoPor a la instancia de mensaje creada
+      msj->setVistoPor(new VistoMensaje(numTelDest, NULL, false));
+      // Agrego al mensaje a la lista de mensajes de la conversación.
       conver->setMensaje(msj);
       this->colMensajesSis.insert({msj->getCodigo(), msj});
       cout << "El mensaje ha sido enviado correctamente";
-      msj->getFechayHora()->mostrarFechayHoraEnviado();  
-    break;
+      msj->getFechayHora()->mostrarFechayHoraEnviado();
+      break;
     case 2:
       //Enviar Imagen
       cout << "Ingresar URL de la imagen que desee enviar" << endl;
@@ -845,12 +849,6 @@ void ControllerConvMens::ingresarIdConversacionMostrar(int idConver, DtFechaHora
                                 vistoPor->getfecHoraVisto()->mostrarFechayHoraVisto();
                                 cantVistos++;             
                               }
-                            }
-                            else
-                            {
-                                cout << "\n----------------------------\n";
-                                cout << it->second->getNombre() << " - " << it->second->getNumTel();
-                                cout << "ELIMINADO por el participante";
                             }
                           }       
                         }
@@ -1245,7 +1243,7 @@ void ControllerConvMens::archivarConversacion(){
 }
 
 
-void ControllerConvMens::verArchivadas(){
+bool ControllerConvMens::verArchivadas(){
     
     ControllerSesion *cSesion = ControllerSesion::getInstancia();
     Usuario *user = cSesion->getUserLoggeado();
@@ -1254,7 +1252,7 @@ void ControllerConvMens::verArchivadas(){
 
     for (auto it = colConvers.begin(); it != colConvers.end(); it++)
     {
-      if( user->getConver(it->first)->getActivo()==false){
+      if(user->getConver(it->first)->getActivo()==false){
             ConversacionArchivada *converArch = new ConversacionArchivada;
             Conversacion *conver = it->second;
             converArch = dynamic_cast<ConversacionArchivada*>(conver);
@@ -1274,7 +1272,7 @@ void ControllerConvMens::verArchivadas(){
     {
       cout << "No tiene ninguna conversación archivada" << endl;
     }
-    }      
-
+    return listeArch;
+}
 
 ControllerConvMens::~ControllerConvMens(){}
